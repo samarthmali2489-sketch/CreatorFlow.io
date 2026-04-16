@@ -9,12 +9,14 @@ import Analytics from './pages/Analytics';
 import VideoToReels from './pages/VideoToReels';
 import LinkedInCarousels from './pages/LinkedInCarousels';
 import YTAndInstaPostsCreator from './pages/YTAndInstaPostsCreator';
+import ThumbnailCreator from './pages/ThumbnailCreator';
 import ProductPhotoStudio from './pages/ProductPhotoStudio';
 import Integrations from './pages/Integrations';
 import Upgrade from './pages/Upgrade';
 import RecentActivity from './pages/RecentActivity';
 import SavedPosts from './pages/SavedPosts';
 import SavedCarousels from './pages/SavedCarousels';
+import SavedThumbnails from './pages/SavedThumbnails';
 import Settings from './pages/Settings';
 import Help from './pages/Help';
 import Auth from './pages/Auth';
@@ -45,6 +47,8 @@ function AppRoutes() {
             <Route path="video-to-reels" element={<VideoToReels />} />
             <Route path="linkedin-carousels" element={<LinkedInCarousels />} />
             <Route path="yt-insta-posts" element={<YTAndInstaPostsCreator />} />
+            <Route path="thumbnail-creator" element={<ThumbnailCreator />} />
+            <Route path="saved-thumbnails" element={<SavedThumbnails />} />
           </Route>
           <Route path="shopify-tools">
             <Route path="product-photo-studio" element={<ProductPhotoStudio />} />

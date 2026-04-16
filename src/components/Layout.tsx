@@ -13,6 +13,7 @@ export default function Layout() {
   const { signOut } = useAppContext();
   const [isContentLabOpen, setIsContentLabOpen] = useState(location.pathname.includes('/content-lab'));
   const [isShopifyToolsOpen, setIsShopifyToolsOpen] = useState(location.pathname.includes('/shopify-tools'));
+  const [isCreateMenuOpen, setIsCreateMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
@@ -31,11 +32,46 @@ export default function Layout() {
           </Link>
           <div className="h-8 w-[1px] bg-zinc-200 mx-2"></div>
           <button className="material-symbols-outlined text-zinc-500 hover:text-primary transition-colors">notifications</button>
-          <div className="flex items-center gap-3 pl-2">
-            <img alt="User avatar" className="w-8 h-8 rounded-full border border-zinc-200 shadow-sm object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" />
-            <button className="bg-primary hover:bg-primary-dim text-white px-5 py-2 rounded-md font-semibold text-sm transition-all active:scale-[0.98] duration-200">
+          <div className="flex items-center gap-3 pl-2 relative">
+            <button 
+              onClick={() => setIsCreateMenuOpen(!isCreateMenuOpen)}
+              className="bg-primary hover:bg-primary-dim text-white px-5 py-2 rounded-md font-semibold text-sm transition-all active:scale-[0.98] duration-200 flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-[18px]">add</span>
               Create New
             </button>
+
+            {isCreateMenuOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setIsCreateMenuOpen(false)}></div>
+                <div className="absolute top-12 right-0 w-64 bg-white rounded-2xl shadow-xl border border-zinc-100 p-2 z-50 animate-in slide-in-from-top-2 fade-in duration-200">
+                  <div className="px-3 py-2 text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">Content Lab</div>
+                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/video-to-reels" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">movie</span>
+                    <span className="font-semibold text-sm">Video to Reels</span>
+                  </Link>
+                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/thumbnail-creator" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">wallpaper</span>
+                    <span className="font-semibold text-sm">Thumbnail Creator</span>
+                  </Link>
+                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/linkedin-carousels" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">view_carousel</span>
+                    <span className="font-semibold text-sm">LinkedIn Carousel</span>
+                  </Link>
+                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/yt-insta-posts" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">dynamic_feed</span>
+                    <span className="font-semibold text-sm">YT & Insta Post</span>
+                  </Link>
+                  
+                  <div className="h-[1px] bg-zinc-100 my-2 mx-2"></div>
+                  <div className="px-3 py-2 text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">Shopify Tools</div>
+                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/shopify-tools/product-photo-studio" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">shopping_cart</span>
+                    <span className="font-semibold text-sm">Product Photo Studio</span>
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -77,6 +113,7 @@ export default function Layout() {
                 <Link to="/content-lab/video-to-reels" className={cn("flex items-center justify-between px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/video-to-reels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>
                   <span>Video to Reels</span>
                 </Link>
+                <Link to="/content-lab/thumbnail-creator" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/thumbnail-creator' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Thumbnail Creator</Link>
                 <Link to="/content-lab/linkedin-carousels" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/linkedin-carousels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>LinkedIn Carousels</Link>
                 <Link to="/content-lab/yt-insta-posts" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/yt-insta-posts' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>YT & Insta Posts</Link>
               </div>

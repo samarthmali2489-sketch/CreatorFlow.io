@@ -53,6 +53,15 @@ export type SavedReel = {
   image: string;
 };
 
+export type SavedThumbnail = {
+  id: string;
+  url: string;
+  topic: string;
+  style: string;
+  channelInspiration?: string;
+  date: string;
+};
+
 interface AppContextType {
   user: User | null;
   session: Session | null;
@@ -76,6 +85,16 @@ interface AppContextType {
   savedReels: SavedReel[];
   saveReel: (reel: Omit<SavedReel, 'id' | 'date'>) => void;
   deleteReel: (id: string) => void;
+
+  savedThumbnails: SavedThumbnail[];
+  saveThumbnail: (thumbnail: Omit<SavedThumbnail, 'id' | 'date'>) => void;
+  deleteThumbnail: (id: string) => void;
+  deleteAllSavedThumbnails: () => void;
+
+  darkMode: boolean;
+  setDarkMode: (dark: boolean) => void;
+  autoSave: boolean;
+  setAutoSave: (save: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -84,6 +103,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
+
+  // Load preferences from localStorage settings
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem('creatorflow_settings');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.darkMode || false;
+    }
+    return false;
+  });
+
+  const [autoSave, setAutoSave] = useState(() => {
+    const saved = localStorage.getItem('creatorflow_settings');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.autoSave ?? true;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    // Update local storage settings safely
+    const saved = localStorage.getItem('creatorflow_settings');
+    let parsed = saved ? JSON.parse(saved) : {};
+    parsed.darkMode = darkMode;
+    parsed.autoSave = autoSave;
+    localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
+  }, [darkMode, autoSave]);
 
   useEffect(() => {
     // Get initial session
@@ -201,6 +254,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return [];
   });
 
+  const [savedThumbnails, setSavedThumbnails] = useState<SavedThumbnail[]>(() => {
+    const saved = localStorage.getItem('creatorflow_saved_thumbnails');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      const seen = new Set();
+      return parsed.map((t: any) => {
+        if (seen.has(t.id)) {
+          t.id = generateId();
+        }
+        seen.add(t.id);
+        return t;
+      });
+    }
+    return [];
+  });
+
   useEffect(() => {
     localStorage.setItem('creatorflow_analytics', JSON.stringify(analytics));
   }, [analytics]);
@@ -220,6 +289,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     localStorage.setItem('creatorflow_saved_reels', JSON.stringify(savedReels));
   }, [savedReels]);
+
+  useEffect(() => {
+    localStorage.setItem('creatorflow_saved_thumbnails', JSON.stringify(savedThumbnails));
+  }, [savedThumbnails]);
 
   const addGeneration = useCallback((type: string) => {
     setAnalytics(prev => {
@@ -308,6 +381,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setSavedReels(prev => prev.filter(r => r.id !== id));
   }, []);
 
+  const saveThumbnail = useCallback((thumbnail: Omit<SavedThumbnail, 'id' | 'date'>) => {
+    setSavedThumbnails(prev => [
+      { ...thumbnail, id: generateId(), date: new Date().toLocaleString() },
+      ...prev
+    ]);
+  }, []);
+
+  const deleteThumbnail = useCallback((id: string) => {
+    setSavedThumbnails(prev => prev.filter(t => t.id !== id));
+  }, []);
+
+  const deleteAllSavedThumbnails = useCallback(() => {
+    setSavedThumbnails([]);
+  }, []);
+
   return (
     <AppContext.Provider value={{ 
       user, session, authLoading, signOut,
@@ -315,7 +403,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       profiles, saveProfileAnalysis,
       savedPosts, savePost, deletePost, deleteAllSavedPosts,
       savedCarousels, saveCarousel, deleteCarousel, deleteAllSavedCarousels,
-      savedReels, saveReel, deleteReel
+      savedReels, saveReel, deleteReel,
+      savedThumbnails, saveThumbnail, deleteThumbnail, deleteAllSavedThumbnails,
+      darkMode, setDarkMode, autoSave, setAutoSave
     }}>
       {children}
     </AppContext.Provider>

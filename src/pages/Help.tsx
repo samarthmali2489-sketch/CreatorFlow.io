@@ -1,7 +1,47 @@
 import React, { useState } from 'react';
+import { supabase } from '../lib/supabase';
+import { useAppContext } from '../context/AppContext';
 
 export default function Help() {
+  const { user } = useAppContext();
   const [activeSection, setActiveSection] = useState('getting-started');
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactMessage, setContactMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactMessage.trim()) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const { error } = await supabase
+        .from('support_messages')
+        .insert([
+          { 
+            user_email: user?.email || 'anonymous@creatorflow.com',
+            message: contactMessage
+          }
+        ]);
+
+      if (error) throw error;
+      
+      setSubmitStatus('success');
+      setTimeout(() => {
+        setIsContactModalOpen(false);
+        setContactMessage('');
+        setSubmitStatus('idle');
+      }, 2000);
+    } catch (err) {
+      console.error(err);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const sections = [
     { id: 'getting-started', label: 'Getting Started', icon: 'flag' },
@@ -9,6 +49,7 @@ export default function Help() {
     { id: 'video-to-reels', label: 'Video to Reels', icon: 'movie' },
     { id: 'linkedin-carousels', label: 'LinkedIn Carousels', icon: 'view_carousel' },
     { id: 'yt-insta-posts', label: 'YT & Insta Posts', icon: 'dynamic_feed' },
+    { id: 'thumbnail-creator', label: 'Thumbnail Creator', icon: 'wallpaper' },
     { id: 'product-photo-studio', label: 'Product Photo Studio', icon: 'shopping_cart' },
   ];
 
@@ -46,7 +87,10 @@ export default function Help() {
           <div className="mt-8 p-6 bg-surface-container-low rounded-2xl border border-outline-variant/20">
             <h4 className="font-bold mb-2">Need more help?</h4>
             <p className="text-sm text-on-surface-variant mb-4">Our support team is available 24/7 to assist you.</p>
-            <button className="w-full bg-white border border-outline-variant/30 text-on-surface px-4 py-2 rounded-lg font-bold hover:bg-zinc-50 transition-colors text-sm">
+            <button 
+              onClick={() => setIsContactModalOpen(true)}
+              className="w-full bg-white border border-outline-variant/30 text-on-surface px-4 py-2 rounded-lg font-bold hover:bg-zinc-50 transition-colors text-sm"
+            >
               Contact Support
             </button>
           </div>
@@ -243,6 +287,53 @@ export default function Help() {
             </div>
           )}
 
+          {activeSection === 'thumbnail-creator' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div>
+                <h2 className="text-3xl font-black tracking-tight mb-4">Thumbnail Creator</h2>
+                <p className="text-lg text-on-surface-variant leading-relaxed">
+                  Generate high-CTR, click-worthy YouTube thumbnails instantly using Google's latest Imagen technology, heavily customized for your specific video topic.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold">How it works</h3>
+                
+                <div className="flex gap-6 items-start">
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">1</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Enter Your Topic</h4>
+                    <p className="text-on-surface-variant">Type in exactly what your video is about. Be specific to get more tailored visual metaphors.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 items-start">
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">2</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Select A Style</h4>
+                    <p className="text-on-surface-variant">Choose from proven styles like "MrBeast / High Energy" or select "Custom" to type out your exact desired visual aesthetic (e.g. Cyberpunk, Minimalist vector).</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 items-start">
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">3</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Channel Inspiration Tool</h4>
+                    <p className="text-on-surface-variant">Want to mimic your favorite creator? Type in their YouTube channel name. The AI connects to Google Search live to analyze their recent thumbnails' lighting, grading, and composition to replicate their aesthetic!</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 items-start">
+                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">4</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Save & Download</h4>
+                    <p className="text-on-surface-variant">You'll receive 3 text-free backgrounds. You can download them directly or save them to your library to use later with Photoshop or Canva.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {activeSection === 'product-photo-studio' && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
@@ -271,6 +362,62 @@ export default function Help() {
 
         </div>
       </div>
+
+      {isContactModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+            <div className="p-6 border-b border-zinc-100 flex justify-between items-center">
+              <h3 className="text-xl font-black text-zinc-900">Contact Support</h3>
+              <button onClick={() => setIsContactModalOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
+                <span className="material-symbols-outlined text-sm font-bold">close</span>
+              </button>
+            </div>
+            <form onSubmit={handleContactSubmit} className="p-6">
+              <div className="mb-4">
+                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">How can we help?</label>
+                <textarea
+                  required
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                  placeholder="Describe your issue or question..."
+                  className="w-full h-32 bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
+                ></textarea>
+              </div>
+
+              {submitStatus === 'success' && (
+                <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm font-bold flex items-center gap-2 animate-in fade-in">
+                  <span className="material-symbols-outlined">check_circle</span>
+                  Message sent successfully!
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm font-bold flex items-center gap-2 animate-in fade-in">
+                  <span className="material-symbols-outlined">error</span>
+                  Failed. Check Database rules.
+                </div>
+              )}
+
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setIsContactModalOpen(false)}
+                  className="px-4 py-2 font-bold text-zinc-500 hover:text-zinc-700 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary-dim transition-all disabled:opacity-70 flex items-center gap-2"
+                >
+                  {isSubmitting ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : 'Send Message'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

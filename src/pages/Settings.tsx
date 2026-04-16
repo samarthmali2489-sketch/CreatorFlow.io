@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 export default function Settings() {
-  const { user } = useAppContext();
+  const { user, darkMode, setDarkMode, autoSave, setAutoSave } = useAppContext();
   const [activeTab, setActiveTab] = useState('profile');
   
   // Profile State
@@ -11,10 +11,6 @@ export default function Settings() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
-  // Preferences State
-  const [darkMode, setDarkMode] = useState(false);
-  const [autoSave, setAutoSave] = useState(true);
-
   useEffect(() => {
     // Load saved settings
     const savedSettings = localStorage.getItem('creatorflow_settings');
@@ -22,8 +18,6 @@ export default function Settings() {
       const parsed = JSON.parse(savedSettings);
       setFirstName(parsed.firstName || '');
       setLastName(parsed.lastName || '');
-      setDarkMode(parsed.darkMode || false);
-      setAutoSave(parsed.autoSave ?? true);
     }
   }, []);
 
@@ -31,8 +25,11 @@ export default function Settings() {
     setIsSaving(true);
     // Simulate API call
     setTimeout(() => {
-      const settings = { firstName, lastName, darkMode, autoSave };
-      localStorage.setItem('creatorflow_settings', JSON.stringify(settings));
+      const savedSettings = localStorage.getItem('creatorflow_settings');
+      let parsed = savedSettings ? JSON.parse(savedSettings) : {};
+      parsed.firstName = firstName;
+      parsed.lastName = lastName;
+      localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
       setIsSaving(false);
       setSaveMessage('Profile saved successfully!');
       setTimeout(() => setSaveMessage(''), 3000);
@@ -40,17 +37,8 @@ export default function Settings() {
   };
 
   const handleTogglePreference = (key: 'darkMode' | 'autoSave') => {
-    const newSettings = {
-      firstName,
-      lastName,
-      darkMode: key === 'darkMode' ? !darkMode : darkMode,
-      autoSave: key === 'autoSave' ? !autoSave : autoSave,
-    };
-    
     if (key === 'darkMode') setDarkMode(!darkMode);
     if (key === 'autoSave') setAutoSave(!autoSave);
-    
-    localStorage.setItem('creatorflow_settings', JSON.stringify(newSettings));
   };
 
   return (
@@ -68,7 +56,6 @@ export default function Settings() {
             { id: 'preferences', label: 'Preferences', icon: 'tune' },
             { id: 'notifications', label: 'Notifications', icon: 'notifications' },
             { id: 'billing', label: 'Billing & Plans', icon: 'credit_card' },
-            { id: 'api-keys', label: 'API Keys', icon: 'key' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -91,21 +78,8 @@ export default function Settings() {
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
                 <h2 className="text-xl font-bold mb-6">Personal Information</h2>
-                <div className="flex items-center gap-6 mb-8">
-                  <img 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" 
-                    alt="Avatar" 
-                    className="w-20 h-20 rounded-full border-2 border-surface-container-high object-cover"
-                  />
-                  <div>
-                    <button className="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-4 py-2 rounded-lg font-bold text-sm transition-colors mb-2">
-                      Change Avatar
-                    </button>
-                    <p className="text-xs text-on-surface-variant">JPG, GIF or PNG. 1MB max.</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">First Name</label>
                     <input 
@@ -177,39 +151,6 @@ export default function Settings() {
                       <input type="checkbox" checked={autoSave} onChange={() => handleTogglePreference('autoSave')} className="sr-only peer" />
                       <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
-                  </div>
-                </div>
-              </section>
-            </div>
-          )}
-
-          {activeTab === 'api-keys' && (
-            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
-                <h2 className="text-xl font-bold mb-2">API Keys</h2>
-                <p className="text-on-surface-variant mb-6">Manage your keys for external integrations and custom models.</p>
-                
-                <div className="space-y-4">
-                  <div className="bg-surface-container-low p-4 rounded-xl border border-outline-variant/20 flex items-center justify-between">
-                    <div>
-                      <h4 className="font-bold flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                        Gemini API Key
-                      </h4>
-                      <p className="text-xs text-on-surface-variant mt-1">Configured via environment variables.</p>
-                    </div>
-                    <span className="text-xs font-bold bg-surface-container-high px-2 py-1 rounded text-on-surface-variant">Active</span>
-                  </div>
-                  
-                  <div className="bg-surface-container-low p-4 rounded-xl border border-outline-variant/20 flex items-center justify-between opacity-60">
-                    <div>
-                      <h4 className="font-bold flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-zinc-300"></span>
-                        OpenAI API Key
-                      </h4>
-                      <p className="text-xs text-on-surface-variant mt-1">Not configured.</p>
-                    </div>
-                    <button className="text-xs font-bold text-primary hover:underline">Add Key</button>
                   </div>
                 </div>
               </section>
