@@ -94,14 +94,24 @@ export default function YTAndInstaPostsCreator() {
       }`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {
           responseMimeType: 'application/json',
         }
       });
       
-      const result = JSON.parse(response.text || '{"posts": []}');
+      let responseText = response.text || '{"posts": []}';
+      responseText = responseText.replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
+      
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.warn("Failed to parse JSON directly:", responseText);
+        result = { posts: [] };
+      }
+
       setGeneratedPosts(result.posts || []);
       addGeneration('Social Post');
       
@@ -116,9 +126,9 @@ export default function YTAndInstaPostsCreator() {
           });
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Generation failed", error);
-      alert("Failed to generate posts. Please try again.");
+      alert(`Failed to generate posts. Error: ${error?.message || 'Unknown error'}. Please try again.`);
     } finally {
       setIsGenerating(false);
     }

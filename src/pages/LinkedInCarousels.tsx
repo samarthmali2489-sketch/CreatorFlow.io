@@ -142,14 +142,25 @@ export default function LinkedInCarousels() {
       Make sure there are exactly ${slideCount} slides.`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {
           responseMimeType: 'application/json',
         }
       });
       
-      const result = JSON.parse(response.text || '{"slides": []}');
+      let responseText = response.text || '{"slides": []}';
+      // Strip markdown code block formatting if present
+      responseText = responseText.replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
+      
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.warn("Failed to parse JSON directly, attempting fallback:", responseText);
+        result = { slides: [] };
+      }
+
       setSlides(result.slides || []);
       setActiveSlide(0);
       
@@ -166,9 +177,9 @@ export default function LinkedInCarousels() {
           theme: randomTheme
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Generation failed", error);
-      alert("Failed to generate carousel. Please try again.");
+      alert(`Failed to generate carousel. Error: ${error?.message || 'Unknown error'}. Please try again.`);
     } finally {
       setIsGenerating(false);
     }

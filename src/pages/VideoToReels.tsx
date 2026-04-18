@@ -86,13 +86,23 @@ export default function VideoToReels() {
         }
       });
       
-      const result = JSON.parse(response.text || '{"reels": []}');
+      let responseText = response.text || '{"reels": []}';
+      responseText = responseText.replace(/^```json\n?/, '').replace(/\n?```$/, '').trim();
+      
+      let result;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        console.warn("Failed to parse JSON directly:", responseText);
+        result = { reels: [] };
+      }
+
       setGeneratedReels(result.reels || []);
       addVideoProcessed();
       
-    } catch (error) {
+    } catch (error: any) {
       console.error("Processing failed", error);
-      alert("Failed to process video. Please ensure it's a valid YouTube URL with captions enabled.");
+      alert(`Failed to process video. Error: ${error?.message || 'Unknown error'}. Please ensure it's a valid YouTube URL and captions are enabled.`);
     } finally {
       setIsProcessing(false);
       setProgressText('');

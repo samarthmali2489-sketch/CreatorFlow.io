@@ -1,7 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
 
 export default function Upgrade() {
+  const { analytics } = useAppContext();
+
+  // Deduce the checkout URL from settings if connected, otherwise use the requested default
+  const savedSettings = localStorage.getItem('creatorflow_settings');
+  const parsedSettings = savedSettings ? JSON.parse(savedSettings) : {};
+  const lsCheckoutUrl = parsedSettings.lsCheckoutUrl || "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
+
   return (
     <div className="max-w-6xl mx-auto p-8 lg:p-12">
       <header className="text-center mb-16">
@@ -16,6 +24,11 @@ export default function Upgrade() {
           <p className="text-on-surface-variant mb-6">Perfect for getting started.</p>
           <div className="text-5xl font-black mb-8">$0<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
           
+          <div className="bg-surface-container-low p-4 rounded-xl mb-8 flex items-center justify-between border border-outline-variant/20">
+            <span className="text-sm font-bold text-on-surface-variant">Current Usage:</span>
+            <span className="text-sm font-black text-on-surface">{analytics.totalGenerations} / 5</span>
+          </div>
+
           <ul className="space-y-4 mb-8 flex-1">
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 5 Generations / month</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Basic AI Models</li>
@@ -25,21 +38,24 @@ export default function Upgrade() {
           <button className="w-full py-4 rounded-xl font-bold bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors">Current Plan</button>
         </div>
 
-        {/* Starter Plan */}
+        {/* Starter Plan / Pro Plan */}
         <div className="bg-zinc-900 text-white rounded-[2rem] p-8 border border-zinc-800 flex flex-col relative transform md:-translate-y-4 shadow-2xl">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Most Popular</div>
-          <h2 className="text-2xl font-bold mb-2">Starter</h2>
-          <p className="text-zinc-400 mb-6">For growing creators.</p>
-          <div className="text-5xl font-black mb-8">$20<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
+          <h2 className="text-2xl font-bold mb-2">Pro Plan</h2>
+          <p className="text-zinc-400 mb-6">Unlock full access to AI social media generation.</p>
+          <div className="text-5xl font-black mb-8">$19<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 100 Generations / month</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Advanced AI Models</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 5 Connected Profiles</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Priority Support</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited YT & Insta Posts generation</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
           </ul>
           
-          <button className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20">Upgrade to Starter</button>
+          <a href={lsCheckoutUrl} target="_blank" rel="noreferrer" className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+            <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
+            Upgrade to Pro
+          </a>
         </div>
 
         {/* Infinity Plan */}

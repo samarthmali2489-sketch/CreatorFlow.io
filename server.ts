@@ -2,6 +2,7 @@ import express from "express";
 import { createServer as createViteServer } from "vite";
 import * as cheerio from "cheerio";
 import path from "path";
+import crypto from 'crypto';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { YoutubeTranscript } = require('youtube-transcript/dist/youtube-transcript.common.js');
@@ -10,7 +11,53 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  app.use(express.json());
+  // Use raw JSON for LemonSqueezy webhook signature verification, normal JSON for everything else
+  app.use((req, res, next) => {
+    if (req.originalUrl === '/api/webhooks/lemonsqueezy') {
+      next();
+    } else {
+      express.json()(req, res, next);
+    }
+  });
+
+  // Lemon Squeezy Webhook Endpoint
+  app.post('/api/webhooks/lemonsqueezy', express.raw({ type: 'application/json' }), async (req, res) => {
+    try {
+      const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET || '';
+      
+      // If a secret is provided, verify the signature
+      if (secret) {
+        const hmac = crypto.createHmac('sha256', secret);
+        const digest = Buffer.from(hmac.update(req.body).digest('hex'), 'utf8');
+        const signature = Buffer.from(req.get('X-Signature') || '', 'utf8');
+
+        if (!crypto.timingSafeEqual(digest, signature)) {
+          return res.status(403).json({ error: 'Invalid webhooks signature' });
+        }
+      }
+
+      const payload = JSON.parse(req.body.toString());
+      const eventName = payload.meta.event_name;
+      const customData = payload.meta.custom_data; // This can include the userId passed from checkout
+      
+      console.log(`Received Lemon Squeezy integration event: ${eventName}`);
+
+      // Handle the event here (e.g. update user's premium status in Supabase)
+      if (eventName === 'subscription_created' || eventName === 'subscription_updated') {
+        const planId = payload.data.attributes.product_id;
+        console.log(`User subscribed to plan ${planId}`);
+        // await supabase.from('users').update({ is_pro: true }).eq('id', customData.user_id)
+      } else if (eventName === 'subscription_cancelled' || eventName === 'subscription_expired') {
+        console.log(`User subscription cancelled or expired`);
+        // await supabase.from('users').update({ is_pro: false }).eq('id', customData.user_id)
+      }
+
+      res.status(200).json({ received: true });
+    } catch(e: any) {
+      console.error('Webhook processing failed', e);
+      res.status(500).json({ error: 'Webhook processing failed' });
+    }
+  });
 
   // API route to scrape URL
   app.post("/api/scrape", async (req, res) => {

@@ -11,6 +11,16 @@ export default function Settings() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
+  // Lemon Squeezy State
+  const [lsCheckoutUrl, setLsCheckoutUrl] = useState('');
+  const [lsApiKey, setLsApiKey] = useState('');
+  const [lsWebhookSecret, setLsWebhookSecret] = useState('');
+  const [isLSSaving, setIsLSSaving] = useState(false);
+  const [lsSaveMessage, setLsSaveMessage] = useState('');
+
+  // Default Lemon Squeezy URL from user
+  const DEFAULT_LS_URL = "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
+
   useEffect(() => {
     // Load saved settings
     const savedSettings = localStorage.getItem('creatorflow_settings');
@@ -18,6 +28,9 @@ export default function Settings() {
       const parsed = JSON.parse(savedSettings);
       setFirstName(parsed.firstName || '');
       setLastName(parsed.lastName || '');
+      setLsCheckoutUrl(parsed.lsCheckoutUrl || '');
+      setLsApiKey(parsed.lsApiKey || '');
+      setLsWebhookSecret(parsed.lsWebhookSecret || '');
     }
   }, []);
 
@@ -41,11 +54,31 @@ export default function Settings() {
     if (key === 'autoSave') setAutoSave(!autoSave);
   };
 
+  const handleSaveLemonSqueezy = () => {
+    setIsLSSaving(true);
+    // Simulate saving connection locally for demo/MVP
+    setTimeout(() => {
+      const savedSettings = localStorage.getItem('creatorflow_settings');
+      let parsed = savedSettings ? JSON.parse(savedSettings) : {};
+      parsed.lsCheckoutUrl = lsCheckoutUrl;
+      parsed.lsApiKey = lsApiKey;
+      parsed.lsWebhookSecret = lsWebhookSecret;
+      localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
+      setIsLSSaving(false);
+      setLsSaveMessage('Lemon Squeezy connected!');
+      setTimeout(() => setLsSaveMessage(''), 3000);
+    }, 800);
+  };
+
   return (
     <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
       <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-4">Settings</h1>
-        <p className="text-on-surface-variant text-lg">Manage your account, preferences, and API keys.</p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-4">Settings</h1>
+            <p className="text-on-surface-variant text-lg">Manage your account, preferences, and API keys.</p>
+          </div>
+        </div>
       </header>
 
       <div className="flex flex-col md:flex-row gap-12 items-start">
@@ -157,8 +190,108 @@ export default function Settings() {
             </div>
           )}
 
+          {activeTab === 'billing' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm relative overflow-hidden">
+                <div className="flex justify-between items-start mb-6 relative z-10">
+                  <div>
+                    <h2 className="text-2xl font-black text-on-surface mb-2">Pro Plan</h2>
+                    <p className="text-on-surface-variant max-w-md">Unlock full access to AI social media generation, unlimited thumbnails, and omni-channel video rendering.</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-3xl font-black text-primary">$19</span>
+                    <span className="text-on-surface-variant font-bold">/mo</span>
+                  </div>
+                </div>
+
+                <div className="bg-surface-container-low rounded-xl p-6 mb-8 relative z-10">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-bold text-on-surface">What's included in Pro:</h3>
+                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> Unlimited YT & Insta Posts generation</li>
+                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
+                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
+                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
+                  </ul>
+                </div>
+
+                <div className="relative z-10">
+                  <a 
+                    href={lsCheckoutUrl || DEFAULT_LS_URL}
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dim text-white px-8 py-4 rounded-xl font-black transition-all shadow-lg hover:-translate-y-1"
+                  >
+                    <span className="material-symbols-outlined">rocket_launch</span>
+                    Upgrade to Pro via Lemon Squeezy
+                  </a>
+                  <p className="text-center text-xs text-on-surface-variant mt-4 font-medium uppercase tracking-widest">Secure Checkout securely handled by Lemon Squeezy</p>
+                </div>
+                
+                {/* Decorative background element */}
+                <div className="absolute -top-32 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+              </section>
+
+              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm border-dashed">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="material-symbols-outlined text-primary text-2xl">cable</span>
+                  <div className="text-left">
+                    <h3 className="font-bold text-on-surface text-xl">Connect Lemon Squeezy Store</h3>
+                    <p className="text-sm text-on-surface-variant">Update the UI checkout link dynamically without modifying code.</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Product Checkout URL</label>
+                    <input 
+                      type="url" 
+                      value={lsCheckoutUrl}
+                      onChange={(e) => setLsCheckoutUrl(e.target.value)}
+                      placeholder={DEFAULT_LS_URL} 
+                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">API Key (Admin only)</label>
+                    <input 
+                      type="password" 
+                      value={lsApiKey}
+                      onChange={(e) => setLsApiKey(e.target.value)}
+                      placeholder="eyJ..." 
+                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Webhook Secret (Admin only)</label>
+                    <input 
+                      type="password" 
+                      value={lsWebhookSecret}
+                      onChange={(e) => setLsWebhookSecret(e.target.value)}
+                      placeholder="Your secure webhook string" 
+                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-center justify-end gap-4">
+                  {lsSaveMessage && <span className="text-sm font-bold text-green-600 animate-in fade-in">{lsSaveMessage}</span>}
+                  <button 
+                    onClick={handleSaveLemonSqueezy}
+                    disabled={isLSSaving}
+                    className="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-6 py-2.5 rounded-lg font-bold transition-all disabled:opacity-70 flex items-center gap-2"
+                  >
+                    {isLSSaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : null}
+                    Save Connection
+                  </button>
+                </div>
+              </section>
+            </div>
+          )}
+
           {/* Placeholders for others */}
-          {(activeTab === 'notifications' || activeTab === 'billing') && (
+          {(activeTab === 'notifications') && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <section className="bg-surface-container-lowest rounded-2xl p-12 border border-outline-variant/20 shadow-sm text-center">
                 <span className="material-symbols-outlined text-4xl text-primary/40 mb-4">construction</span>
