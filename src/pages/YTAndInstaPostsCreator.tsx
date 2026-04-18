@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 import { Link } from 'react-router-dom';
 
 export default function YTAndInstaPostsCreator() {
-  const { addGeneration, profiles, savePost, savedPosts, deletePost } = useAppContext();
+  const { addGeneration, profiles, savePost, savedPosts, deletePost, deductCredits } = useAppContext();
   const [targetPlatform, setTargetPlatform] = useState('youtube');
   const [tone, setTone] = useState('Engaging & Conversational');
   const [customTone, setCustomTone] = useState('');
@@ -26,6 +26,11 @@ export default function YTAndInstaPostsCreator() {
 
   const handleGenerate = async () => {
     if (!sourceText.trim()) return;
+
+    if (!deductCredits(10)) {
+      alert("Not enough credits! Please upgrade your plan.");
+      return;
+    }
     
     setIsGenerating(true);
     try {

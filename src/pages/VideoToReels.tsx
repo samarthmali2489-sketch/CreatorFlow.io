@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext';
 import { GoogleGenAI } from '@google/genai';
 
 export default function VideoToReels() {
-  const { addVideoProcessed, profiles, savedReels, saveReel } = useAppContext();
+  const { addVideoProcessed, profiles, savedReels, saveReel, deductCredits } = useAppContext();
   const [url, setUrl] = useState('');
   const [inputMode, setInputMode] = useState<'drop' | 'url'>('drop');
   
@@ -22,6 +22,11 @@ export default function VideoToReels() {
 
   const handleGenerate = async () => {
     if (!url.trim()) return;
+
+    if (!deductCredits(30)) {
+      alert("Not enough credits! Please upgrade your plan to generate more Reels.");
+      return;
+    }
     
     setIsProcessing(true);
     setProgressText('Fetching video transcript...');

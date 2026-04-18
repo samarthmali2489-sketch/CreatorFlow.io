@@ -34,7 +34,7 @@ const DYNAMIC_THEMES: Theme[] = [
 ];
 
 export default function LinkedInCarousels() {
-  const { addGeneration, profiles, saveCarousel, savedCarousels, deleteCarousel } = useAppContext();
+  const { addGeneration, profiles, saveCarousel, savedCarousels, deleteCarousel, deductCredits } = useAppContext();
   const [sourceText, setSourceText] = useState('');
   const [customInstructions, setCustomInstructions] = useState('');
   const [slideCount, setSlideCount] = useState(5);
@@ -73,6 +73,11 @@ export default function LinkedInCarousels() {
 
   const handleGenerate = async () => {
     if (!sourceText.trim()) return;
+
+    if (!deductCredits(10)) {
+      alert("Not enough credits! Please upgrade your plan.");
+      return;
+    }
     
     setIsGenerating(true);
     try {

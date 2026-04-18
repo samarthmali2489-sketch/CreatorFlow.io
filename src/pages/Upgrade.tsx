@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 export default function Upgrade() {
-  const { analytics, subscriptionPlan, setSubscriptionPlan } = useAppContext();
+  const { credits, subscriptionPlan, setSubscriptionPlan } = useAppContext();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   // Deduce the checkout URL from settings if connected, otherwise use the requested default
@@ -68,21 +68,21 @@ export default function Upgrade() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
         {/* Free Plan */}
         <div className="bg-surface-container-lowest rounded-[2rem] p-8 border border-outline-variant/20 flex flex-col">
-          <h2 className="text-2xl font-bold mb-2">Free</h2>
+          <h2 className="text-2xl font-bold mb-2">Starter Plan</h2>
           <p className="text-on-surface-variant mb-6">Perfect for getting started.</p>
           <div className="text-5xl font-black mb-8">$0<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
           
           <div className="bg-surface-container-low p-4 rounded-xl mb-8 flex items-center justify-between border border-outline-variant/20">
-            <span className="text-sm font-bold text-on-surface-variant">Current Usage:</span>
+            <span className="text-sm font-bold text-on-surface-variant">Credits:</span>
             <span className="text-sm font-black text-on-surface">
-              {subscriptionPlan === 'pro' ? 'Unlimited' : `${analytics.totalGenerations} / 5`}
+              {subscriptionPlan === 'pro' ? 'Unlimited' : `${credits} / 50`}
             </span>
           </div>
 
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 5 Generations / month</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Basic AI Models</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 1 Connected Profile</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 50 Free Credits</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Access to ALL Features</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Standard Generation Speed</li>
           </ul>
           
           {subscriptionPlan === 'free' ? (

@@ -13,7 +13,7 @@ declare global {
 }
 
 export default function ThumbnailCreator() {
-  const { saveThumbnail } = useAppContext();
+  const { saveThumbnail, deductCredits } = useAppContext();
   const [topic, setTopic] = useState('');
   const [style, setStyle] = useState('MrBeast / High Energy');
   const [customStyle, setCustomStyle] = useState('');
@@ -27,6 +27,11 @@ export default function ThumbnailCreator() {
     if (!topic.trim()) return;
     if (style === 'Custom' && !customStyle.trim()) {
       setError('Please provide a description for the custom style.');
+      return;
+    }
+
+    if (!deductCredits(10)) {
+      alert("Not enough credits! Please upgrade your plan.");
       return;
     }
     

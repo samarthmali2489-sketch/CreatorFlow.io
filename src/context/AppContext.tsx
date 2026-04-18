@@ -97,6 +97,8 @@ interface AppContextType {
   setAutoSave: (save: boolean) => void;
   subscriptionPlan: 'free' | 'pro';
   setSubscriptionPlan: (plan: 'free' | 'pro') => void;
+  credits: number;
+  deductCredits: (amount: number) => boolean;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -129,6 +131,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const saved = localStorage.getItem('creatorflow_plan');
     if (saved) return saved as 'free' | 'pro';
     return 'free';
+  });
+
+  const [credits, setCredits] = useState<number>(() => {
+    const saved = localStorage.getItem('creatorflow_credits');
+    if (saved) return parseInt(saved, 10);
+    return 50;
   });
 
   useEffect(() => {
@@ -306,6 +314,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('creatorflow_plan', subscriptionPlan);
   }, [subscriptionPlan]);
 
+  useEffect(() => {
+    localStorage.setItem('creatorflow_credits', credits.toString());
+  }, [credits]);
+
+  const deductCredits = useCallback((amount: number) => {
+    if (subscriptionPlan === 'pro') return true;
+    if (credits >= amount) {
+      setCredits(prev => prev - amount);
+      return true;
+    }
+    return false;
+  }, [subscriptionPlan, credits]);
+
   const addGeneration = useCallback((type: string) => {
     setAnalytics(prev => {
       let mappedType = type;
@@ -418,7 +439,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       savedReels, saveReel, deleteReel,
       savedThumbnails, saveThumbnail, deleteThumbnail, deleteAllSavedThumbnails,
       darkMode, setDarkMode, autoSave, setAutoSave,
-      subscriptionPlan, setSubscriptionPlan
+      subscriptionPlan, setSubscriptionPlan,
+      credits, deductCredits
     }}>
       {children}
     </AppContext.Provider>

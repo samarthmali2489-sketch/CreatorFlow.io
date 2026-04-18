@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export default function Layout() {
   const location = useLocation();
-  const { signOut } = useAppContext();
+  const { signOut, subscriptionPlan, credits } = useAppContext();
   const [isContentLabOpen, setIsContentLabOpen] = useState(location.pathname.includes('/content-lab'));
   const [isShopifyToolsOpen, setIsShopifyToolsOpen] = useState(location.pathname.includes('/shopify-tools'));
   const [isCreateMenuOpen, setIsCreateMenuOpen] = useState(false);
@@ -160,12 +160,22 @@ export default function Layout() {
 
         <div className="mt-auto space-y-4 pt-6 border-t border-zinc-100">
           <div className="bg-primary/5 rounded-xl p-4">
-            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Current Usage</p>
-            <div className="w-full bg-zinc-200 rounded-full h-1.5 mb-3">
-              <div className="bg-primary h-1.5 rounded-full" style={{ width: '85%' }}></div>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-xs font-bold text-primary uppercase tracking-widest">
+                {subscriptionPlan === 'pro' ? 'Pro Plan' : 'Starter Plan'}
+              </p>
+              <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded text-primary border border-primary/10 shadow-sm">
+                {subscriptionPlan === 'pro' ? '∞' : `${credits} CR`}
+              </span>
             </div>
-            <Link to="/upgrade" className="w-full flex items-center justify-center py-2 bg-zinc-900 text-white text-xs font-bold rounded-lg hover:bg-zinc-800 transition-colors shadow-sm">
-              Upgrade Plan
+            <div className="w-full bg-zinc-200 rounded-full h-1.5 mb-3 overflow-hidden">
+              <div 
+                className="bg-primary h-1.5 rounded-full transition-all duration-500" 
+                style={{ width: subscriptionPlan === 'pro' ? '100%' : `${(credits / 50) * 100}%` }}
+              ></div>
+            </div>
+            <Link to="/upgrade" className={cn("w-full flex items-center justify-center py-2 text-white text-xs font-bold rounded-lg transition-colors shadow-sm", subscriptionPlan === 'pro' ? 'bg-primary hover:bg-primary-dim cursor-default' : 'bg-zinc-900 hover:bg-zinc-800')}>
+              {subscriptionPlan === 'pro' ? 'Starter Plan' : 'Upgrade Plan'}
             </Link>
           </div>
           <button onClick={signOut} className="w-full flex items-center gap-3 px-3 py-2.5 text-zinc-500 hover:text-error transition-colors">
