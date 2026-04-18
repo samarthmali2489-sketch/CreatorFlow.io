@@ -164,6 +164,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setSession(session);
       setUser(session?.user ?? null);
       setAuthLoading(false);
+      
+      if (session?.user) {
+        const metadataCredits = session.user.user_metadata?.credits;
+        if (metadataCredits !== undefined) {
+          setCredits(metadataCredits);
+        } else {
+          // Initialize for new accounts
+          supabase.auth.updateUser({ data: { credits: 50 } });
+        }
+      }
     });
 
     // Listen for auth changes
@@ -171,6 +181,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setSession(session);
       setUser(session?.user ?? null);
       setAuthLoading(false);
+      
+      if (session?.user) {
+        const metadataCredits = session.user.user_metadata?.credits;
+        if (metadataCredits !== undefined) {
+          setCredits(metadataCredits);
+        } else {
+          // Initialize for new accounts
+          supabase.auth.updateUser({ data: { credits: 50 } });
+        }
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -325,11 +345,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const deductCredits = useCallback((amount: number) => {
     if (subscriptionPlan === 'pro') return true;
     if (credits >= amount) {
-      setCredits(prev => prev - amount);
+      const newCredits = credits - amount;
+      setCredits(newCredits);
+      // Sync seamlessly to Supabase
+      if (user) {
+        supabase.auth.updateUser({ data: { credits: newCredits } });
+      }
       return true;
     }
     return false;
-  }, [subscriptionPlan, credits]);
+  }, [subscriptionPlan, credits, user]);
 
   const addGeneration = useCallback((type: string) => {
     setAnalytics(prev => {
