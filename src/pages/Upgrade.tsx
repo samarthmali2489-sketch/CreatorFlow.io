@@ -1,17 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 export default function Upgrade() {
-  const { analytics } = useAppContext();
+  const { analytics, subscriptionPlan, setSubscriptionPlan } = useAppContext();
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   // Deduce the checkout URL from settings if connected, otherwise use the requested default
   const savedSettings = localStorage.getItem('creatorflow_settings');
   const parsedSettings = savedSettings ? JSON.parse(savedSettings) : {};
   const lsCheckoutUrl = parsedSettings.lsCheckoutUrl || "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
 
+  // Check for successful redirect from LemonSqueezy hosted checkout
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('success') || urlParams.has('orderId') || urlParams.has('checkoutId')) {
+        setSubscriptionPlan('pro');
+        setShowSuccessMessage(true);
+        // Clean up URL so it doesn't trigger on every single refresh
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  }, [setSubscriptionPlan]);
+
+  useEffect(() => {
+    // Re-initialize lemonsqueezy buttons on mount
+    if (typeof window !== 'undefined' && (window as any).createLemonSqueezy) {
+      (window as any).createLemonSqueezy();
+      
+      // Setup event listener to catch successful checkouts
+      if ((window as any).LemonSqueezy && (window as any).LemonSqueezy.Setup) {
+        (window as any).LemonSqueezy.Setup({
+          eventHandler: (event: any) => {
+            if (event.event === 'Checkout.Success') {
+              setSubscriptionPlan('pro');
+              setShowSuccessMessage(true);
+            }
+          }
+        });
+      }
+    }
+  }, [setSubscriptionPlan]);
+
+  const handleUpgradeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (typeof window !== 'undefined' && (window as any).LemonSqueezy && (window as any).LemonSqueezy.Url) {
+      (window as any).LemonSqueezy.Url.Open(lsCheckoutUrl);
+    } else {
+      window.open(lsCheckoutUrl, '_blank');
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto p-8 lg:p-12">
+      {showSuccessMessage && (
+        <div className="mb-8 p-4 bg-green-500/20 border border-green-500/50 rounded-xl text-green-700 dark:text-green-400 font-bold text-center flex items-center justify-center gap-2 animate-in fade-in slide-in-from-top-4">
+          <span className="material-symbols-outlined">check_circle</span>
+          Upgrade Successful! Welcome to Pro.
+        </div>
+      )}
       <header className="text-center mb-16">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface mb-4">Upgrade Your Flow</h1>
         <p className="text-on-surface-variant text-xl max-w-2xl mx-auto">Choose the perfect plan to scale your content creation.</p>
@@ -26,7 +74,9 @@ export default function Upgrade() {
           
           <div className="bg-surface-container-low p-4 rounded-xl mb-8 flex items-center justify-between border border-outline-variant/20">
             <span className="text-sm font-bold text-on-surface-variant">Current Usage:</span>
-            <span className="text-sm font-black text-on-surface">{analytics.totalGenerations} / 5</span>
+            <span className="text-sm font-black text-on-surface">
+              {subscriptionPlan === 'pro' ? 'Unlimited' : `${analytics.totalGenerations} / 5`}
+            </span>
           </div>
 
           <ul className="space-y-4 mb-8 flex-1">
@@ -35,7 +85,11 @@ export default function Upgrade() {
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 1 Connected Profile</li>
           </ul>
           
-          <button className="w-full py-4 rounded-xl font-bold bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors">Current Plan</button>
+          {subscriptionPlan === 'free' ? (
+            <button className="w-full py-4 rounded-xl font-bold bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors">Current Plan</button>
+          ) : (
+            <button disabled className="w-full py-4 rounded-xl font-bold bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 transition-colors opacity-50 cursor-not-allowed">Included</button>
+          )}
         </div>
 
         {/* Starter Plan / Pro Plan */}
@@ -52,10 +106,21 @@ export default function Upgrade() {
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
           </ul>
           
-          <a href={lsCheckoutUrl} target="_blank" rel="noreferrer" className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
-            Upgrade to Pro
-          </a>
+          {subscriptionPlan === 'pro' ? (
+            <button className="w-full py-4 rounded-xl font-bold bg-surface-container text-on-surface transition-colors cursor-default text-center flex items-center justify-center gap-2">
+              <span className="material-symbols-outlined text-[20px] text-green-400">check_circle</span>
+              Current Plan
+            </button>
+          ) : (
+            <a 
+              href={lsCheckoutUrl} 
+              onClick={handleUpgradeClick}
+              className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+            >
+              <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
+              Upgrade to Pro
+            </a>
+          )}
         </div>
 
         {/* Infinity Plan */}

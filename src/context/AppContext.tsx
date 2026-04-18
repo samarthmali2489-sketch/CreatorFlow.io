@@ -95,6 +95,8 @@ interface AppContextType {
   setDarkMode: (dark: boolean) => void;
   autoSave: boolean;
   setAutoSave: (save: boolean) => void;
+  subscriptionPlan: 'free' | 'pro';
+  setSubscriptionPlan: (plan: 'free' | 'pro') => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -121,6 +123,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return parsed.autoSave ?? true;
     }
     return true;
+  });
+
+  const [subscriptionPlan, setSubscriptionPlan] = useState<'free' | 'pro'>(() => {
+    const saved = localStorage.getItem('creatorflow_plan');
+    if (saved) return saved as 'free' | 'pro';
+    return 'free';
   });
 
   useEffect(() => {
@@ -294,6 +302,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('creatorflow_saved_thumbnails', JSON.stringify(savedThumbnails));
   }, [savedThumbnails]);
 
+  useEffect(() => {
+    localStorage.setItem('creatorflow_plan', subscriptionPlan);
+  }, [subscriptionPlan]);
+
   const addGeneration = useCallback((type: string) => {
     setAnalytics(prev => {
       let mappedType = type;
@@ -405,7 +417,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       savedCarousels, saveCarousel, deleteCarousel, deleteAllSavedCarousels,
       savedReels, saveReel, deleteReel,
       savedThumbnails, saveThumbnail, deleteThumbnail, deleteAllSavedThumbnails,
-      darkMode, setDarkMode, autoSave, setAutoSave
+      darkMode, setDarkMode, autoSave, setAutoSave,
+      subscriptionPlan, setSubscriptionPlan
     }}>
       {children}
     </AppContext.Provider>

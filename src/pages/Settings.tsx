@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 export default function Settings() {
-  const { user, darkMode, setDarkMode, autoSave, setAutoSave } = useAppContext();
+  const { user, darkMode, setDarkMode, autoSave, setAutoSave, subscriptionPlan, setSubscriptionPlan } = useAppContext();
   const [activeTab, setActiveTab] = useState('profile');
   
   // Profile State
@@ -20,6 +20,36 @@ export default function Settings() {
 
   // Default Lemon Squeezy URL from user
   const DEFAULT_LS_URL = "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
+
+  // Check for successful redirect from LemonSqueezy hosted checkout
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('success') || urlParams.has('orderId') || urlParams.has('checkoutId')) {
+        setSubscriptionPlan('pro');
+        // Clean up URL so it doesn't trigger on every single refresh
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  }, [setSubscriptionPlan]);
+
+  useEffect(() => {
+    // Re-initialize lemonsqueezy buttons on mount just in case
+    if (typeof window !== 'undefined' && (window as any).createLemonSqueezy) {
+      (window as any).createLemonSqueezy();
+      
+      // Setup event listener to catch successful checkouts in Settings
+      if ((window as any).LemonSqueezy && (window as any).LemonSqueezy.Setup) {
+        (window as any).LemonSqueezy.Setup({
+          eventHandler: (event: any) => {
+            if (event.event === 'Checkout.Success') {
+              setSubscriptionPlan('pro');
+            }
+          }
+        });
+      }
+    }
+  }, [activeTab, setSubscriptionPlan]); // Re-run when tab changes to billing
 
   useEffect(() => {
     // Load saved settings
@@ -52,6 +82,16 @@ export default function Settings() {
   const handleTogglePreference = (key: 'darkMode' | 'autoSave') => {
     if (key === 'darkMode') setDarkMode(!darkMode);
     if (key === 'autoSave') setAutoSave(!autoSave);
+  };
+
+  const handleUpgradeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const finalUrl = lsCheckoutUrl || DEFAULT_LS_URL;
+    if (typeof window !== 'undefined' && (window as any).LemonSqueezy && (window as any).LemonSqueezy.Url) {
+      (window as any).LemonSqueezy.Url.Open(finalUrl);
+    } else {
+      window.open(finalUrl, '_blank');
+    }
   };
 
   const handleSaveLemonSqueezy = () => {
@@ -217,15 +257,21 @@ export default function Settings() {
                 </div>
 
                 <div className="relative z-10">
-                  <a 
-                    href={lsCheckoutUrl || DEFAULT_LS_URL}
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dim text-white px-8 py-4 rounded-xl font-black transition-all shadow-lg hover:-translate-y-1"
-                  >
-                    <span className="material-symbols-outlined">rocket_launch</span>
-                    Upgrade to Pro via Lemon Squeezy
-                  </a>
+                  {subscriptionPlan === 'pro' ? (
+                    <button className="w-full inline-flex items-center justify-center gap-2 bg-surface-container hover:bg-surface-container-high text-on-surface px-8 py-4 rounded-xl font-bold transition-all shadow-sm">
+                      <span className="material-symbols-outlined text-green-500">check_circle</span>
+                      Pro Plan Active
+                    </button>
+                  ) : (
+                    <a 
+                      href={lsCheckoutUrl || DEFAULT_LS_URL}
+                      onClick={handleUpgradeClick}
+                      className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dim text-white px-8 py-4 rounded-xl font-black transition-all shadow-lg hover:-translate-y-1"
+                    >
+                      <span className="material-symbols-outlined">rocket_launch</span>
+                      Upgrade to Pro via Lemon Squeezy
+                    </a>
+                  )}
                   <p className="text-center text-xs text-on-surface-variant mt-4 font-medium uppercase tracking-widest">Secure Checkout securely handled by Lemon Squeezy</p>
                 </div>
                 
@@ -234,11 +280,22 @@ export default function Settings() {
               </section>
 
               <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm border-dashed">
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="material-symbols-outlined text-primary text-2xl">cable</span>
-                  <div className="text-left">
+                <div className="flex flex-col mb-6">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary text-2xl">cable</span>
                     <h3 className="font-bold text-on-surface text-xl">Connect Lemon Squeezy Store</h3>
-                    <p className="text-sm text-on-surface-variant">Update the UI checkout link dynamically without modifying code.</p>
+                  </div>
+                  <p className="text-sm text-on-surface-variant mt-2">Update the UI checkout link dynamically without modifying code.</p>
+                </div>
+
+                <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 mb-6 relative">
+                  <span className="material-symbols-outlined text-amber-500 absolute top-4 left-4">warning</span>
+                  <div className="pl-10">
+                    <h4 className="font-bold text-amber-600 dark:text-amber-400 mb-1">Critical Setup Required!</h4>
+                    <p className="text-sm text-on-surface-variant mb-2">To ensure users are properly redirected back after purchasing and instantly upgraded, you <strong>must</strong> configure the following inside your Lemon Squeezy Dashboard (under your Product's Settings -{'>'} Confirmation Page -{'>'} Button link):</p>
+                    <code className="block bg-surface-container-high text-on-surface p-2 rounded text-xs select-all font-mono">
+                      https://creator-flow-io.vercel.com/settings?success=true
+                    </code>
                   </div>
                 </div>
 
