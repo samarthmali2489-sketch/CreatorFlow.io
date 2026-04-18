@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { GoogleGenAI } from '@google/genai';
+import { getGeminiApiKey } from '../lib/gemini';
 import { Link } from 'react-router-dom';
 import * as htmlToImage from 'html-to-image';
 import JSZip from 'jszip';
@@ -102,7 +103,9 @@ export default function LinkedInCarousels() {
         }
       }
 
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const apiKey = getGeminiApiKey();
+      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
+      const ai = new GoogleGenAI({ apiKey });
       
       const profileData = profiles['linkedin'];
       const styleContext = profileData?.analysis 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleGenAI } from '@google/genai';
+import { getGeminiApiKey } from '../lib/gemini';
 import { useAppContext } from '../context/AppContext';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +47,9 @@ export default function ThumbnailCreator() {
         }
       }
 
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const apiKey = getGeminiApiKey();
+      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
+      const ai = new GoogleGenAI({ apiKey });
       
       const actualStyle = style === 'Custom' ? customStyle : style;
       let targetPrompt = `Create a highly engaging, high-CTR YouTube thumbnail background without any text. 

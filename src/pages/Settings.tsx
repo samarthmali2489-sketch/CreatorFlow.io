@@ -4,6 +4,7 @@ import { useAppContext } from '../context/AppContext';
 export default function Settings() {
   const { user, darkMode, setDarkMode, autoSave, setAutoSave, subscriptionPlan, setSubscriptionPlan } = useAppContext();
   const [activeTab, setActiveTab] = useState('profile');
+  const [geminiApiKey, setGeminiApiKey] = useState('');
   
   // Profile State
   const [firstName, setFirstName] = useState('');
@@ -58,6 +59,7 @@ export default function Settings() {
       const parsed = JSON.parse(savedSettings);
       setFirstName(parsed.firstName || '');
       setLastName(parsed.lastName || '');
+      setGeminiApiKey(parsed.geminiApiKey || '');
       setLsCheckoutUrl(parsed.lsCheckoutUrl || '');
       setLsApiKey(parsed.lsApiKey || '');
       setLsWebhookSecret(parsed.lsWebhookSecret || '');
@@ -72,6 +74,7 @@ export default function Settings() {
       let parsed = savedSettings ? JSON.parse(savedSettings) : {};
       parsed.firstName = firstName;
       parsed.lastName = lastName;
+      parsed.geminiApiKey = geminiApiKey;
       localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
       setIsSaving(false);
       setSaveMessage('Profile saved successfully!');
@@ -128,6 +131,7 @@ export default function Settings() {
             { id: 'profile', label: 'Profile', icon: 'person' },
             { id: 'preferences', label: 'Preferences', icon: 'tune' },
             { id: 'notifications', label: 'Notifications', icon: 'notifications' },
+            { id: 'developer', label: 'Developer', icon: 'code' },
             { id: 'billing', label: 'Billing & Plans', icon: 'credit_card' },
           ].map((tab) => (
             <button
@@ -225,6 +229,40 @@ export default function Settings() {
                       <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+          {activeTab === 'developer' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm border-l-4 border-l-blue-500">
+                <h2 className="text-xl font-bold mb-2">Developer Settings</h2>
+                <p className="text-sm text-on-surface-variant mb-6">Connect your own API keys to bypass default limits when testing functionality.</p>
+                
+                <div className="space-y-6 mt-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Custom Gemini API Key</label>
+                    <input 
+                      type="password" 
+                      value={geminiApiKey}
+                      onChange={(e) => setGeminiApiKey(e.target.value)}
+                      placeholder="AIzaSy..." 
+                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all font-mono text-sm" 
+                    />
+                    <p className="text-xs text-on-surface-variant mt-1">Stored locally in your browser. If empty, the default server environment key is used.</p>
+                  </div>
+                </div>
+                <div className="mt-8 flex items-center justify-end gap-4">
+                  {saveMessage && <span className="text-sm font-bold text-green-600 animate-in fade-in">{saveMessage}</span>}
+                  <button 
+                    onClick={handleSaveProfile}
+                    disabled={isSaving}
+                    className="bg-primary hover:bg-primary-dim text-white px-6 py-2.5 rounded-lg font-bold transition-all disabled:opacity-70 flex items-center gap-2"
+                  >
+                    {isSaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : null}
+                    Save API Keys
+                  </button>
                 </div>
               </section>
             </div>

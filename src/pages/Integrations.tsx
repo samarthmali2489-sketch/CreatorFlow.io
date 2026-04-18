@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleGenAI } from '@google/genai';
+import { getGeminiApiKey } from '../lib/gemini';
 import { useAppContext } from '../context/AppContext';
 
 export default function Integrations() {
@@ -116,7 +117,9 @@ export default function Integrations() {
       }
 
       // 2. Analyze with Gemini
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const apiKey = getGeminiApiKey();
+      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
+      const ai = new GoogleGenAI({ apiKey });
       
       const prompt = scrapedText 
         ? `Analyze the following content scraped from the creator's ${activeModal} profile (${urlInput}). Extract their exact tone of voice, stylistic quirks, common topics, and target audience. Return a concise but highly detailed summary that can be used as a system prompt to mimic their style perfectly.\n\nContent:\n${scrapedText.substring(0, 15000)}`
