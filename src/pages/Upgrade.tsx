@@ -81,8 +81,9 @@ export default function Upgrade() {
 
           <ul className="space-y-4 mb-8 flex-1">
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 50 Free Credits</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 30 Credits per Video to Reel</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 10 Credits per other features</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Access to ALL Features</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Standard Generation Speed</li>
           </ul>
           
           {subscriptionPlan === 'free' ? (

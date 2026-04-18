@@ -135,7 +135,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [credits, setCredits] = useState<number>(() => {
     const saved = localStorage.getItem('creatorflow_credits');
-    if (saved) return parseInt(saved, 10);
+    if (saved) {
+      const parsed = parseInt(saved, 10);
+      // Automatically cap legacy users who had 1000 down to 50 max if they are free
+      return parsed > 50 ? 50 : parsed;
+    }
     return 50;
   });
 
