@@ -159,38 +159,47 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [darkMode, autoSave]);
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const handleAuthChange = (session: Session | null) => {
       setSession(session);
       setUser(session?.user ?? null);
       setAuthLoading(false);
       
       if (session?.user) {
+        let updateData: any = {};
+        let needsUpdate = false;
+
         const metadataCredits = session.user.user_metadata?.credits;
         if (metadataCredits !== undefined) {
           setCredits(metadataCredits);
         } else {
-          // Initialize for new accounts
-          supabase.auth.updateUser({ data: { credits: 50 } });
+          updateData.credits = 50;
+          needsUpdate = true;
+          setCredits(50);
+        }
+
+        const metadataPlan = session.user.user_metadata?.plan;
+        if (metadataPlan !== undefined) {
+          setSubscriptionPlan(metadataPlan);
+        } else {
+          updateData.plan = 'free';
+          needsUpdate = true;
+          setSubscriptionPlan('free');
+        }
+
+        if (needsUpdate) {
+          supabase.auth.updateUser({ data: updateData });
         }
       }
+    };
+
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      handleAuthChange(session);
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setAuthLoading(false);
-      
-      if (session?.user) {
-        const metadataCredits = session.user.user_metadata?.credits;
-        if (metadataCredits !== undefined) {
-          setCredits(metadataCredits);
-        } else {
-          // Initialize for new accounts
-          supabase.auth.updateUser({ data: { credits: 50 } });
-        }
-      }
+      handleAuthChange(session);
     });
 
     return () => subscription.unsubscribe();
@@ -336,7 +345,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     localStorage.setItem('creatorflow_plan', subscriptionPlan);
-  }, [subscriptionPlan]);
+    if (user && user.user_metadata?.plan !== subscriptionPlan) {
+      supabase.auth.updateUser({ data: { plan: subscriptionPlan } });
+    }
+  }, [subscriptionPlan, user]);
 
   useEffect(() => {
     localStorage.setItem('creatorflow_credits', credits.toString());
