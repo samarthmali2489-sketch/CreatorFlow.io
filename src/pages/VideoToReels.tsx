@@ -110,7 +110,11 @@ export default function VideoToReels() {
       
     } catch (error: any) {
       console.error("Processing failed", error);
-      alert(`Failed to process video. Error: ${error?.message || 'Unknown error'}. Please ensure it's a valid YouTube URL and captions are enabled.`);
+      let errorMsg = error?.message || 'Unknown error';
+      if (errorMsg === 'Failed to fetch' || errorMsg.includes('Failed to fetch')) {
+        errorMsg = 'Failed to connect to the scraping server. If you deployed this to Vercel, please note that the /api/scrape backend requires a Node.js server. Contact support or use a custom API.';
+      }
+      alert(`Failed to process video. Error: ${errorMsg}.`);
     } finally {
       setIsProcessing(false);
       setProgressText('');

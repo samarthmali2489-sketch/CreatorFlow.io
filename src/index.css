@@ -22,6 +22,15 @@
   --font-headline: "Plus Jakarta Sans", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-label: "Inter", sans-serif;
+  
+  --animate-gradient: gradient 8s linear infinite;
+  --animate-slow-spin: spin 15s linear infinite;
+  
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 }
 
 :root {

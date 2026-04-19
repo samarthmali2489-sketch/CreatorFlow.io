@@ -139,9 +139,13 @@ export default function Integrations() {
       });
       
       setActiveModal(null);
-    } catch (e) {
+    } catch (e: any) {
       console.error("Analysis failed", e);
-      alert("Failed to analyze profile. Please check the URL and try again.");
+      let errorMsg = e?.message || 'Unknown error';
+      if (errorMsg === 'Failed to fetch' || errorMsg.includes('Failed to fetch')) {
+        errorMsg = 'Connection failed. If you provided a custom Gemini API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS.';
+      }
+      alert(`Failed to analyze profile. Error: ${errorMsg}`);
       setActiveModal(null);
     }
     setIsAnalyzing(false);

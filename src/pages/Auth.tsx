@@ -81,7 +81,11 @@ const PolyRobot = ({ focusState, emailLength }: { focusState: 'idle' | 'email' |
             rotate: isPassword ? 5 : isError ? [-5, 5, -5, 5, 0] : 0,
             x: lookOffset
           }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+          transition={
+            isError 
+              ? { rotate: { duration: 0.4 }, x: { type: "spring", stiffness: 200, damping: 15 } } 
+              : { type: "spring", stiffness: 200, damping: 15 }
+          }
         />
 
         {/* Face Screen */}
@@ -174,7 +178,11 @@ export default function Auth() {
         if (error) throw error;
       }
     } catch (err: any) {
-      setError(err.message || 'An error occurred during authentication.');
+      if (err.message === 'Failed to fetch') {
+        setError('Connection failed. Please ensure you have added a valid Supabase URL and Anon Key to your environment variables or Developer Settings.');
+      } else {
+        setError(err.message || 'An error occurred during authentication.');
+      }
       setFocusState('error');
     } finally {
       setLoading(false);

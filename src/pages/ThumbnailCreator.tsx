@@ -116,6 +116,8 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
           await window.aistudio.openSelectKey();
         }
         setError('Please select a valid paid Google Cloud API key and try again.');
+      } else if (err.message === 'Failed to fetch' || err?.message?.includes('Failed to fetch')) {
+        setError('Connection failed. If you provided a custom API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS restrictions.');
       } else {
         setError(err.message || 'Failed to generate thumbnails. Please try another prompt.');
       }

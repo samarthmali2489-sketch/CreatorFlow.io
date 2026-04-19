@@ -127,21 +127,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return true;
   });
 
-  const [subscriptionPlan, setSubscriptionPlan] = useState<'free' | 'pro'>(() => {
+  const [subscriptionPlan, setSubscriptionPlanState] = useState<'free' | 'pro'>(() => {
     const saved = localStorage.getItem('creatorflow_plan');
     if (saved) return saved as 'free' | 'pro';
     return 'free';
   });
 
-  const [credits, setCredits] = useState<number>(() => {
+  const setSubscriptionPlan = useCallback((plan: 'free' | 'pro') => {
+    setSubscriptionPlanState(plan);
+    localStorage.setItem('creatorflow_plan', plan);
+    
+    // Explicitly sync to Supabase to prevent device wiping
+    if (user) {
+      supabase.auth.updateUser({ data: { plan } });
+    }
+  }, [user]);
+
+  const [credits, setCreditsState] = useState<number>(() => {
     const saved = localStorage.getItem('creatorflow_credits');
     if (saved) {
       const parsed = parseInt(saved, 10);
-      // Automatically cap legacy users who had 1000 down to 50 max if they are free
-      return parsed > 50 ? 50 : parsed;
+      return Math.min(parsed, 5000); // Higher cap for legit top ups
     }
     return 50;
   });
+
+  const setCredits = useCallback((newCredits: number) => {
+    setCreditsState(newCredits);
+    localStorage.setItem('creatorflow_credits', newCredits.toString());
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -179,11 +193,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         const metadataPlan = session.user.user_metadata?.plan;
         if (metadataPlan !== undefined) {
-          setSubscriptionPlan(metadataPlan);
+          setSubscriptionPlanState(metadataPlan);
+          localStorage.setItem('creatorflow_plan', metadataPlan);
         } else {
           updateData.plan = 'free';
           needsUpdate = true;
-          setSubscriptionPlan('free');
+          setSubscriptionPlanState('free');
+          localStorage.setItem('creatorflow_plan', 'free');
+        }
+
+        const metadataAnalytics = session.user.user_metadata?.analytics;
+        if (metadataAnalytics !== undefined) {
+          setAnalytics(metadataAnalytics);
+          localStorage.setItem('creatorflow_analytics', JSON.stringify(metadataAnalytics));
         }
 
         if (needsUpdate) {
@@ -343,17 +365,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('creatorflow_saved_thumbnails', JSON.stringify(savedThumbnails));
   }, [savedThumbnails]);
 
-  useEffect(() => {
-    localStorage.setItem('creatorflow_plan', subscriptionPlan);
-    if (user && user.user_metadata?.plan !== subscriptionPlan) {
-      supabase.auth.updateUser({ data: { plan: subscriptionPlan } });
-    }
-  }, [subscriptionPlan, user]);
-
-  useEffect(() => {
-    localStorage.setItem('creatorflow_credits', credits.toString());
-  }, [credits]);
-
   const deductCredits = useCallback((amount: number) => {
     if (subscriptionPlan === 'pro') return true;
     if (credits >= amount) {
@@ -368,6 +379,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return false;
   }, [subscriptionPlan, credits, user]);
 
+  const setAnalyticsData = useCallback((newAnalytics: AnalyticsData) => {
+    setAnalytics(newAnalytics);
+    localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
+    // Sync to Supabase for cross-device usage stats
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        supabase.auth.updateUser({ data: { analytics: newAnalytics } });
+      }
+    });
+  }, []);
+
   const addGeneration = useCallback((type: string) => {
     setAnalytics(prev => {
       let mappedType = type;
@@ -375,7 +397,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       else if (type === 'LinkedIn Carousel') mappedType = 'LinkedIn';
       else if (type === 'TikTok') mappedType = 'TikTok Native';
       
-      return {
+      const newAnalytics = {
         ...prev,
         totalGenerations: prev.totalGenerations + 1,
         recentActivity: [
@@ -388,26 +410,50 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           [mappedType]: (prev.contentTypes[mappedType] || 0) + 1
         }
       };
+      
+      // We manually sync the Supabase data here without creating an infinite loop
+      localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } });
+      });
+
+      return newAnalytics;
     });
   }, []);
 
   const addVideoProcessed = useCallback(() => {
-    setAnalytics(prev => ({
-      ...prev,
-      videosProcessed: prev.videosProcessed + 1,
-      recentActivity: [
-        { id: generateId(), action: `Processed Video`, time: new Date().toLocaleString() },
-        ...prev.recentActivity
-      ],
-      contentTypes: {
-        ...prev.contentTypes,
-        'YouTube Shorts': (prev.contentTypes['YouTube Shorts'] || 0) + 1
-      }
-    }));
+    setAnalytics(prev => {
+      const newAnalytics = {
+        ...prev,
+        videosProcessed: prev.videosProcessed + 1,
+        recentActivity: [
+          { id: generateId(), action: `Processed Video`, time: new Date().toLocaleString() },
+          ...prev.recentActivity
+        ],
+        contentTypes: {
+          ...prev.contentTypes,
+          'YouTube Shorts': (prev.contentTypes['YouTube Shorts'] || 0) + 1
+        }
+      };
+
+      localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } });
+      });
+
+      return newAnalytics;
+    });
   }, []);
 
   const setPlatformsConnected = useCallback((count: number) => {
-    setAnalytics(prev => ({ ...prev, platformsConnected: count }));
+    setAnalytics(prev => {
+      const newAnalytics = { ...prev, platformsConnected: count };
+      localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } });
+      });
+      return newAnalytics;
+    });
   }, []);
 
   const saveProfileAnalysis = useCallback((platform: string, data: any) => {

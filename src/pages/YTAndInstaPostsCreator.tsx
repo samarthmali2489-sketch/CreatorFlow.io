@@ -136,7 +136,11 @@ export default function YTAndInstaPostsCreator() {
       }
     } catch (error: any) {
       console.error("Generation failed", error);
-      alert(`Failed to generate posts. Error: ${error?.message || 'Unknown error'}. Please try again.`);
+      let errorMsg = error?.message || 'Unknown error';
+      if (errorMsg === 'Failed to fetch' || errorMsg.includes('Failed to fetch')) {
+        errorMsg = 'Connection failed. If you provided a custom API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS restrictions.';
+      }
+      alert(`Failed to generate posts. Error: ${errorMsg}. Please try again.`);
     } finally {
       setIsGenerating(false);
     }

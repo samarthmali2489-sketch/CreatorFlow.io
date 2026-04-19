@@ -5,6 +5,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
+import Landing from './pages/Landing';
 import Analytics from './pages/Analytics';
 import VideoToReels from './pages/VideoToReels';
 import LinkedInCarousels from './pages/LinkedInCarousels';
@@ -33,15 +34,13 @@ function AppRoutes() {
     );
   }
 
-  if (!user) {
-    return <Auth />;
-  }
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate to="/analytics" replace />} />
+        <Route path="/" element={!user ? <Landing /> : <Navigate to="/analytics" replace />} />
+        <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/analytics" replace />} />
+        
+        <Route element={user ? <Layout /> : <Navigate to="/auth" replace />}>
           <Route path="analytics" element={<Analytics />} />
           <Route path="content-lab">
             <Route path="video-to-reels" element={<VideoToReels />} />
