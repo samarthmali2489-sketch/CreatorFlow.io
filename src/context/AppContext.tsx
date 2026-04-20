@@ -95,8 +95,8 @@ interface AppContextType {
   setDarkMode: (dark: boolean) => void;
   autoSave: boolean;
   setAutoSave: (save: boolean) => void;
-  subscriptionPlan: 'free' | 'pro';
-  setSubscriptionPlan: (plan: 'free' | 'pro') => void;
+  subscriptionPlan: 'free' | 'pro' | 'infinity';
+  setSubscriptionPlan: (plan: 'free' | 'pro' | 'infinity') => void;
   credits: number;
   deductCredits: (amount: number) => boolean;
 }
@@ -127,35 +127,43 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return true;
   });
 
-  const [subscriptionPlan, setSubscriptionPlanState] = useState<'free' | 'pro'>(() => {
-    const saved = localStorage.getItem('creatorflow_plan');
-    if (saved) return saved as 'free' | 'pro';
-    return 'free';
-  });
-
-  const setSubscriptionPlan = useCallback((plan: 'free' | 'pro') => {
-    setSubscriptionPlanState(plan);
-    localStorage.setItem('creatorflow_plan', plan);
-    
-    // Explicitly sync to Supabase to prevent device wiping
-    if (user) {
-      supabase.auth.updateUser({ data: { plan } });
-    }
-  }, [user]);
-
   const [credits, setCreditsState] = useState<number>(() => {
     const saved = localStorage.getItem('creatorflow_credits');
     if (saved) {
       const parsed = parseInt(saved, 10);
-      return Math.min(parsed, 5000); // Higher cap for legit top ups
+      return Math.min(parsed, 100000); // Higher cap for legit top ups & infinity
     }
-    return 50;
+    return 150;
   });
 
   const setCredits = useCallback((newCredits: number) => {
     setCreditsState(newCredits);
     localStorage.setItem('creatorflow_credits', newCredits.toString());
   }, []);
+
+  const [subscriptionPlan, setSubscriptionPlanState] = useState<'free' | 'pro' | 'infinity'>(() => {
+    const saved = localStorage.getItem('creatorflow_plan');
+    if (saved) return saved as 'free' | 'pro' | 'infinity';
+    return 'free';
+  });
+
+  const setSubscriptionPlan = useCallback((plan: 'free' | 'pro' | 'infinity') => {
+    setSubscriptionPlanState(plan);
+    localStorage.setItem('creatorflow_plan', plan);
+    
+    // Automatically provision credits on upgrade
+    let newCredits = credits;
+    if (plan === 'pro') newCredits = 1000;
+    if (plan === 'infinity') newCredits = 99999;
+    if (plan === 'free') newCredits = 150;
+
+    setCredits(newCredits);
+    
+    // Explicitly sync to Supabase to prevent device wiping
+    if (user) {
+      supabase.auth.updateUser({ data: { plan, credits: newCredits } });
+    }
+  }, [user, credits, setCredits]);
 
   useEffect(() => {
     if (darkMode) {
@@ -186,9 +194,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (metadataCredits !== undefined) {
           setCredits(metadataCredits);
         } else {
-          updateData.credits = 50;
+          updateData.credits = 150;
           needsUpdate = true;
-          setCredits(50);
+          setCredits(150);
         }
 
         const metadataPlan = session.user.user_metadata?.plan;
@@ -366,7 +374,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [savedThumbnails]);
 
   const deductCredits = useCallback((amount: number) => {
-    if (subscriptionPlan === 'pro') return true;
+    if (subscriptionPlan === 'infinity') return true;
     if (credits >= amount) {
       const newCredits = credits - amount;
       setCredits(newCredits);

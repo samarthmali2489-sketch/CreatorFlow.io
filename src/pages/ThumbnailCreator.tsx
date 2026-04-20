@@ -14,11 +14,12 @@ declare global {
 }
 
 export default function ThumbnailCreator() {
-  const { saveThumbnail, deductCredits } = useAppContext();
+  const { saveThumbnail, deductCredits, addGeneration } = useAppContext();
   const [topic, setTopic] = useState('');
   const [style, setStyle] = useState('MrBeast / High Energy');
   const [customStyle, setCustomStyle] = useState('');
   const [channelName, setChannelName] = useState('');
+  const [referenceImage, setReferenceImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [generatedThumbnails, setGeneratedThumbnails] = useState<string[]>([]);
@@ -60,6 +61,9 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
       if (channelName.trim()) {
         targetPrompt += `\nCRITICAL: Find and analyze the latest typical YouTube thumbnails from the channel "${channelName}". Deeply analyze their thumbnails for color grading, composition, lighting, and visual hooks. Replicate their exact aesthetic and visual style for this generated thumbnail background.`;
       }
+      if (referenceImage) {
+        targetPrompt += `\nCRITICAL: I have provided a reference thumbnail image. Deeply analyze the provided reference image for its specific visual style, color grading, lighting, composition, and mood. Generate a completely new thumbnail that rigidly matches the aesthetic vibe, color palette, and visual language of this reference image.`;
+      }
 
       const config: any = {
         imageConfig: {
@@ -82,10 +86,36 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
       }
 
       const promises = Array.from({ length: 3 }).map(async () => {
+        let finalImagePrompt = targetPrompt;
+
+        // If the user uploaded an image, flash-image-preview doesn't accept image parts natively.
+        // So we must use gemini-3.1-flash to meticulously describe the reference aesthetic, and push that text into image-preview.
+        if (referenceImage) {
+          const [mimeInfo, base64Data] = referenceImage.split(',');
+          const mimeType = mimeInfo.split(':')[1].split(';')[0];
+          
+          const analysisResponse = await ai.models.generateContent({
+            model: 'gemini-3.1-flash',
+            contents: {
+              parts: [
+                { text: "Analyze this image's specific visual style, aesthetics, color grading, lighting, and composition. Give me a 3 sentence detailed aesthetic description I can use to prompt an image generator to replicate this exact same vibe. Focus ONLY on the stylistic look, not the specific subjects." },
+                {
+                  inlineData: {
+                    data: base64Data,
+                    mimeType
+                  }
+                }
+              ]
+            }
+          });
+          const aestheticDescription = analysisResponse.text || '';
+          finalImagePrompt += `\n\nCRITICAL AESTHETIC DIRECTIVE: You must rigidly follow this visual style description to match the user's requested reference look: ${aestheticDescription}`;
+        }
+
         const response = await ai.models.generateContent({
           model: 'gemini-3.1-flash-image-preview',
           contents: {
-            parts: [{ text: targetPrompt }]
+            parts: [{ text: finalImagePrompt }]
           },
           config
         });
@@ -93,7 +123,7 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
         const parts = response.candidates?.[0]?.content?.parts || [];
         for (const part of parts) {
           if (part.inlineData) {
-            return `data:${part.inlineData.mimeType || 'image/jpeg'};base64,${part.inlineData.data}`;
+             return `data:${part.inlineData.mimeType || 'image/jpeg'};base64,${part.inlineData.data}`;
           }
         }
         return null;
@@ -105,6 +135,7 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
       if (validImages.length > 0) {
         setGeneratedThumbnails(validImages);
         setSavedStatus({});
+        addGeneration('YouTube Thumbnail');
       } else {
         throw new Error('No images generated');
       }
@@ -245,6 +276,47 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
                   <span>Live Google Search active! Connecting to analyze {channelName}'s thumbnails.</span>
                 </div>
               )}
+              
+              <div className="relative mt-6 pt-6 border-t border-gray-200">
+                <p className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">Upload Reference</p>
+                <p className="text-sm text-gray-600 font-medium mb-4">Have an exact thumbnail image you want to copy? Upload it here to strictly guide the aesthetic.</p>
+                
+                {referenceImage ? (
+                  <div className="relative aspect-video rounded-xl overflow-hidden border-2 border-blue-200 bg-gray-100 mb-2">
+                    <img src={referenceImage} alt="Reference" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <button 
+                      onClick={() => setReferenceImage(null)}
+                      className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-sm">close</span>
+                    </button>
+                    <div className="absolute bottom-0 left-0 w-full bg-black/60 text-white text-[10px] font-bold py-1 px-3 uppercase tracking-widest text-center truncate">
+                      Image attached to prompt
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center w-full aspect-[21/9] border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all rounded-xl cursor-pointer">
+                    <span className="material-symbols-outlined text-gray-400 text-3xl mb-2">add_photo_alternate</span>
+                    <span className="text-sm font-bold text-gray-500">Upload Reference Image</span>
+                    <input 
+                      type="file" 
+                      className="hidden" 
+                      accept="image/*"
+                      disabled={isProcessing}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setReferenceImage(reader.result as string);
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                  </label>
+                )}
+              </div>
             </div>
           </div>
 

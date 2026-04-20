@@ -12,27 +12,36 @@ export default function Analytics() {
   const navigate = useNavigate();
 
   const getData = () => {
+    // Generate organic-looking projections based on the user's actual generated volume
+    const baseLine = Math.max(analytics.totalGenerations * 50, 100); 
+    
+    // Growth multiplier scales slightly if they use the app more
+    const stepGrowth = analytics.totalGenerations > 0 ? 0.12 : 0.04;
+    
+    const buildData = (labels: string[], startVal: number, growth: number) => {
+      let current = startVal;
+      return labels.map((label, i) => {
+        // Pseudo-random fluctuation based on index for organic look
+        const fluctuation = 1 + (Math.sin(i * 45) * 0.2); 
+        current = current + (current * growth) * fluctuation;
+        return { name: label, views: Math.round(current) };
+      });
+    };
+
     if (timeframe === 'Yearly') {
-      return [
-        { name: 'Jan', value: 120 }, { name: 'Feb', value: 150 }, { name: 'Mar', value: 180 },
-        { name: 'Apr', value: 200 }, { name: 'May', value: 250 }, { name: 'Jun', value: 300 },
-        { name: 'Jul', value: 320 }, { name: 'Aug', value: 400 }, { name: 'Sep', value: 450 },
-        { name: 'Oct', value: 500 }, { name: 'Nov', value: 550 }, { name: 'Dec', value: 600 }
-      ].map(d => ({ ...d, views: d.value * 20 }));
+      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      return buildData(labels, baseLine * 3, stepGrowth);
     } else if (timeframe === 'Last Quarter') {
-      return [
-        { name: 'Week 1', value: 100 }, { name: 'Week 2', value: 120 }, { name: 'Week 3', value: 150 }, { name: 'Week 4', value: 140 },
-        { name: 'Week 5', value: 180 }, { name: 'Week 6', value: 200 }, { name: 'Week 7', value: 220 }, { name: 'Week 8', value: 210 },
-        { name: 'Week 9', value: 250 }, { name: 'Week 10', value: 280 }, { name: 'Week 11', value: 300 }, { name: 'Week 12', value: 350 }
-      ].map(d => ({ ...d, views: d.value * 10 }));
+       const labels = Array.from({length: 12}).map((_, i) => `Week ${i+1}`);
+       return buildData(labels, baseLine, stepGrowth * 0.6);
     } else if (timeframe === 'Custom') {
-      return analytics.chartData.map(d => ({ ...d, views: d.value * 5 }));
-    } else if (timeframe === 'Monthly' || timeframe === 'Last 30 Days') {
-      return analytics.chartData.map(d => ({ ...d, views: d.value * 30 }));
-    } else if (timeframe === 'Weekly') {
-      return analytics.chartData.map(d => ({ ...d, views: d.value * 7 }));
-    }
-    return analytics.chartData.map(d => ({ ...d, views: d.value }));
+       const labels = Array.from({length: 14}).map((_, i) => `Day ${i+1}`);
+       return buildData(labels, baseLine * 0.5, stepGrowth * 0.3);
+    } 
+    
+    // Default 'Last 30 Days'
+    const days = Array.from({length: 30}).map((_, i) => `Day ${i+1}`);
+    return buildData(days, baseLine * 0.4, stepGrowth * 0.2);
   };
 
   const data = getData();
@@ -198,49 +207,47 @@ export default function Analytics() {
         {/* Channel Breakdown */}
         <div className="lg:col-span-4 bg-white rounded-xl p-8 border border-zinc-100 shadow-sm flex flex-col">
           <h3 className="text-xl font-extrabold tracking-tight mb-8">Traffic Sources</h3>
-          <div className="space-y-6 flex-1">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center">
-                <span className="material-symbols-outlined text-zinc-600">movie</span>
+          <div className="space-y-6 flex-1 max-h-[300px] overflow-y-auto pr-2">
+            {Object.entries(analytics.contentTypes || {})
+              .sort(([, a], [, b]) => Number(b) - Number(a)) // Sort by highest
+              .filter(([_, count]) => Number(count) > 0) // Only show active sources
+              .map(([key, _]) => {
+                const perc = getPercentage(key);
+                let icon = 'public';
+                let colorClass = 'bg-primary';
+                
+                if (key.includes('Thumbnail')) { icon = 'image'; colorClass = 'bg-indigo-500'; }
+                else if (key.includes('YouTube')) { icon = 'movie'; colorClass = 'bg-red-500'; }
+                else if (key.includes('Instagram')) { icon = 'smartphone'; colorClass = 'bg-pink-500'; }
+                else if (key.includes('LinkedIn')) { icon = 'description'; colorClass = 'bg-blue-600'; }
+                else if (key.includes('TikTok')) { icon = 'music_note'; colorClass = 'bg-black'; }
+
+                return (
+                  <div key={key} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined text-zinc-600">{icon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex justify-between mb-1">
+                        <span className="text-sm font-bold truncate pr-2 max-w-[150px]">{key}</span>
+                        <span className="text-sm font-medium">{perc}%</span>
+                      </div>
+                      <div className="w-full bg-zinc-100 h-2 rounded-full overflow-hidden">
+                        <div className={`h-2 rounded-full transition-all duration-500 ${colorClass}`} style={{ width: `${perc}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                );
+            })}
+            
+            {/* Empty state if nothing generated yet */}
+            {Object.values(analytics.contentTypes || {}).reduce((a: number, b: any) => a + Number(b), 0) === 0 && (
+              <div className="flex flex-col items-center justify-center p-6 text-center h-full opacity-50">
+                <span className="material-symbols-outlined text-4xl mb-2 text-zinc-400">query_stats</span>
+                <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">No data yet</p>
+                <p className="text-xs text-zinc-400 mt-2">Generate content to see your metrics scale organically here.</p>
               </div>
-              <div className="flex-1">
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm font-bold">YouTube Shorts</span>
-                  <span className="text-sm font-medium">{getPercentage('YouTube Shorts')}%</span>
-                </div>
-                <div className="w-full bg-zinc-100 h-2 rounded-full">
-                  <div className="bg-primary h-2 rounded-full transition-all duration-500" style={{ width: `${getPercentage('YouTube Shorts')}%` }}></div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center">
-                <span className="material-symbols-outlined text-zinc-600">smartphone</span>
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm font-bold">Instagram Reels</span>
-                  <span className="text-sm font-medium">{getPercentage('Instagram Reels')}%</span>
-                </div>
-                <div className="w-full bg-zinc-100 h-2 rounded-full">
-                  <div className="bg-primary-container h-2 rounded-full transition-all duration-500" style={{ width: `${getPercentage('Instagram Reels')}%` }}></div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center">
-                <span className="material-symbols-outlined text-zinc-600">description</span>
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm font-bold">LinkedIn</span>
-                  <span className="text-sm font-medium">{getPercentage('LinkedIn')}%</span>
-                </div>
-                <div className="w-full bg-zinc-100 h-2 rounded-full">
-                  <div className="bg-zinc-300 h-2 rounded-full transition-all duration-500" style={{ width: `${getPercentage('LinkedIn')}%` }}></div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
           <button 
             onClick={() => setShowDetails(true)}

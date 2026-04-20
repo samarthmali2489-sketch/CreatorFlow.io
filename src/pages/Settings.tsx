@@ -270,51 +270,24 @@ export default function Settings() {
 
           {activeTab === 'billing' && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm relative overflow-hidden">
-                <div className="flex justify-between items-start mb-6 relative z-10">
+              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
+                <h2 className="text-xl font-bold mb-6">Subscription Plan</h2>
+                <div className="flex items-center justify-between p-6 bg-surface-container-low rounded-xl border border-outline-variant/20 mb-8">
                   <div>
-                    <h2 className="text-2xl font-black text-on-surface mb-2">Pro Plan</h2>
-                    <p className="text-on-surface-variant max-w-md">Unlock full access to AI social media generation, unlimited thumbnails, and omni-channel video rendering.</p>
+                    <h3 className="text-lg font-bold text-on-surface capitalize">
+                      {subscriptionPlan === 'infinity' ? 'Infinity (Enterprise)' : subscriptionPlan === 'pro' ? 'Professional' : 'Starter'} Plan
+                    </h3>
+                    <p className="text-sm text-on-surface-variant font-medium mt-1">
+                      {subscriptionPlan === 'infinity' ? 'Unlimited access to all features.' : subscriptionPlan === 'pro' ? '1000 credits/month with full features.' : '150 free credits/month.'}
+                    </p>
                   </div>
                   <div className="text-right">
-                    <span className="text-3xl font-black text-primary">$19</span>
-                    <span className="text-on-surface-variant font-bold">/mo</span>
+                    <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">Remaining Credits</div>
+                    <div className="text-3xl font-black text-primary">
+                      {subscriptionPlan === 'infinity' ? '∞' : credits}
+                    </div>
                   </div>
                 </div>
-
-                <div className="bg-surface-container-low rounded-xl p-6 mb-8 relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-bold text-on-surface">What's included in Pro:</h3>
-                  </div>
-                  <ul className="space-y-3">
-                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> Unlimited YT & Insta Posts generation</li>
-                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
-                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
-                    <li className="flex items-center gap-3 text-sm text-on-surface"><span className="material-symbols-outlined text-green-500 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
-                  </ul>
-                </div>
-
-                <div className="relative z-10">
-                  {subscriptionPlan === 'pro' ? (
-                    <button className="w-full inline-flex items-center justify-center gap-2 bg-surface-container hover:bg-surface-container-high text-on-surface px-8 py-4 rounded-xl font-bold transition-all shadow-sm">
-                      <span className="material-symbols-outlined text-green-500">check_circle</span>
-                      Pro Plan Active
-                    </button>
-                  ) : (
-                    <a 
-                      href={lsCheckoutUrl || DEFAULT_LS_URL}
-                      onClick={handleUpgradeClick}
-                      className="w-full inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dim text-white px-8 py-4 rounded-xl font-black transition-all shadow-lg hover:-translate-y-1"
-                    >
-                      <span className="material-symbols-outlined">rocket_launch</span>
-                      Upgrade to Pro via Lemon Squeezy
-                    </a>
-                  )}
-                  <p className="text-center text-xs text-on-surface-variant mt-4 font-medium uppercase tracking-widest">Secure Checkout securely handled by Lemon Squeezy</p>
-                </div>
-                
-                {/* Decorative background element */}
-                <div className="absolute -top-32 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
               </section>
             </div>
           )}

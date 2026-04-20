@@ -5,55 +5,52 @@ import { useAppContext } from '../context/AppContext';
 export default function Upgrade() {
   const { credits, subscriptionPlan, setSubscriptionPlan } = useAppContext();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  // Deduce the checkout URL from settings if connected, otherwise use the requested default
-  const savedSettings = localStorage.getItem('creatorflow_settings');
-  const parsedSettings = savedSettings ? JSON.parse(savedSettings) : {};
-  const lsCheckoutUrl = parsedSettings.lsCheckoutUrl || "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
-
-  // Check for successful redirect from LemonSqueezy hosted checkout
+  // Check for successful redirect from older checkouts
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success') || urlParams.has('orderId') || urlParams.has('checkoutId')) {
         setSubscriptionPlan('pro');
         setShowSuccessMessage(true);
-        // Clean up URL so it doesn't trigger on every single refresh
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
   }, [setSubscriptionPlan]);
 
-  useEffect(() => {
-    // Re-initialize lemonsqueezy buttons on mount
-    if (typeof window !== 'undefined' && (window as any).createLemonSqueezy) {
-      (window as any).createLemonSqueezy();
-      
-      // Setup event listener to catch successful checkouts
-      if ((window as any).LemonSqueezy && (window as any).LemonSqueezy.Setup) {
-        (window as any).LemonSqueezy.Setup({
-          eventHandler: (event: any) => {
-            if (event.event === 'Checkout.Success') {
-              setSubscriptionPlan('pro');
-              setShowSuccessMessage(true);
-            }
-          }
-        });
-      }
-    }
-  }, [setSubscriptionPlan]);
-
-  const handleUpgradeClick = (e: React.MouseEvent) => {
+  const handleUpgradeClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (typeof window !== 'undefined' && (window as any).LemonSqueezy && (window as any).LemonSqueezy.Url) {
-      (window as any).LemonSqueezy.Url.Open(lsCheckoutUrl);
-    } else {
-      window.open(lsCheckoutUrl, '_blank');
+    setIsProcessing(true);
+    
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planType: 'pro',
+          returnUrl: window.location.origin + window.location.pathname
+        })
+      });
+      
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || 'Failed to initialize checkout');
+        setIsProcessing(false);
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Error connecting to checkout service.');
+      setIsProcessing(false);
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-8 lg:p-12">
+    <div className="max-w-6xl mx-auto p-8 lg:p-12 relative">
+
       {showSuccessMessage && (
         <div className="mb-8 p-4 bg-green-500/20 border border-green-500/50 rounded-xl text-green-700 dark:text-green-400 font-bold text-center flex items-center justify-center gap-2 animate-in fade-in slide-in-from-top-4">
           <span className="material-symbols-outlined">check_circle</span>
@@ -75,12 +72,12 @@ export default function Upgrade() {
           <div className="bg-surface-container-low p-4 rounded-xl mb-8 flex items-center justify-between border border-outline-variant/20">
             <span className="text-sm font-bold text-on-surface-variant">Credits:</span>
             <span className="text-sm font-black text-on-surface">
-              {subscriptionPlan === 'pro' ? 'Unlimited' : `${credits} / 50`}
+              {subscriptionPlan === 'infinity' ? '∞' : subscriptionPlan === 'pro' ? `${credits} / 1000` : `${credits} / 150`}
             </span>
           </div>
 
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 50 Free Credits</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 150 Free Credits</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 30 Credits per Video to Reel</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 10 Credits per other features</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Access to ALL Features</li>
@@ -101,7 +98,8 @@ export default function Upgrade() {
           <div className="text-5xl font-black mb-8">$19<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited YT & Insta Posts generation</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white">1000 Credits</strong> per month</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> High-fidelity Video to Reels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
@@ -113,14 +111,23 @@ export default function Upgrade() {
               Current Plan
             </button>
           ) : (
-            <a 
-              href={lsCheckoutUrl} 
+            <button 
               onClick={handleUpgradeClick}
-              className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+              disabled={isProcessing}
+              className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed"
             >
-              <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
-              Upgrade to Pro
-            </a>
+              {isProcessing ? (
+                <>
+                  <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
+                  Upgrade to Pro
+                </>
+              )}
+            </button>
           )}
         </div>
 
@@ -131,7 +138,7 @@ export default function Upgrade() {
           </div>
           <h2 className="text-2xl font-bold mb-2 relative z-10">Infinity</h2>
           <p className="text-on-surface-variant mb-6 relative z-10">For agencies and power users.</p>
-          <div className="text-5xl font-black mb-8 relative z-10">$100<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
+          <div className="text-5xl font-black mb-8 relative z-10">$50<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1 relative z-10">
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> <strong className="text-primary">Infinite Generations</strong></li>
@@ -141,7 +148,23 @@ export default function Upgrade() {
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Dedicated Account Manager</li>
           </ul>
           
-          <button className="w-full py-4 rounded-xl font-bold bg-zinc-900 text-white hover:bg-black transition-colors relative z-10">Go Infinite</button>
+          {subscriptionPlan === 'infinity' ? (
+            <button className="w-full py-4 rounded-xl font-bold bg-surface-container text-on-surface transition-colors cursor-default text-center flex items-center justify-center gap-2 relative z-10">
+              <span className="material-symbols-outlined text-[20px] text-primary">check_circle</span>
+              Current Plan
+            </button>
+          ) : (
+            <button 
+              onClick={() => {
+                // Mock upgrade for preview
+                setSubscriptionPlan('infinity');
+                setShowSuccessMessage(true);
+              }}
+              className="w-full py-4 rounded-xl font-bold bg-zinc-900 text-white hover:bg-black transition-colors relative z-10"
+            >
+              Go Infinite
+            </button>
+          )}
         </div>
       </div>
     </div>

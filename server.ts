@@ -5,60 +5,67 @@ import path from "path";
 import crypto from 'crypto';
 import { createRequire } from 'module';
 import dotenv from 'dotenv';
+import Stripe from 'stripe';
+
 dotenv.config();
 
 const require = createRequire(import.meta.url);
 const { YoutubeTranscript } = require('youtube-transcript/dist/youtube-transcript.common.js');
 
+let stripeClient: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!stripeClient) {
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) {
+      throw new Error('STRIPE_SECRET_KEY environment variable is required');
+    }
+    stripeClient = new Stripe(key, { apiVersion: '2025-02-24.acacia' });
+  }
+  return stripeClient;
+}
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // Use raw JSON for LemonSqueezy webhook signature verification, normal JSON for everything else
-  app.use((req, res, next) => {
-    if (req.originalUrl === '/api/webhooks/lemonsqueezy') {
-      next();
-    } else {
-      express.json()(req, res, next);
-    }
-  });
+  app.use(express.json());
 
-  // Lemon Squeezy Webhook Endpoint
-  app.post('/api/webhooks/lemonsqueezy', express.raw({ type: 'application/json' }), async (req, res) => {
+  // Stripe Checkout Session
+  app.post('/api/create-checkout-session', async (req, res) => {
     try {
-      const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET || '';
-      
-      // If a secret is provided, verify the signature
-      if (secret) {
-        const hmac = crypto.createHmac('sha256', secret);
-        const digest = Buffer.from(hmac.update(req.body).digest('hex'), 'utf8');
-        const signature = Buffer.from(req.get('X-Signature') || '', 'utf8');
+      const stripe = getStripe();
+      const { planType, returnUrl } = req.body;
+      let priceId = '';
 
-        if (!crypto.timingSafeEqual(digest, signature)) {
-          return res.status(403).json({ error: 'Invalid webhooks signature' });
-        }
+      if (planType === 'pro') {
+        // You can swap this with a real price ID from your Stripe dashboard: "price_xxxx"
+        // Without an actual seeded price ID, we create a dynamic inline price for simulation:
+        const session = await stripe.checkout.sessions.create({
+          line_items: [
+            {
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: 'CreatorFlow Pro Plan',
+                  description: '1000 Monthly Credits & Full Capabilities',
+                },
+                unit_amount: 1900, // $19.00
+              },
+              quantity: 1,
+            },
+          ],
+          mode: 'payment',
+          success_url: `${returnUrl}?success=true&plan=pro`,
+          cancel_url: `${returnUrl}?canceled=true`,
+        });
+
+        return res.json({ url: session.url });
       }
 
-      const payload = JSON.parse(req.body.toString());
-      const eventName = payload.meta.event_name;
-      const customData = payload.meta.custom_data; // This can include the userId passed from checkout
-      
-      console.log(`Received Lemon Squeezy integration event: ${eventName}`);
-
-      // Handle the event here (e.g. update user's premium status in Supabase)
-      if (eventName === 'subscription_created' || eventName === 'subscription_updated') {
-        const planId = payload.data.attributes.product_id;
-        console.log(`User subscribed to plan ${planId}`);
-        // await supabase.from('users').update({ is_pro: true }).eq('id', customData.user_id)
-      } else if (eventName === 'subscription_cancelled' || eventName === 'subscription_expired') {
-        console.log(`User subscription cancelled or expired`);
-        // await supabase.from('users').update({ is_pro: false }).eq('id', customData.user_id)
-      }
-
-      res.status(200).json({ received: true });
+      return res.status(400).json({ error: 'Invalid plan type' });
     } catch(e: any) {
-      console.error('Webhook processing failed', e);
-      res.status(500).json({ error: 'Webhook processing failed' });
+      console.error('Stripe check failed', e);
+      res.status(500).json({ error: e.message || 'Payment initiation failed' });
     }
   });
 
