@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Cool animated Poly Robot for the Auth Page
@@ -154,6 +154,13 @@ export default function Auth() {
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!isSupabaseConfigured) {
+      setError('Connection failed. Please ensure you have added a valid Supabase URL and Anon Key to your Developer Settings (⚙️ icon). We are currently blocking this request because no keys were found.');
+      setFocusState('error');
+      return;
+    }
+
     setLoading(true);
     setFocusState('loading');
     setError(null);
