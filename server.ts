@@ -4,6 +4,9 @@ import * as cheerio from "cheerio";
 import path from "path";
 import crypto from 'crypto';
 import { createRequire } from 'module';
+import dotenv from 'dotenv';
+dotenv.config();
+
 const require = createRequire(import.meta.url);
 const { YoutubeTranscript } = require('youtube-transcript/dist/youtube-transcript.common.js');
 
