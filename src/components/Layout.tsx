@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useAppContext } from '../context/AppContext';
+import { FloatingSpaceBackground } from './FloatingSpaceBackground';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -16,35 +17,44 @@ export default function Layout() {
   const [isCreateMenuOpen, setIsCreateMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+    <div className="min-h-screen bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container relative">
+      <FloatingSpaceBackground />
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 w-full z-50 bg-white border-b border-zinc-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] flex justify-between items-center px-6 py-3">
+      <nav className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)] flex justify-between items-center px-6 py-3 transition-all duration-300">
         <div className="flex items-center gap-8">
-          <span className="text-xl font-black text-zinc-900 tracking-tight">CreatorFlow</span>
-          <div className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-blue-600 font-bold border-b-2 border-blue-600 px-1 py-0.5">Workspaces</a>
+          <span className="text-xl font-black text-zinc-900 tracking-tight flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+              <span className="material-symbols-outlined text-primary text-[18px]">bolt</span>
+            </div>
+            CreatorFlow
+          </span>
+          <div className="hidden md:flex items-center gap-1 bg-zinc-100/50 p-1 rounded-lg border border-zinc-200/50">
+            <div className="bg-white text-zinc-900 font-semibold px-4 py-1.5 rounded-md shadow-sm border border-zinc-200/50 text-sm">Workspaces</div>
+            <div className="text-zinc-500 hover:text-zinc-900 hover:bg-white/50 cursor-pointer font-medium px-4 py-1.5 rounded-md transition-colors text-sm">Recent</div>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <Link to="/help" className="hidden sm:flex items-center gap-2 px-4 py-2 text-zinc-500 font-medium hover:bg-zinc-100 transition-colors rounded-md">
-            <span className="material-symbols-outlined text-xl">help</span>
+        <div className="flex items-center gap-3">
+          <Link to="/help" className="hidden sm:flex items-center gap-2 px-3 py-2 text-zinc-500 font-medium hover:bg-zinc-100/80 hover:text-zinc-900 transition-colors rounded-lg text-sm">
+            <span className="material-symbols-outlined text-[18px]">help</span>
             <span>Help</span>
           </Link>
-          <div className="h-8 w-[1px] bg-zinc-200 mx-2"></div>
-          <button className="material-symbols-outlined text-zinc-500 hover:text-primary transition-colors">notifications</button>
-          <div className="flex items-center gap-3 pl-2 relative">
+          <div className="h-5 w-[1px] bg-zinc-200 mx-1"></div>
+          <button className="w-9 h-9 rounded-full flex items-center justify-center text-zinc-500 hover:bg-zinc-100/80 hover:text-zinc-900 transition-colors">
+            <span className="material-symbols-outlined text-[20px]">notifications</span>
+          </button>
+          <div className="flex items-center pl-1 relative">
             <button 
               onClick={() => setIsCreateMenuOpen(!isCreateMenuOpen)}
-              className="bg-primary hover:bg-primary-dim text-white px-5 py-2 rounded-md font-semibold text-sm transition-all active:scale-[0.98] duration-200 flex items-center gap-2"
+              className="bg-zinc-900 hover:bg-zinc-800 text-white px-4 py-2 rounded-full font-semibold text-sm transition-all active:scale-[0.98] duration-200 flex items-center gap-2 shadow-md hover:shadow-lg border border-zinc-700"
             >
-              <span className="material-symbols-outlined text-[18px]">add</span>
-              Create New
+              <span className="material-symbols-outlined text-[16px]">add</span>
+              Create
             </button>
 
             {isCreateMenuOpen && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setIsCreateMenuOpen(false)}></div>
-                <div className="absolute top-12 right-0 w-64 bg-white rounded-2xl shadow-xl border border-zinc-100 p-2 z-50 animate-in slide-in-from-top-2 fade-in duration-200">
+                <div className="absolute top-12 right-0 w-64 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/40 p-2 z-50 animate-in slide-in-from-top-2 fade-in duration-200 ring-1 ring-black/5">
                   <div className="px-3 py-2 text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">Content Lab</div>
                   <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/video-to-reels" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
                     <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">movie</span>
@@ -77,7 +87,7 @@ export default function Layout() {
       </nav>
 
       {/* Sidebar Navigation */}
-      <aside className="fixed left-0 top-0 h-full w-64 border-r border-zinc-100 bg-white shadow-[4px_0_24px_rgba(0,0,0,0.02)] flex-col pt-20 pb-6 px-4 z-40 hidden md:flex">
+      <aside className="fixed left-0 top-0 h-full w-64 border-r border-zinc-200/50 bg-white/80 backdrop-blur-md shadow-[4px_0_24px_rgba(0,0,0,0.01)] flex-col pt-20 pb-6 px-4 z-40 hidden md:flex">
         <div className="mb-8 px-2">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
@@ -186,7 +196,7 @@ export default function Layout() {
       </aside>
 
       {/* Main Content Area */}
-      <main className="md:ml-64 pt-24 pb-12 min-h-screen">
+      <main className="md:ml-64 pt-24 pb-12 min-h-screen relative z-10 bg-white/40 backdrop-blur-[2px]">
         <Outlet />
       </main>
     </div>

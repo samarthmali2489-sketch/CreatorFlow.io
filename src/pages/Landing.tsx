@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FloatingSpaceBackground } from '../components/FloatingSpaceBackground';
 
 export default function Landing() {
   
@@ -9,29 +10,32 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-zinc-900 font-sans selection:bg-primary-container selection:text-on-primary-container pb-0">
+    <div className="min-h-screen bg-slate-50 text-zinc-900 font-sans selection:bg-primary-container selection:text-on-primary-container pb-0 relative">
+      <FloatingSpaceBackground />
       
       {/* Navigation */}
-      <header className="flex justify-between items-center px-6 md:px-12 py-6 border-b border-zinc-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <Link to="/" className="text-xl font-black tracking-tight flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="material-symbols-outlined text-white text-[18px]">bolt</span>
+      <div className="fixed top-0 inset-x-0 z-50 flex justify-center p-4 py-6 pointer-events-none">
+        <header className="flex justify-between items-center px-4 md:px-6 py-3 border border-white/20 bg-white/70 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] w-full max-w-[1000px] pointer-events-auto transition-all duration-300 hover:bg-white/80">
+          <Link to="/" className="text-lg font-black tracking-tight flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20">
+              <span className="material-symbols-outlined text-primary text-[18px]">bolt</span>
+            </div>
+            CreatorFlow
+          </Link>
+          <div className="hidden md:flex gap-1 p-1 bg-zinc-100/50 rounded-full border border-zinc-200/50">
+            <a href="#capabilities" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Capabilities</a>
+            <a href="#pricing" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Pricing</a>
+            <a href="#enterprise" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Enterprise</a>
           </div>
-          CreatorFlow
-        </Link>
-        <div className="hidden md:flex gap-8 text-sm font-semibold">
-          <a href="#capabilities" className="text-zinc-500 hover:text-zinc-900 transition-colors">Capabilities</a>
-          <a href="#pricing" className="text-zinc-500 hover:text-zinc-900 transition-colors">Pricing</a>
-          <a href="#enterprise" className="text-zinc-500 hover:text-zinc-900 transition-colors">Enterprise</a>
-        </div>
-        <div className="flex items-center gap-6">
-          <Link to="/auth" className="hidden sm:block text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors">Log in</Link>
-          <Link to="/auth" className="bg-primary hover:bg-primary-dim text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-sm shadow-primary/20">Get Started</Link>
-        </div>
-      </header>
+          <div className="flex items-center gap-3">
+            <Link to="/auth" className="hidden sm:block text-sm font-semibold text-zinc-600 hover:text-zinc-900 px-3 py-1.5 rounded-full hover:bg-zinc-100/50 transition-colors">Log in</Link>
+            <Link to="/auth" className="bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg border border-zinc-800">Start Free</Link>
+          </div>
+        </header>
+      </div>
 
       {/* Hero */}
-      <main className="max-w-[1200px] mx-auto px-6">
+      <main className="max-w-[1200px] mx-auto px-6 relative z-10">
         <section className="py-24 md:py-32 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-wide mb-8 border border-primary/20">
             <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
@@ -70,136 +74,141 @@ export default function Landing() {
         </section>
 
         {/* Capabilities */}
-        <section id="capabilities" className="py-24 border-t border-zinc-200">
-          <div className="flex flex-col md:flex-row justify-between mb-16 gap-8 items-end">
+        <section id="capabilities" className="py-32">
+          <div className="flex flex-col md:flex-row justify-between mb-20 gap-10 items-end">
             <div>
-              <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 01</div>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900">Precision Capabilities.</h2>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/20">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                Module 01
+              </div>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-[1.1]">
+                Precision<br/>
+                <span className="text-zinc-400">Capabilities.</span>
+              </h2>
             </div>
-            <div className="md:w-[400px]">
-              <p className="text-zinc-500 text-base leading-relaxed font-medium">Built for high-output environments requiring absolute structural integrity of brand voice.</p>
+            <div className="md:w-[450px]">
+              <p className="text-zinc-500 text-lg leading-relaxed font-medium">Built for high-output environments requiring absolute structural integrity of brand voice and omnichannel scaling.</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* 01: Video to Reels (Span 2) */}
-            <div className="md:col-span-2 bg-white rounded-3xl p-10 lg:p-12 hover:shadow-xl hover:shadow-zinc-200/50 transition-all border border-zinc-200 group flex flex-col justify-between min-h-[360px] relative overflow-hidden">
-              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-12 border border-blue-100">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-[380px]">
+            {/* 01: Video to Reels (Span 7) */}
+            <div className="lg:col-span-7 bg-white rounded-[2rem] p-10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-300 border border-zinc-200 group flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12">
+                <span className="material-symbols-outlined text-[200px]">smartphone</span>
+              </div>
+              
+              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center border border-blue-100 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
                 <span className="material-symbols-outlined text-[32px]">smartphone</span>
               </div>
-              <div>
-                <h3 className="text-2xl lg:text-3xl font-extrabold mb-3 tracking-tight text-zinc-900 group-hover:text-primary transition-colors">Video to Reels</h3>
-                <p className="text-zinc-500 text-base leading-relaxed max-w-[80%] font-medium">Algorithmic extraction of high-retention narrative segments from long-form content, optimized automatically for vertical viewing.</p>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className="text-3xl font-black tracking-tight text-zinc-900 group-hover:text-primary transition-colors">Video to Reels</h3>
+                  <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold tracking-widest uppercase shadow-sm">AI Powered</span>
+                </div>
+                <p className="text-zinc-500 text-lg leading-relaxed max-w-[85%] font-medium">Algorithmic extraction of high-retention narrative segments from long-form content, optimized automatically for vertical viewing.</p>
               </div>
             </div>
 
-            {/* 02: Post Creator (Span 1) */}
-            <div className="md:col-span-1 bg-zinc-950 text-white rounded-3xl p-10 lg:p-12 shadow-xl border border-zinc-800 transition-all group flex flex-col justify-between min-h-[360px]">
-              <div className="w-16 h-16 bg-zinc-800 text-zinc-300 rounded-2xl flex items-center justify-center mb-12 border border-zinc-700">
+            {/* 02: Post Creator (Span 5) */}
+            <div className="lg:col-span-5 bg-zinc-950 text-white rounded-[2rem] p-10 shadow-2xl border border-zinc-800 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 to-zinc-950"></div>
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12 text-zinc-100">
+                <span className="material-symbols-outlined text-[200px]">edit_document</span>
+              </div>
+
+              <div className="w-16 h-16 bg-zinc-800 text-zinc-300 rounded-2xl flex items-center justify-center border border-zinc-700 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
                 <span className="material-symbols-outlined text-[32px]">edit_document</span>
               </div>
-              <div>
-                <h3 className="text-2xl lg:text-3xl font-extrabold mb-3 tracking-tight">Post Creator</h3>
-                <p className="text-zinc-400 text-base leading-relaxed font-medium">Omnichannel post synthesis engineered to replicate your specific brand voice across all major platforms.</p>
+              
+              <div className="relative z-10">
+                <h3 className="text-3xl font-black tracking-tight mb-4 group-hover:text-zinc-200 transition-colors">Post Creator</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed font-medium">Omnichannel post synthesis engineered to replicate your specific brand voice across all major platforms.</p>
               </div>
             </div>
 
-            {/* 03: LinkedIn Carousel Maker (Span 1) */}
-            <div className="md:col-span-1 bg-primary text-white rounded-3xl p-10 lg:p-12 shadow-xl border border-primary-dim transition-all group flex flex-col justify-between min-h-[360px]">
-              <div className="w-16 h-16 bg-white/20 text-white rounded-2xl flex items-center justify-center mb-12 border border-white/30">
+            {/* 03: LinkedIn Carousel Maker (Span 5) */}
+            <div className="lg:col-span-5 bg-primary text-white rounded-[2rem] p-10 shadow-2xl shadow-primary/20 hover:-translate-y-1 hover:shadow-primary/30 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dim"></div>
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12">
+                <span className="material-symbols-outlined text-[200px]">view_carousel</span>
+              </div>
+
+              <div className="w-16 h-16 bg-white/20 text-white rounded-2xl flex items-center justify-center border border-white/30 backdrop-blur-md shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
                 <span className="material-symbols-outlined text-[32px]">view_carousel</span>
               </div>
-              <div>
-                <h3 className="text-2xl lg:text-3xl font-extrabold mb-3 tracking-tight leading-tight">LinkedIn Carousel Maker</h3>
-                <p className="text-blue-100 text-base leading-relaxed font-medium">Systematic conversion of unstructured ideas into high-conversion PDF slide decks.</p>
+              
+              <div className="relative z-10">
+                <h3 className="text-3xl font-black tracking-tight mb-4 leading-tight">LinkedIn Carousels</h3>
+                <p className="text-blue-50 text-lg leading-relaxed font-medium">Systematic conversion of unstructured ideas into high-conversion PDF slide decks.</p>
               </div>
             </div>
 
-            {/* 04: Thumbnail Maker (Span 2) */}
-            <div className="md:col-span-2 bg-white rounded-3xl p-10 lg:p-12 hover:shadow-xl hover:shadow-zinc-200/50 transition-all border border-zinc-200 group flex flex-col justify-between min-h-[360px]">
-               <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-12 border border-indigo-100">
+            {/* 04: Thumbnail Maker (Span 7) */}
+            <div className="lg:col-span-7 bg-white rounded-[2rem] p-10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-300 border border-zinc-200 group flex flex-col justify-between relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12">
+                <span className="material-symbols-outlined text-[200px]">wallpaper</span>
+              </div>
+              
+               <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center border border-indigo-100 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
                 <span className="material-symbols-outlined text-[32px]">wallpaper</span>
                </div>
-               <div>
-                 <h3 className="text-2xl lg:text-3xl font-extrabold mb-3 tracking-tight text-zinc-900 group-hover:text-primary transition-colors">Thumbnail Maker</h3>
-                 <p className="text-zinc-500 text-base leading-relaxed max-w-[80%] font-medium">Generate CTR-optimized YouTube assets utilizing deep style-transfer and reference image uploading to exactly map your existing channel aesthetics.</p>
+               
+               <div className="relative z-10">
+                 <div className="flex items-center gap-3 mb-4">
+                   <h3 className="text-3xl font-black tracking-tight text-zinc-900 group-hover:text-indigo-600 transition-colors">Thumbnail Maker</h3>
+                   <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-bold tracking-widest uppercase shadow-sm">Vision AI</span>
+                 </div>
+                 <p className="text-zinc-500 text-lg leading-relaxed max-w-[85%] font-medium">Generate CTR-optimized YouTube assets utilizing deep style-transfer and reference image uploading to exactly map your existing channel aesthetics.</p>
                </div>
             </div>
           </div>
         </section>
 
         {/* Workflow / Pipeline */}
-        <section className="py-24 border-t border-zinc-200">
-          <div className="mb-16 text-center md:text-left">
-            <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 02</div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900">The Pipeline.</h2>
-            <p className="text-zinc-500 text-lg md:text-xl font-medium max-w-2xl mt-6">Automate your content lifecycles from ideation to omnichannel distribution in three deterministic steps.</p>
+        <section className="py-32">
+          <div className="mb-24 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/20 mx-auto md:mx-0">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              Module 02
+            </div>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-[1.1]">
+              The<br className="hidden md:block"/>
+              <span className="text-zinc-400">Pipeline.</span>
+            </h2>
+            <p className="text-zinc-500 text-lg font-medium max-w-2xl mt-8 leading-relaxed mx-auto md:mx-0">Automate your content lifecycles from ideation to omnichannel distribution in three deterministic steps.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col">
-              <div className="text-5xl font-black text-zinc-200 mb-6 font-mono tracking-tighter">01</div>
-              <h3 className="text-xl font-bold text-zinc-900 mb-3">Sync & Ingest</h3>
-              <p className="text-zinc-500 font-medium leading-relaxed">Connect your existing accounts or drop in raw assets. We process the telemetry and extract the underlying narrative structures.</p>
-            </div>
-            <div className="flex flex-col">
-              <div className="text-5xl font-black text-zinc-200 mb-6 font-mono tracking-tighter">02</div>
-              <h3 className="text-xl font-bold text-primary mb-3">Neural Transmutation</h3>
-              <p className="text-zinc-500 font-medium leading-relaxed">Our models apply style-transfer algorithms to align the new assets perfectly with your established historical tone and brand voice.</p>
-            </div>
-            <div className="flex flex-col">
-              <div className="text-5xl font-black text-zinc-200 mb-6 font-mono tracking-tighter">03</div>
-              <h3 className="text-xl font-bold text-zinc-900 mb-3">Omnichannel Export</h3>
-              <p className="text-zinc-500 font-medium leading-relaxed">Deploy tailored variations to YouTube, LinkedIn, X, and TikTok simultaneously with format-specific optimizations.</p>
-            </div>
-          </div>
-        </section>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 relative">
+            {/* Connection Line */}
+            <div className="hidden md:block absolute top-[4.5rem] left-[15%] right-[15%] h-[2px] bg-gradient-to-r from-zinc-200 via-primary/50 to-zinc-200 z-0"></div>
 
-        {/* Testimonials / Social Proof */}
-        <section className="py-24 border-t border-zinc-200 bg-zinc-50 -mx-6 px-6 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/blueprint/1920/1080?blur=10&grayscale')] opacity-5 mix-blend-overlay"></div>
-          <div className="max-w-[1200px] mx-auto relative z-10">
-            <h2 className="text-3xl md:text-4xl font-black tracking-tight text-zinc-900 text-center mb-16">Architects using CreatorFlow</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div className="text-amber-400 text-lg mb-4 tracking-widest text-shadow-sm">★★★★★</div>
-                  <p className="text-zinc-700 font-medium leading-relaxed mb-8">"My output has literally tripled. The AI doesn't just write generic copy, it actually understands the specific hooks that work for my channel."</p>
-                </div>
-                <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-black text-zinc-600 border border-zinc-200">ST</div>
-                   <div>
-                     <div className="font-bold text-sm text-zinc-900">Sarah T.</div>
-                     <div className="text-xs text-zinc-500 font-medium">Tech Reviewer • 450k Subs</div>
-                   </div>
-                </div>
+            <div className="flex flex-col relative z-10 group">
+              <div className="w-36 h-36 bg-zinc-50 rounded-[2rem] border-2 border-zinc-200 flex items-center justify-center mb-8 shadow-sm group-hover:border-primary/50 transition-colors mx-auto md:mx-0 relative overflow-hidden backdrop-blur-xl">
+                 <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent"></div>
+                 <div className="text-6xl font-black text-zinc-200 font-mono tracking-tighter group-hover:text-primary/20 transition-colors relative z-10">01</div>
               </div>
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div className="text-amber-400 text-lg mb-4 tracking-widest text-shadow-sm">★★★★★</div>
-                  <p className="text-zinc-700 font-medium leading-relaxed mb-8">"The LinkedIn carousel generator alone is worth ten times the price. I went from spending 3 hours per deck to 5 minutes."</p>
-                </div>
-                <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-black text-zinc-600 border border-zinc-200">MR</div>
-                   <div>
-                     <div className="font-bold text-sm text-zinc-900">Marcus R.</div>
-                     <div className="text-xs text-zinc-500 font-medium">Founding Partner</div>
-                   </div>
-                </div>
+              <h3 className="text-2xl font-black text-zinc-900 mb-4 text-center md:text-left tracking-tight">Sync & Ingest</h3>
+              <p className="text-zinc-500 font-medium leading-relaxed text-center md:text-left text-lg">Connect your existing accounts or drop in raw assets. We process the telemetry and extract the underlying narrative structures.</p>
+            </div>
+            
+            <div className="flex flex-col relative z-10 group">
+              <div className="w-36 h-36 bg-white rounded-[2rem] border-2 border-primary flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(var(--color-primary),0.15)] group-hover:scale-105 transition-transform mx-auto md:mx-0 relative overflow-hidden">
+                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+                 <div className="text-6xl font-black text-primary/30 font-mono tracking-tighter group-hover:text-primary transition-colors relative z-10">02</div>
               </div>
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div className="text-amber-400 text-lg mb-4 tracking-widest text-shadow-sm">★★★★★</div>
-                  <p className="text-zinc-700 font-medium leading-relaxed mb-8">"Video to Reels is flawless. It finds the exact 30 seconds where the retention spikes and edits it. Incredible engineering."</p>
-                </div>
-                <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-black text-zinc-600 border border-zinc-200">EL</div>
-                   <div>
-                     <div className="font-bold text-sm text-zinc-900">Elena L.</div>
-                     <div className="text-xs text-zinc-500 font-medium">Podcast Host</div>
-                   </div>
-                </div>
+              <h3 className="text-2xl font-black text-primary mb-4 text-center md:text-left tracking-tight">Neural Transmutation</h3>
+              <p className="text-zinc-500 font-medium leading-relaxed text-center md:text-left text-lg">Our models apply style-transfer algorithms to align the new assets perfectly with your established historical tone and brand voice.</p>
+            </div>
+            
+            <div className="flex flex-col relative z-10 group">
+              <div className="w-36 h-36 bg-zinc-50 rounded-[2rem] border-2 border-zinc-200 flex items-center justify-center mb-8 shadow-sm group-hover:border-primary/50 transition-colors mx-auto md:mx-0 relative overflow-hidden">
+                 <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent"></div>
+                 <div className="text-6xl font-black text-zinc-200 font-mono tracking-tighter group-hover:text-primary/20 transition-colors relative z-10">03</div>
               </div>
+              <h3 className="text-2xl font-black text-zinc-900 mb-4 text-center md:text-left tracking-tight">Omnichannel Export</h3>
+              <p className="text-zinc-500 font-medium leading-relaxed text-center md:text-left text-lg">Deploy tailored variations to YouTube, LinkedIn, X, and TikTok simultaneously with format-specific optimizations.</p>
             </div>
           </div>
         </section>
@@ -307,35 +316,86 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-24 border-t border-zinc-200">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 04</div>
-              <h2 className="text-4xl font-black tracking-tight text-zinc-900">Operations & Logistics.</h2>
+        {/* FAQ & Support Section */}
+        <section className="py-32">
+          <div className="max-w-[1000px] mx-auto">
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/20">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                Module 04
+              </div>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-[1.1]">
+                Operations &amp; <br/>
+                <span className="text-zinc-400">Logistics.</span>
+              </h2>
             </div>
             
-            <div className="space-y-6">
-              <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm transition-all hover:border-zinc-300">
-                <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3">
-                   <span className="material-symbols-outlined text-primary text-[20px]">psychology</span>
-                   Does it actually sound like me?
-                </h3>
-                <p className="text-zinc-500 font-medium leading-relaxed pl-8">Yes. CreatorFlow analyzes your connected profiles (YouTube, LinkedIn) to extract structural data about your phrasing, pacing, and vocabulary. It doesn't use generic AI templates; it clones your blueprint.</p>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+              
+              {/* Help Hub Focus Card */}
+              <div className="md:col-span-5 bg-zinc-950 rounded-[2rem] p-8 text-white sticky top-32 shadow-2xl overflow-hidden relative">
+                 <div className="absolute top-0 right-0 p-8 opacity-5">
+                   <span className="material-symbols-outlined text-[150px]">support_agent</span>
+                 </div>
+                 <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20 mb-8 relative z-10 backdrop-blur-md">
+                    <span className="material-symbols-outlined text-[32px] text-white">menu_book</span>
+                 </div>
+                 <h3 className="text-3xl font-black mb-4 tracking-tight relative z-10">Help Center &amp;<br/>Support Matrix</h3>
+                 <p className="text-zinc-400 font-medium leading-relaxed mb-8 relative z-10">
+                   Access detailed documentation directly inside your workspace, or ping our 24/7 dedicated engineering support channel for immediate unblocking.
+                 </p>
+                 <Link to="/auth" className="w-full bg-white text-zinc-900 py-3.5 rounded-xl font-bold hover:bg-zinc-100 transition-colors flex items-center justify-center border border-zinc-200 relative z-10">
+                   Access Documentation
+                 </Link>
               </div>
-              <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm transition-all hover:border-zinc-300">
-                <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3">
-                   <span className="material-symbols-outlined text-primary text-[20px]">database</span>
-                   How do credits work?
-                </h3>
-                <p className="text-zinc-500 font-medium leading-relaxed pl-8">Credits map directly to compute cost. Heavy operations like <i>Video to Reels</i> cost 30 credits due to transcription and frame analysis. Text-based generations like Posts or Carousels cost 10 credits.</p>
-              </div>
-              <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm transition-all hover:border-zinc-300">
-                <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3">
-                   <span className="material-symbols-outlined text-primary text-[20px]">cancel</span>
-                   Can I cancel anytime?
-                </h3>
-                <p className="text-zinc-500 font-medium leading-relaxed pl-8">Absolutely. The subscriptions are entirely self-managed. You can downgrade, pause, or terminate your license immediately from your dashboard settings panel.</p>
+
+              {/* FAQs Accordion Replacement / Grid */}
+              <div className="md:col-span-7 flex flex-col gap-6">
+                
+                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+                     <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary shrink-0">
+                       <span className="material-symbols-outlined text-[20px]">psychology</span>
+                     </div>
+                     Does it actually sound like me?
+                  </h3>
+                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Yes. CreatorFlow analyzes your connected profiles (YouTube, LinkedIn) to extract structural data about your phrasing, pacing, and vocabulary. It doesn't use generic AI templates; it clones your blueprint.</p>
+                </div>
+
+                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-blue-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 focus:outline rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+                     <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 text-blue-600 shrink-0">
+                       <span className="material-symbols-outlined text-[20px]">movie</span>
+                     </div>
+                     How does Video to Reels work?
+                  </h3>
+                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Upload your horizontal video. Our AI face-tracking automatically crops perfectly to 9:16, extracts peak-retention moments, and burns-in Alex Hormozi-style dynamic captions.</p>
+                </div>
+
+                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-amber-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+                     <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300 text-amber-600 shrink-0">
+                       <span className="material-symbols-outlined text-[20px]">database</span>
+                     </div>
+                     How do credits work?
+                  </h3>
+                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Credits map directly to compute cost. Heavy visual operations like <i>Video to Reels</i> cost 30 credits due to transcription and frame analysis. Text-based generations like Posts cost 10 credits.</p>
+                </div>
+
+                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-rose-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+                     <div className="w-10 h-10 bg-rose-50 rounded-full flex items-center justify-center group-hover:bg-rose-500 group-hover:text-white transition-colors duration-300 text-rose-600 shrink-0">
+                       <span className="material-symbols-outlined text-[20px]">cancel</span>
+                     </div>
+                     Can I cancel anytime?
+                  </h3>
+                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Absolutely. The subscriptions are entirely self-managed. You can downgrade, pause, or terminate your license immediately from your dashboard settings panel.</p>
+                </div>
+
               </div>
             </div>
           </div>

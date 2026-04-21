@@ -1,143 +1,178 @@
 import React, { useState, useEffect } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 
-// Cool animated Poly Robot for the Auth Page
-const PolyRobot = ({ focusState, emailLength }: { focusState: 'idle' | 'email' | 'password' | 'loading' | 'error', emailLength: number }) => {
-  // Eye variations based on state
+// Cozy, relaxed animated Cat
+const CozyCat = ({ focusState, inputLength }: { focusState: 'idle' | 'email' | 'password' | 'loading' | 'error', inputLength: number }) => {
   const isPassword = focusState === 'password';
   const isEmail = focusState === 'email';
   const isLoading = focusState === 'loading';
   const isError = focusState === 'error';
+  const isIdle = focusState === 'idle';
 
-  // Calculate some head movement based on email string length
-  const lookOffset = isEmail ? Math.min(emailLength * 2, 30) - 15 : 0;
+  // Calculate subtle eye movement based on typing
+  const lookOffset = isEmail ? Math.min(inputLength, 15) - 7.5 : 0;
 
   return (
-    <div className="relative w-64 h-64 mx-auto mb-8 flex items-center justify-center">
-      {/* Small floating thoughts */}
+    <div className="relative w-80 h-80 mx-auto mb-8 flex items-center justify-center">
+      
+      {/* Floating Zzz's when sleeping/idle */}
       <AnimatePresence>
-        {isEmail && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-            animate={{ opacity: 1, y: -20, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            className="absolute top-0 right-4 bg-white text-zinc-900 text-xs px-3 py-1.5 rounded-xl font-bold shadow-lg"
-          >
-            I'm reading that! ¬‿¬
-          </motion.div>
+        {(isIdle || isLoading) && !isError && (
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: 0, x: -10, scale: 0.5 }}
+              animate={{ opacity: [0, 1, 0], y: -60, x: 10, scale: 1.5 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0 }}
+              className="absolute top-16 right-20 text-white/60 font-black text-xl"
+            >
+              z
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 0, x: -10, scale: 0.5 }}
+              animate={{ opacity: [0, 1, 0], y: -70, x: 20, scale: 1.2 }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute top-12 right-12 text-white/50 font-black text-2xl"
+            >
+              Z
+            </motion.div>
+          </>
         )}
-        {isPassword && (
+      </AnimatePresence>
+
+      {/* Floating alert when error */}
+      <AnimatePresence>
+        {isError && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-            animate={{ opacity: 1, y: -20, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            className="absolute top-0 left-4 bg-white text-zinc-900 text-xs px-3 py-1.5 rounded-xl font-bold shadow-lg"
-          >
-            No peeking! 🙈
-          </motion.div>
-        )}
-        {isLoading && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20, scale: 0 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
-            className="absolute -top-4 right-10 flex gap-2"
+            className="absolute top-10 right-14 bg-white text-rose-500 rounded-full px-3 py-1 font-bold text-sm shadow-lg"
           >
-            {[0, 1, 2].map((i) => (
-              <motion.div
-                key={i}
-                animate={{ y: [0, -10, 0] }}
-                transition={{ repeat: Infinity, delay: i * 0.2, duration: 0.6 }}
-                className="w-2 h-2 rounded-full bg-white"
-              />
-            ))}
+            !
           </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.svg
-        width="200" height="200" viewBox="0 0 200 200"
-        className="drop-shadow-[0_0_20px_rgba(59,130,246,0.3)]"
-      >
-        {/* Antennas */}
-        <motion.line
-          x1="100" y1="80" x2="100" y2="40"
-          stroke="#475569" strokeWidth="4"
-          animate={{ scaleY: isLoading ? [1, 1.2, 1] : 1, y: isLoading ? [-2, 2, -2] : 0 }}
-          transition={{ repeat: Infinity, duration: 0.5 }}
-        />
-        <motion.circle cx="100" cy="40" r="8" fill={isError ? "#ef4444" : isLoading ? "#3b82f6" : "#cbd5e1"} 
-          animate={isLoading ? { scale: [1, 1.5, 1], fill: ["#3b82f6", "#60a5fa", "#3b82f6"] } : {}}
-          transition={{ repeat: Infinity, duration: 0.8 }}
-        />
-
-        {/* Head */}
-        <motion.rect
-          x="60" y="80" width="80" height="70" rx="15"
-          fill="#1e293b"
-          stroke="#334155" strokeWidth="4"
-          animate={{
-            rotate: isPassword ? 5 : isError ? [-5, 5, -5, 5, 0] : 0,
-            x: lookOffset
+      <svg width="260" height="260" viewBox="0 0 200 200" className="drop-shadow-2xl z-10 relative">
+        {/* Tail (swishes gently when idle or typing, spiked when error) */}
+        <motion.path 
+          d="M 145 150 C 190 140, 190 80, 150 75" 
+          fill="none" 
+          stroke="#f97316" 
+          strokeWidth="18" 
+          strokeLinecap="round"
+          animate={{ 
+            rotate: isIdle ? [0, 8, 0] : isError ? -15 : 0, 
+            transformOrigin: "145px 150px",
+            scale: isError ? 1.05 : 1
           }}
           transition={
             isError 
-              ? { rotate: { duration: 0.4 }, x: { type: "spring", stiffness: 200, damping: 15 } } 
-              : { type: "spring", stiffness: 200, damping: 15 }
+              ? { type: "spring", stiffness: 300, damping: 10 } 
+              : { repeat: Infinity, duration: 4.5, ease: "easeInOut" }
           }
         />
+        
+        {/* Shadow under cat */}
+        <ellipse cx="100" cy="165" rx="60" ry="12" fill="#000000" opacity="0.2" />
 
-        {/* Face Screen */}
-        <motion.rect
-          x="70" y="90" width="60" height="40" rx="8"
-          fill="#0f172a"
-          animate={{ x: lookOffset }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
-        />
-
-        {/* Eyes inside Face Screen */}
-        {/* Eye 1 */}
-        <motion.path
-          d={
-            isPassword ? "M 78 105 L 90 105" : // Closed Line
-            isError ? "M 78 100 L 90 110 M 78 110 L 90 100" : // X
-            "M 80 105 A 4 4 0 1 0 88 105 A 4 4 0 1 0 80 105" // Open Circle (Default)
-          }
-          fill={isPassword || isError ? "transparent" : "#3b82f6"}
-          stroke="#3b82f6" strokeWidth="3" strokeLinecap="round"
-          animate={{ x: lookOffset + (isEmail ? lookOffset * 0.2 : 0) }}
-        />
-        {/* Eye 2 */}
-        <motion.path
-          d={
-            isPassword ? "M 110 105 L 122 105" :
-            isError ? "M 110 100 L 122 110 M 110 110 L 122 100" :
-            "M 112 105 A 4 4 0 1 0 120 105 A 4 4 0 1 0 112 105"
-          }
-          fill={isPassword || isError ? "transparent" : "#3b82f6"}
-          stroke="#3b82f6" strokeWidth="3" strokeLinecap="round"
-          animate={{ x: lookOffset + (isEmail ? lookOffset * 0.2 : 0) }}
-        />
-
-        {/* Arms (Covering Eyes when Password focused) */}
-        <motion.g
-          animate={{
-            y: isPassword ? -40 : 0,
-            x: isPassword ? 0 : 0,
-            opacity: isPassword ? 1 : 0
+        {/* Body Group - Breathing animation */}
+        <motion.g 
+          animate={{ 
+            scaleY: isIdle || isLoading ? [1, 1.04, 1] : 1, 
+            y: isIdle || isLoading ? [0, -2, 0] : 0 
           }}
-          transition={{ type: "spring", stiffness: 150, damping: 12 }}
+          transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
         >
-          {/* Left Arm covering */}
-          <rect x="65" y="140" width="30" height="15" rx="5" fill="#475569" stroke="#334155" strokeWidth="2" transform="rotate(-30 80 140)"/>
-          {/* Right Arm covering */}
-          <rect x="105" y="140" width="30" height="15" rx="5" fill="#475569" stroke="#334155" strokeWidth="2" transform="rotate(30 120 140)"/>
+          {/* Main Body */}
+          <ellipse cx="100" cy="140" rx="55" ry="38" fill="#f97316" />
+          {/* Light Belly */}
+          <ellipse cx="100" cy="148" rx="35" ry="22" fill="#fef3c7" />
         </motion.g>
 
-        {/* Body Base */}
-        <path d="M 75 160 Q 100 150 125 160 L 130 190 L 70 190 Z" fill="#1e293b" stroke="#334155" strokeWidth="3" />
-      </motion.svg>
+        {/* Head Group */}
+        <motion.g
+          animate={{ 
+            y: isIdle ? [0, 2, 0] : isPassword ? 8 : isError ? -5 : 0,
+            rotate: isEmail && inputLength > 5 ? (inputLength % 2 === 0 ? 2 : -2) : 0
+          }}
+          transition={
+            isIdle || isLoading 
+              ? { repeat: Infinity, duration: 3.5, ease: "easeInOut" }
+              : { type: "spring", stiffness: 150, damping: 15 }
+          }
+        >
+          {/* Back Ears (Orange) */}
+          <polygon points="65,90 50,45 90,65" fill="#f97316" />
+          <polygon points="135,90 150,45 110,65" fill="#f97316" />
+          
+          {/* Inside Ears (Soft Pink) */}
+          <polygon points="65,85 55,55 85,70" fill="#fbcfe8" />
+          <polygon points="135,85 145,55 115,70" fill="#fbcfe8" />
+          
+          {/* Face Base */}
+          <circle cx="100" cy="98" r="42" fill="#f97316" />
+          
+          {/* Snout/Muzzle (Cream) */}
+          <ellipse cx="100" cy="112" rx="22" ry="14" fill="#fef3c7" />
+          
+          {/* Nose (Pink) */}
+          <circle cx="100" cy="105" r="4.5" fill="#f43f5e" />
+          
+          {/* Mouth (Happy W) */}
+          <path d="M 94 112 Q 97 116 100 112 L 100 112 Q 103 116 106 112" fill="none" stroke="#451a03" strokeWidth="2" strokeLinecap="round" />
+
+          {/* Eyes Base (Closed for sleeping/idle/password, Open for Email, X for Error) */}
+          <motion.g animate={{ x: lookOffset }}>
+            {isEmail ? (
+              // Awake tracking eyes
+              <>
+                <circle cx="80" cy="92" r="5" fill="#451a03" />
+                <circle cx="120" cy="92" r="5" fill="#451a03" />
+              </>
+            ) : isError ? (
+              // Error eyes (X's)
+              <>
+                <path d="M 75 88 L 85 96 M 75 96 L 85 88" stroke="#451a03" strokeWidth="3" strokeLinecap="round"/>
+                <path d="M 115 88 L 125 96 M 115 96 L 125 88" stroke="#451a03" strokeWidth="3" strokeLinecap="round"/>
+              </>
+            ) : (
+              // Sleeping / Relaxed curves
+              <>
+                <path d="M 72 92 Q 80 97 88 92" fill="none" stroke="#451a03" strokeWidth="3" strokeLinecap="round" />
+                <path d="M 112 92 Q 120 97 128 92" fill="none" stroke="#451a03" strokeWidth="3" strokeLinecap="round" />
+              </>
+            )}
+          </motion.g>
+
+          {/* Slight blush */}
+          <circle cx="68" cy="106" r="6" fill="#fca5a5" opacity="0.4" />
+          <circle cx="132" cy="106" r="6" fill="#fca5a5" opacity="0.4" />
+        </motion.g>
+
+        {/* Front Paws (Animate up to hide eyes during password) */}
+        <motion.g
+          animate={{ 
+            y: isPassword ? -34 : isIdle ? [0, -1, 0] : 0, 
+            x: isPassword ? 0 : 0 
+          }}
+          transition={
+            isPassword 
+              ? { type: "spring", stiffness: 200, damping: 20 }
+              : { repeat: Infinity, duration: 3.5, ease: "easeInOut" }
+          }
+        >
+          {/* Left Paw */}
+          <rect x="72" y="140" width="20" height="28" rx="10" fill="#f97316" />
+          <path d="M 78 160 L 78 165 M 86 160 L 86 165" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" />
+          
+          {/* Right Paw */}
+          <rect x="108" y="140" width="20" height="28" rx="10" fill="#f97316" />
+          <path d="M 114 160 L 114 165 M 122 160 L 122 165" stroke="#d97706" strokeWidth="1.5" strokeLinecap="round" />
+        </motion.g>
+      </svg>
     </div>
   );
 };
@@ -149,7 +184,7 @@ export default function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // States for interactive robot
+  // States for interactive cozy cat
   const [focusState, setFocusState] = useState<'idle' | 'email' | 'password' | 'loading' | 'error'>('idle');
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -165,8 +200,8 @@ export default function Auth() {
     setFocusState('loading');
     setError(null);
 
-    // Wait a tiny bit just to show the loading animation of robot
-    await new Promise(r => setTimeout(r, 800));
+    // Artificial delay for relaxing visual
+    await new Promise(r => setTimeout(r, 1200));
 
     try {
       if (isSignUp) {
@@ -186,7 +221,7 @@ export default function Auth() {
       }
     } catch (err: any) {
       if (err.message === 'Failed to fetch') {
-        setError('Connection failed. Please ensure you have added a valid Supabase URL and Anon Key to your environment variables or Developer Settings.');
+        setError('Connection failed. Please ensure your Supabase parameters are correct.');
       } else {
         setError(err.message || 'An error occurred during authentication.');
       }
@@ -197,107 +232,149 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex">
-      {/* Left Side - Interactive Poly Robot */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-zinc-900 border-r border-white/5 flex-col items-center justify-center p-12">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/40 via-zinc-900 to-zinc-900"></div>
-        <div className="absolute w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+    <div className="min-h-screen bg-white flex font-sans selection:bg-blue-500/30 selection:text-blue-900">
+      
+      {/* Left Side - Dark Mode & Cozy Animation */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col items-center justify-center p-12 bg-slate-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(30,58,138,0.2)_0%,_rgba(15,23,42,1)_100%)] z-10 pointer-events-none"></div>
+        {/* Soft magical stars/dust */}
+        <div className="absolute top-20 left-20 w-1 h-1 bg-white rounded-full opacity-50 animate-ping shadow-[0_0_10px_white]"></div>
+        <div className="absolute top-40 right-32 w-1.5 h-1.5 bg-blue-200 rounded-full opacity-30 animate-pulse shadow-[0_0_10px_blue]"></div>
+        <div className="absolute bottom-32 left-1/3 w-1 h-1 bg-white rounded-full opacity-20 animate-pulse"></div>
         
-        <div className="relative z-10 w-full max-w-lg">
-          <PolyRobot focusState={focusState} emailLength={email.length} />
+        <div className="relative z-20 w-full max-w-lg flex flex-col items-center">
+          <CozyCat focusState={focusState} inputLength={email.length} />
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mt-12"
+            transition={{ delay: 0.2 }}
+            className="text-center mt-6"
           >
-            <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
-              CreatorFlow<span className="text-blue-500">.</span>OS
+            <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+              Rest easy, we've got the <span className="text-blue-400">heavy lifting.</span>
             </h2>
-            <p className="text-lg text-zinc-400 font-medium max-w-md mx-auto">
-              Your automated companion. Provide access credentials to initiate your creative engine.
+            <p className="text-lg text-slate-400 font-medium max-w-sm mx-auto leading-relaxed">
+              Log in to let your AI agents handle the grind while you focus on the creative vision.
             </p>
           </motion.div>
         </div>
       </div>
 
-      {/* Right Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 bg-surface relative">
+      {/* Right Side - Light Mode Sleek Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 relative overflow-hidden bg-white">
+        {/* Subtle right-side ambient warmth */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none text-transparent">glow</div>
+
         <div className="max-w-md w-full relative z-10">
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="text-left mb-10"
           >
-            <h1 className="text-4xl font-extrabold text-on-surface tracking-tight mb-2">
-              {isSignUp ? 'Initialize Access' : 'Welcome back, Creator'}
+            <div className="lg:hidden mb-12">
+               <div className="w-10 h-10 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-[0_4px_20px_rgba(59,130,246,0.3)]">
+                  <span className="material-symbols-outlined text-white text-xl">stream</span>
+               </div>
+            </div>
+            {/* Logo for Auth Header */}
+            <div className="hidden lg:flex items-center gap-2 text-xl font-black text-slate-900 tracking-tighter mb-12">
+              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                <span className="material-symbols-outlined text-[18px]">stream</span>
+              </div>
+              CreatorFlow.
+            </div>
+
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+              {isSignUp ? 'Create Workspace' : 'Welcome Back'}
             </h1>
-            <p className="text-on-surface-variant text-lg">
-              {isSignUp ? 'Generate your secure creative workspace.' : 'Enter your credentials to continue.'}
+            <p className="text-slate-500 text-lg font-medium">
+              {isSignUp ? 'Set up your creative environment.' : 'Take a deep breath and jump back in.'}
             </p>
           </motion.div>
 
           <AnimatePresence>
             {error && (
               <motion.div 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium border border-red-100 flex items-start gap-3"
+                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, height: 'auto', marginBottom: 24 }}
+                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                className="overflow-hidden"
               >
-                <span className="material-symbols-outlined text-red-500">error</span>
-                <p className="mt-0.5">{error}</p>
+                <div className="p-4 bg-rose-50 text-rose-600 rounded-2xl text-sm font-medium border border-rose-100 flex items-start gap-3">
+                  <span className="material-symbols-outlined text-rose-500">error</span>
+                  <p className="mt-0.5 leading-relaxed">{error}</p>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          <form onSubmit={handleAuth} className="space-y-6">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Email Identity</label>
-              <input
-                type="email"
-                value={email}
-                onFocus={() => setFocusState('email')}
-                onBlur={() => setFocusState('idle')}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm outline-none font-medium"
-                placeholder="creator@example.com"
-                required
-              />
+          <form onSubmit={handleAuth} className="space-y-5">
+            <div className="space-y-2 relative group">
+              <label className="text-xs font-bold uppercase tracking-widest text-slate-500 group-focus-within:text-blue-600 transition-colors ml-1">Email Address</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <span className="material-symbols-outlined text-slate-400 group-focus-within:text-blue-500 transition-colors">mail</span>
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onFocus={() => setFocusState('email')}
+                  onBlur={() => setFocusState('idle')}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-900 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm outline-none font-medium placeholder:text-slate-400"
+                  placeholder="creator@example.com"
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Secure Passkey</label>
-              <input
-                type="password"
-                value={password}
-                onFocus={() => setFocusState('password')}
-                onBlur={() => setFocusState('idle')}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all shadow-sm outline-none font-medium text-lg tracking-widest"
-                placeholder="••••••••"
-                required
-                minLength={6}
-              />
+
+            <div className="space-y-2 relative group">
+              <div className="flex justify-between items-center ml-1">
+                <label className="text-xs font-bold uppercase tracking-widest text-slate-500 group-focus-within:text-blue-600 transition-colors">Password</label>
+                {!isSignUp && (
+                  <button type="button" className="text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors">Forgot?</button>
+                )}
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <span className="material-symbols-outlined text-slate-400 group-focus-within:text-blue-500 transition-colors">key</span>
+                </div>
+                <input
+                  type="password"
+                  value={password}
+                  onFocus={() => setFocusState('password')}
+                  onBlur={() => setFocusState('idle')}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-900 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm outline-none font-medium placeholder:text-slate-400 tracking-widest"
+                  placeholder="••••••••"
+                  required
+                  minLength={6}
+                />
+              </div>
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/20 disabled:opacity-70 flex items-center justify-center gap-2 mt-4"
+              className="w-full py-4 bg-primary text-white rounded-2xl font-black text-lg shadow-[0_4px_14px_0_rgba(59,130,246,0.39)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.23)] hover:bg-primary-dim disabled:opacity-70 flex items-center justify-center gap-2 mt-8 transition-all"
             >
               {loading ? (
-                <span className="material-symbols-outlined animate-spin">progress_activity</span>
+                <span className="material-symbols-outlined animate-spin text-white">refresh</span>
               ) : (
-                isSignUp ? 'Generate Workspace' : 'Authorize Access'
+                <>
+                  {isSignUp ? 'Create Workspace' : 'Log In'}
+                  <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                </>
               )}
             </motion.button>
           </form>
 
-          <div className="mt-12 text-center text-sm">
-            <p className="text-on-surface-variant font-medium">
-              {isSignUp ? 'Already authorized?' : "Need a workspace?"}{' '}
+          <div className="mt-10 pt-8 border-t border-slate-100 text-center text-sm">
+            <p className="text-slate-500 font-medium">
+              {isSignUp ? 'Already have an account?' : "New to CreatorFlow?"}{' '}
               <button
                 type="button"
                 onClick={() => {
@@ -305,9 +382,9 @@ export default function Auth() {
                   setError(null);
                   setFocusState('idle');
                 }}
-                className="text-blue-600 hover:text-blue-700 hover:underline font-bold transition-colors"
+                className="text-blue-600 hover:text-blue-700 font-bold transition-colors ml-1"
               >
-                {isSignUp ? 'Sign in here' : 'Sign up now'}
+                {isSignUp ? 'Sign in' : 'Sign up for free'}
               </button>
             </p>
           </div>
