@@ -161,7 +161,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     
     // Explicitly sync to Supabase to prevent device wiping
     if (user) {
-      supabase.auth.updateUser({ data: { plan, credits: newCredits } });
+      supabase.auth.updateUser({ data: { plan, credits: newCredits } }).catch(() => {});
     }
   }, [user, credits, setCredits]);
 
@@ -217,26 +217,42 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
 
         if (needsUpdate) {
-          supabase.auth.updateUser({ data: updateData });
+          supabase.auth.updateUser({ data: updateData }).catch(() => {});
         }
       }
     };
 
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (error) {
+        console.warn("Session error:", error.message);
+        if (error.message.includes('Refresh Token Not Found')) {
+          supabase.auth.signOut().catch(() => {});
+        }
+      }
       handleAuthChange(session);
+    }).catch((e) => {
+      console.warn("Failed to get session:", e);
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      handleAuthChange(session);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'SIGNED_OUT') {
+         handleAuthChange(session);
+      } else if (event === 'USER_UPDATED') {
+         handleAuthChange(session);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.warn("Sign out error:", e);
+    }
   };
 
   const [analytics, setAnalytics] = useState<AnalyticsData>(() => {
@@ -380,7 +396,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setCredits(newCredits);
       // Sync seamlessly to Supabase
       if (user) {
-        supabase.auth.updateUser({ data: { credits: newCredits } });
+        supabase.auth.updateUser({ data: { credits: newCredits } }).catch(() => {});
       }
       return true;
     }
@@ -393,9 +409,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // Sync to Supabase for cross-device usage stats
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
-        supabase.auth.updateUser({ data: { analytics: newAnalytics } });
+        supabase.auth.updateUser({ data: { analytics: newAnalytics } }).catch(() => {});
       }
-    });
+    }).catch(() => {});
   }, []);
 
   const addGeneration = useCallback((type: string) => {
@@ -422,8 +438,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       // We manually sync the Supabase data here without creating an infinite loop
       localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
       supabase.auth.getUser().then(({ data: { user } }) => {
-        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } });
-      });
+        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } }).catch(() => {});
+      }).catch(() => {});
 
       return newAnalytics;
     });
@@ -446,8 +462,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
       localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
       supabase.auth.getUser().then(({ data: { user } }) => {
-        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } });
-      });
+        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } }).catch(() => {});
+      }).catch(() => {});
 
       return newAnalytics;
     });
@@ -458,8 +474,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const newAnalytics = { ...prev, platformsConnected: count };
       localStorage.setItem('creatorflow_analytics', JSON.stringify(newAnalytics));
       supabase.auth.getUser().then(({ data: { user } }) => {
-        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } });
-      });
+        if (user) supabase.auth.updateUser({ data: { analytics: newAnalytics } }).catch(() => {});
+      }).catch(() => {});
       return newAnalytics;
     });
   }, []);

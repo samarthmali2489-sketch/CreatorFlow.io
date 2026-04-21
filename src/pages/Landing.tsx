@@ -46,7 +46,7 @@ export default function Landing() {
             A utilitarian approach to digital presence. Transform core assets into synchronized channels with mathematical precision.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto relative z-10">
             <Link to="/auth" className="bg-primary text-white px-8 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
               Start Building
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
@@ -55,6 +55,18 @@ export default function Landing() {
               Documentation
             </Link>
           </div>
+        </section>
+
+        {/* Social Proof / Metrics */}
+        <section className="pb-24 pt-12 border-b border-zinc-200 flex flex-col items-center">
+            <p className="text-xs font-bold text-zinc-400 tracking-widest uppercase mb-8">Trusted by 10,000+ Next-Gen Creators</p>
+            <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+               <div className="text-2xl font-black tracking-tighter">YouTube</div>
+               <div className="text-2xl font-black tracking-tight">Instagram</div>
+               <div className="text-2xl font-black tracking-normal">TikTok</div>
+               <div className="text-2xl font-bold tracking-tight">LinkedIn</div>
+               <div className="text-2xl font-black tracking-tighter italic">X / Twitter</div>
+            </div>
         </section>
 
         {/* Capabilities */}
@@ -116,10 +128,86 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* Workflow / Pipeline */}
+        <section className="py-24 border-t border-zinc-200">
+          <div className="mb-16 text-center md:text-left">
+            <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 02</div>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900">The Pipeline.</h2>
+            <p className="text-zinc-500 text-lg md:text-xl font-medium max-w-2xl mt-6">Automate your content lifecycles from ideation to omnichannel distribution in three deterministic steps.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col">
+              <div className="text-5xl font-black text-zinc-200 mb-6 font-mono tracking-tighter">01</div>
+              <h3 className="text-xl font-bold text-zinc-900 mb-3">Sync & Ingest</h3>
+              <p className="text-zinc-500 font-medium leading-relaxed">Connect your existing accounts or drop in raw assets. We process the telemetry and extract the underlying narrative structures.</p>
+            </div>
+            <div className="flex flex-col">
+              <div className="text-5xl font-black text-zinc-200 mb-6 font-mono tracking-tighter">02</div>
+              <h3 className="text-xl font-bold text-primary mb-3">Neural Transmutation</h3>
+              <p className="text-zinc-500 font-medium leading-relaxed">Our models apply style-transfer algorithms to align the new assets perfectly with your established historical tone and brand voice.</p>
+            </div>
+            <div className="flex flex-col">
+              <div className="text-5xl font-black text-zinc-200 mb-6 font-mono tracking-tighter">03</div>
+              <h3 className="text-xl font-bold text-zinc-900 mb-3">Omnichannel Export</h3>
+              <p className="text-zinc-500 font-medium leading-relaxed">Deploy tailored variations to YouTube, LinkedIn, X, and TikTok simultaneously with format-specific optimizations.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials / Social Proof */}
+        <section className="py-24 border-t border-zinc-200 bg-zinc-50 -mx-6 px-6 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/blueprint/1920/1080?blur=10&grayscale')] opacity-5 mix-blend-overlay"></div>
+          <div className="max-w-[1200px] mx-auto relative z-10">
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight text-zinc-900 text-center mb-16">Architects using CreatorFlow</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="text-amber-400 text-lg mb-4 tracking-widest text-shadow-sm">★★★★★</div>
+                  <p className="text-zinc-700 font-medium leading-relaxed mb-8">"My output has literally tripled. The AI doesn't just write generic copy, it actually understands the specific hooks that work for my channel."</p>
+                </div>
+                <div className="flex items-center gap-3">
+                   <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-black text-zinc-600 border border-zinc-200">ST</div>
+                   <div>
+                     <div className="font-bold text-sm text-zinc-900">Sarah T.</div>
+                     <div className="text-xs text-zinc-500 font-medium">Tech Reviewer • 450k Subs</div>
+                   </div>
+                </div>
+              </div>
+              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="text-amber-400 text-lg mb-4 tracking-widest text-shadow-sm">★★★★★</div>
+                  <p className="text-zinc-700 font-medium leading-relaxed mb-8">"The LinkedIn carousel generator alone is worth ten times the price. I went from spending 3 hours per deck to 5 minutes."</p>
+                </div>
+                <div className="flex items-center gap-3">
+                   <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-black text-zinc-600 border border-zinc-200">MR</div>
+                   <div>
+                     <div className="font-bold text-sm text-zinc-900">Marcus R.</div>
+                     <div className="text-xs text-zinc-500 font-medium">Founding Partner</div>
+                   </div>
+                </div>
+              </div>
+              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="text-amber-400 text-lg mb-4 tracking-widest text-shadow-sm">★★★★★</div>
+                  <p className="text-zinc-700 font-medium leading-relaxed mb-8">"Video to Reels is flawless. It finds the exact 30 seconds where the retention spikes and edits it. Incredible engineering."</p>
+                </div>
+                <div className="flex items-center gap-3">
+                   <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-black text-zinc-600 border border-zinc-200">EL</div>
+                   <div>
+                     <div className="font-bold text-sm text-zinc-900">Elena L.</div>
+                     <div className="text-xs text-zinc-500 font-medium">Podcast Host</div>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing Structure */}
         <section id="pricing" className="py-24 border-t border-zinc-200">
           <div className="mb-16 text-center md:text-left">
-            <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 02</div>
+            <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 03</div>
             <h2 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900">Pricing Structure.</h2>
           </div>
 
@@ -217,6 +305,56 @@ export default function Landing() {
                <Link to="/auth" className="w-full border border-zinc-200 py-3.5 rounded-xl font-bold bg-white text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-colors flex items-center justify-center">Request Access</Link>
             </div>
           </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-24 border-t border-zinc-200">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 04</div>
+              <h2 className="text-4xl font-black tracking-tight text-zinc-900">Operations & Logistics.</h2>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm transition-all hover:border-zinc-300">
+                <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3">
+                   <span className="material-symbols-outlined text-primary text-[20px]">psychology</span>
+                   Does it actually sound like me?
+                </h3>
+                <p className="text-zinc-500 font-medium leading-relaxed pl-8">Yes. CreatorFlow analyzes your connected profiles (YouTube, LinkedIn) to extract structural data about your phrasing, pacing, and vocabulary. It doesn't use generic AI templates; it clones your blueprint.</p>
+              </div>
+              <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm transition-all hover:border-zinc-300">
+                <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3">
+                   <span className="material-symbols-outlined text-primary text-[20px]">database</span>
+                   How do credits work?
+                </h3>
+                <p className="text-zinc-500 font-medium leading-relaxed pl-8">Credits map directly to compute cost. Heavy operations like <i>Video to Reels</i> cost 30 credits due to transcription and frame analysis. Text-based generations like Posts or Carousels cost 10 credits.</p>
+              </div>
+              <div className="bg-white rounded-3xl p-8 border border-zinc-200 shadow-sm transition-all hover:border-zinc-300">
+                <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3">
+                   <span className="material-symbols-outlined text-primary text-[20px]">cancel</span>
+                   Can I cancel anytime?
+                </h3>
+                <p className="text-zinc-500 font-medium leading-relaxed pl-8">Absolutely. The subscriptions are entirely self-managed. You can downgrade, pause, or terminate your license immediately from your dashboard settings panel.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA Ribbon */}
+        <section className="py-32 border-t border-zinc-200 text-center relative overflow-hidden -mx-6 px-6 bg-zinc-950 text-white">
+            <div className="absolute inset-0 bg-primary/10 mix-blend-overlay pointer-events-none"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8 max-w-2xl mx-auto leading-[1.1]">
+                Ready to scale your <span className="text-primary">architectural output?</span>
+              </h2>
+              <p className="text-zinc-400 font-medium mb-12 max-w-xl mx-auto text-lg">Stop doing manual distribution. Start building systems.</p>
+              <Link to="/auth" className="inline-flex bg-primary text-white px-10 py-5 rounded-2xl text-base font-bold tracking-wide hover:bg-primary-dim transition-all shadow-[0_0_40px_rgba(var(--color-primary),0.3)] items-center justify-center gap-3 hover:scale-105 active:scale-95 duration-200">
+                Launch CreatorFlow
+                <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
+              </Link>
+            </div>
         </section>
 
       </main>

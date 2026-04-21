@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 export default function Settings() {
-  const { user, darkMode, setDarkMode, autoSave, setAutoSave, subscriptionPlan, setSubscriptionPlan } = useAppContext();
+  const { user, darkMode, setDarkMode, autoSave, setAutoSave, subscriptionPlan, setSubscriptionPlan, credits } = useAppContext();
   const [activeTab, setActiveTab] = useState('profile');
   const [geminiApiKey, setGeminiApiKey] = useState('');
   
