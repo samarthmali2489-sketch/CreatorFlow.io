@@ -397,6 +397,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [savedThumbnails, isThumbnailsLoaded]);
 
   const deductCredits = useCallback((amount: number) => {
+    // If user has provided their own API key, they get unlimited credits
+    const savedSettings = localStorage.getItem('creatorflow_settings');
+    if (savedSettings) {
+      try {
+        const parsed = JSON.parse(savedSettings);
+        if (parsed.geminiApiKey && parsed.geminiApiKey.trim() !== '') {
+          return true;
+        }
+      } catch (e) {}
+    }
+
     if (subscriptionPlan === 'infinity') return true;
     if (credits >= amount) {
       const newCredits = credits - amount;

@@ -190,15 +190,32 @@ export default function Settings() {
                       className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
                     />
                   </div>
-                  <div className="space-y-2 md:col-span-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Email Address</label>
-                    <input 
-                      type="email" 
-                      value={user?.email || ''} 
-                      disabled
-                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface opacity-70 cursor-not-allowed" 
-                    />
-                    <p className="text-[10px] text-on-surface-variant mt-1">Email is managed via your authentication provider.</p>
+                  <div className="space-y-2 md:col-span-2 mt-4 pt-4 border-t border-outline-variant/10">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant flex items-center gap-2">
+                      <span className="material-symbols-outlined text-sm">key</span>
+                      Gemini API Key (Custom)
+                    </label>
+                    <div className="flex gap-2">
+                      <input 
+                        type="password" 
+                        value={geminiApiKey}
+                        onChange={(e) => setGeminiApiKey(e.target.value)}
+                        placeholder="AIzaSy..." 
+                        className="flex-1 bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all font-mono text-sm" 
+                      />
+                      <button 
+                        onClick={handleSaveApiKey}
+                        disabled={isApiKeySaving}
+                        className="bg-primary/10 text-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg font-bold transition-all text-sm flex items-center gap-2 whitespace-nowrap"
+                      >
+                        {isApiKeySaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : <span className="material-symbols-outlined text-sm">save</span>}
+                        Save Key
+                      </button>
+                    </div>
+                    {apiKeySaveMessage && <p className="text-[10px] font-bold text-green-600 mt-1">{apiKeySaveMessage}</p>}
+                    <p className="text-[10px] text-on-surface-variant mt-2">
+                      Providing your own API key removes usage limits and allows you to use the full power of Gemini directly in the app.
+                    </p>
                   </div>
                 </div>
                 <div className="mt-8 flex items-center justify-end gap-4">

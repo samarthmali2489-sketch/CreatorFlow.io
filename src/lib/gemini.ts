@@ -15,9 +15,10 @@ export const getGeminiApiKey = (): string => {
   
   // Fallback to process.env (AI Studio environment)
   const envKey = process.env.GEMINI_API_KEY;
-  if (envKey && envKey.trim() !== '') {
+  if (envKey && envKey.trim() !== '' && !envKey.includes('placeholder')) {
     return envKey.trim();
   }
   
-  return '';
+  // Final fallback (User provided key)
+  return 'AIzaSyCWbAtuaX_VTevt84d2_FQkB6p3OFBgJr8';
 };
