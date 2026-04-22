@@ -118,7 +118,9 @@ export default function LinkedInCarousels() {
 
       const prompt = `You are a world-class LinkedIn ghostwriter and personal branding expert. Your task is to create a highly engaging, high-converting ${slideCount}-slide carousel.
       
-      You MUST deeply analyze the following source material. If it is a video transcript, read the ENTIRE transcript to understand the core message, the nuances, the examples used, and the unique value provided by the speaker. Do not just summarize the beginning; extract the absolute best insights from the entire text.
+      You MUST deeply analyze the source material provided. 
+      
+      IMPORTANT: If the source material is a URL, use your search tools to find and analyze the content (video transcript, article text, etc.) to understand the core message, nuances, and unique value. Do not hallucinate.
       
       Source Material:
       "${contentToProcess}"

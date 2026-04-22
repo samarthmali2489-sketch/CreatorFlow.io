@@ -68,7 +68,9 @@ export default function VideoToReels() {
         : '';
 
       const prompt = `You are an expert short-form video producer and viral content strategist. 
-      Analyze the following video transcript/URL and identify the 3 absolute best, most engaging moments that would make highly viral 30-60 second short-form videos.
+      Analyze the provided video transcript or URL and identify the 3 absolute best, most engaging moments.
+      
+      IMPORTANT: If only a URL is provided, use your search tools to find the video's content or transcript. Do not hallucinate.
       
       Target Platforms: ${Object.entries(exports).filter(([_, v]) => v).map(([k]) => k).join(', ') || 'TikTok, Reels, Shorts'}
       Face Tracking Preference: ${faceTracking}
