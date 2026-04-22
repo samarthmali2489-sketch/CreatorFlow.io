@@ -4,7 +4,6 @@ import { useAppContext } from '../context/AppContext';
 export default function Settings() {
   const { user, darkMode, setDarkMode, autoSave, setAutoSave, subscriptionPlan, setSubscriptionPlan, credits } = useAppContext();
   const [activeTab, setActiveTab] = useState('profile');
-  const [geminiApiKey, setGeminiApiKey] = useState('');
   
   // Profile State
   const [firstName, setFirstName] = useState('');
@@ -59,7 +58,6 @@ export default function Settings() {
       const parsed = JSON.parse(savedSettings);
       setFirstName(parsed.firstName || '');
       setLastName(parsed.lastName || '');
-      setGeminiApiKey(parsed.geminiApiKey || '');
       setLsCheckoutUrl(parsed.lsCheckoutUrl || '');
       setLsApiKey(parsed.lsApiKey || '');
       setLsWebhookSecret(parsed.lsWebhookSecret || '');
@@ -78,22 +76,6 @@ export default function Settings() {
       setIsSaving(false);
       setSaveMessage('Profile saved successfully!');
       setTimeout(() => setSaveMessage(''), 3000);
-    }, 800);
-  };
-
-  const [isApiKeySaving, setIsApiKeySaving] = useState(false);
-  const [apiKeySaveMessage, setApiKeySaveMessage] = useState('');
-
-  const handleSaveApiKey = () => {
-    setIsApiKeySaving(true);
-    setTimeout(() => {
-      const savedSettings = localStorage.getItem('creatorflow_settings');
-      let parsed = savedSettings ? JSON.parse(savedSettings) : {};
-      parsed.geminiApiKey = geminiApiKey;
-      localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
-      setIsApiKeySaving(false);
-      setApiKeySaveMessage('API Key saved securely!');
-      setTimeout(() => setApiKeySaveMessage(''), 3000);
     }, 800);
   };
 
@@ -134,7 +116,7 @@ export default function Settings() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-4">Settings</h1>
-            <p className="text-on-surface-variant text-lg">Manage your account, preferences, and API keys.</p>
+            <p className="text-on-surface-variant text-lg">Manage your account and preferences.</p>
           </div>
         </div>
       </header>
@@ -190,32 +172,15 @@ export default function Settings() {
                       className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
                     />
                   </div>
-                  <div className="space-y-2 md:col-span-2 mt-4 pt-4 border-t border-outline-variant/10">
-                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant flex items-center gap-2">
-                      <span className="material-symbols-outlined text-sm">key</span>
-                      Gemini API Key (Custom)
-                    </label>
-                    <div className="flex gap-2">
-                      <input 
-                        type="password" 
-                        value={geminiApiKey}
-                        onChange={(e) => setGeminiApiKey(e.target.value)}
-                        placeholder="AIzaSy..." 
-                        className="flex-1 bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all font-mono text-sm" 
-                      />
-                      <button 
-                        onClick={handleSaveApiKey}
-                        disabled={isApiKeySaving}
-                        className="bg-primary/10 text-primary hover:bg-primary hover:text-white px-4 py-2 rounded-lg font-bold transition-all text-sm flex items-center gap-2 whitespace-nowrap"
-                      >
-                        {isApiKeySaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : <span className="material-symbols-outlined text-sm">save</span>}
-                        Save Key
-                      </button>
-                    </div>
-                    {apiKeySaveMessage && <p className="text-[10px] font-bold text-green-600 mt-1">{apiKeySaveMessage}</p>}
-                    <p className="text-[10px] text-on-surface-variant mt-2">
-                      Providing your own API key removes usage limits and allows you to use the full power of Gemini directly in the app.
-                    </p>
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-medium">Email Address</label>
+                    <input 
+                      type="email" 
+                      value={user?.email || ''} 
+                      disabled
+                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface opacity-70 cursor-not-allowed" 
+                    />
+                    <p className="text-[10px] text-on-surface-variant mt-1">Email is managed via your authentication provider.</p>
                   </div>
                 </div>
                 <div className="mt-8 flex items-center justify-end gap-4">

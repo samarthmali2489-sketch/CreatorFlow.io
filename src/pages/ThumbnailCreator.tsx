@@ -119,8 +119,6 @@ export default function ThumbnailCreator() {
     
     try {
       const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Backend API key is not configured yet. The developer will provide it soon!");
-      
       const ai = new GoogleGenAI({ apiKey });
       
       const actualStyle = style === 'Custom' ? customStyle : style;

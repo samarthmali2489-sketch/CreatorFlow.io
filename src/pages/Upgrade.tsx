@@ -76,12 +76,7 @@ export default function Upgrade() {
       )}
       <header className="text-center mb-16">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface mb-4">Upgrade Your Flow</h1>
-        <p className="text-on-surface-variant text-xl max-w-2xl mx-auto mb-6">Choose the perfect plan to scale your content creation.</p>
-        
-        <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/5 rounded-2xl border border-primary/20 text-primary animate-pulse">
-          <span className="material-symbols-outlined text-lg">info</span>
-          <p className="text-sm font-bold">Pro Tip: Using your own Gemini API Key in Settings grants you <span className="uppercase tracking-widest text-xs bg-primary text-white p-1 rounded ml-1">Infinite</span> access!</p>
-        </div>
+        <p className="text-on-surface-variant text-xl max-w-2xl mx-auto">Choose the perfect plan to scale your content creation.</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">

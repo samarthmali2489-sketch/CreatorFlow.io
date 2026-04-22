@@ -118,7 +118,6 @@ export default function Integrations() {
 
       // 2. Analyze with Gemini
       const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
       const ai = new GoogleGenAI({ apiKey });
       
       const prompt = scrapedText 

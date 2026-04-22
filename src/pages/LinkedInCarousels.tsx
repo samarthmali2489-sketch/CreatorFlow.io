@@ -104,7 +104,6 @@ export default function LinkedInCarousels() {
       }
 
       const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
       const ai = new GoogleGenAI({ apiKey });
       
       const profileData = profiles['linkedin'];
