@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { getGeminiApiKey, generateContentProxy } from '../lib/gemini';
+import { GoogleGenAI } from '@google/genai';
+import { getGeminiApiKey } from '../lib/gemini';
 import { useAppContext } from '../context/AppContext';
 import { Link } from 'react-router-dom';
 
@@ -117,6 +118,11 @@ export default function ThumbnailCreator() {
     setError('');
     
     try {
+      const apiKey = getGeminiApiKey();
+      if (!apiKey) throw new Error("Backend API key is not configured yet. The developer will provide it soon!");
+      
+      const ai = new GoogleGenAI({ apiKey });
+      
       const actualStyle = style === 'Custom' ? customStyle : style;
       
       let targetPrompt = `Create a cinematic, high-CTR YouTube thumbnail background. DO NOT INCLUDE ANY TEXT, WORDS, OR LETTERS IN THIS IMAGE. 
@@ -136,10 +142,14 @@ CINEMATIC DIRECTOR GUIDELINES:
       // 1. Actively analyze the requested channel using Grounded Search
       if (channelName.trim()) {
         try {
-          const channelAnalysisResponse = await generateContentProxy('gemini-3.1-pro-preview', {
-            parts: [{ text: `Search Google closely for recent YouTube thumbnails and videos from the channel "${channelName}". Deeply analyze their specific visual style, aesthetics, color palettes, lighting, photography style, and common emotional hooks. Give me a 1-paragraph highly detailed aesthetic description that strictly defines their visual identity so I can accurately replicate their thumbnail vibe. Do not include instructions, just the description.` }]
-          }, {
-            tools: [{ googleSearch: {} }]
+          const channelAnalysisResponse = await ai.models.generateContent({
+            model: 'gemini-3.1-pro-preview',
+            contents: {
+              parts: [{ text: `Search Google closely for recent YouTube thumbnails and videos from the channel "${channelName}". Deeply analyze their specific visual style, aesthetics, color palettes, lighting, photography style, and common emotional hooks. Give me a 1-paragraph highly detailed aesthetic description that strictly defines their visual identity so I can accurately replicate their thumbnail vibe. Do not include instructions, just the description.` }]
+            },
+            config: {
+              tools: [{ googleSearch: {} }]
+            }
           });
           const channelAesthetic = channelAnalysisResponse.text || '';
           if (channelAesthetic) {
@@ -157,16 +167,19 @@ CINEMATIC DIRECTOR GUIDELINES:
         const mimeType = mimeInfo.split(':')[1].split(';')[0];
         
         try {
-          const analysisResponse = await generateContentProxy('gemini-3.1-pro-preview', {
-            parts: [
-              { text: "Analyze this image's specific visual style, aesthetics, color grading, lighting, and composition. Give me a 3 sentence detailed aesthetic description I can use to prompt an image generator to replicate this exact same vibe. Focus ONLY on the stylistic look, not the specific subjects." },
-              {
-                inlineData: {
-                  data: base64Data,
-                  mimeType
+          const analysisResponse = await ai.models.generateContent({
+            model: 'gemini-3.1-pro-preview',
+            contents: {
+              parts: [
+                { text: "Analyze this image's specific visual style, aesthetics, color grading, lighting, and composition. Give me a 3 sentence detailed aesthetic description I can use to prompt an image generator to replicate this exact same vibe. Focus ONLY on the stylistic look, not the specific subjects." },
+                {
+                  inlineData: {
+                    data: base64Data,
+                    mimeType
+                  }
                 }
-              }
-            ]
+              ]
+            }
           });
           const aestheticDescription = analysisResponse.text || '';
           if (aestheticDescription) {
@@ -180,12 +193,16 @@ CINEMATIC DIRECTOR GUIDELINES:
       finalImagePrompt += `\n\nCRUEL CRITERIA: DO NOT use childish, cheap clip-art, or amateur vector styles. This MUST look like a multi-million-subscriber Youtube channel's premium thumbnail: highly produced, extremely crisp, breathtaking cinematography, dramatic shading, and professional-grade editing. ABSOLUTELY NO TEXT.`;
 
       // 3. Generate exactly 1 Thumbnail using gemini-3-pro-image-preview
-      const response = await generateContentProxy('gemini-3-pro-image-preview', {
-        parts: [{ text: finalImagePrompt }]
-      }, {
-        imageConfig: {
-          aspectRatio: '16:9',
-          imageSize: '1K'
+      const response = await ai.models.generateContent({
+        model: 'gemini-3-pro-image-preview',
+        contents: {
+          parts: [{ text: finalImagePrompt }]
+        },
+        config: {
+          imageConfig: {
+            aspectRatio: '16:9',
+            imageSize: '1K'
+          }
         }
       });
 
@@ -206,8 +223,11 @@ CINEMATIC DIRECTOR GUIDELINES:
         let textToOverlay = thumbnailText.trim();
         if (!textToOverlay) {
             try {
-                const textResponse = await generateContentProxy('gemini-3.1-pro-preview', {
-                    parts: [{ text: `Generate a super catchy 2-3 word click-bait title for a YouTube video about: ${topic}. Respond ONLY with the text in ALL CAPS, nothing else.` }]
+                const textResponse = await ai.models.generateContent({
+                    model: 'gemini-3.1-pro-preview',
+                    contents: {
+                        parts: [{ text: `Generate a super catchy 2-3 word click-bait title for a YouTube video about: ${topic}. Respond ONLY with the text in ALL CAPS, nothing else.` }]
+                    }
                 });
                 textToOverlay = (textResponse.text || '').trim();
             } catch (err) {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { getGeminiApiKey, generateContentProxy } from '../lib/gemini';
+import { GoogleGenAI } from '@google/genai';
+import { getGeminiApiKey } from '../lib/gemini';
 
 export default function VideoToReels() {
   const { addVideoProcessed, profiles, savedReels, saveReel, deductCredits } = useAppContext();
@@ -57,6 +58,10 @@ export default function VideoToReels() {
       setProgressText('AI is analyzing content for viral moments...');
 
       // 2. Generate Reel Concepts using Gemini
+      const apiKey = getGeminiApiKey();
+      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
+      const ai = new GoogleGenAI({ apiKey });
+      
       const profileData = profiles['youtube'];
       const styleContext = profileData?.analysis 
         ? `\n\nCRITICAL: Match this creator's specific style and tone based on their YouTube profile analysis:\n${profileData.analysis}`
@@ -93,9 +98,13 @@ export default function VideoToReels() {
         ]
       }`;
 
-      const response = await generateContentProxy('gemini-3.1-pro-preview', prompt, {
-        responseMimeType: 'application/json',
-        tools: [{ googleSearch: {} }]
+      const response = await ai.models.generateContent({
+        model: 'gemini-3.1-pro-preview',
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json',
+          tools: [{ googleSearch: {} }]
+        }
       });
       
       let responseText = response.text || '{"reels": []}';

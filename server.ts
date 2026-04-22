@@ -5,11 +5,8 @@ import path from "path";
 import crypto from 'crypto';
 import { createRequire } from 'module';
 import dotenv from 'dotenv';
-import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 const require = createRequire(import.meta.url);
 const { YoutubeTranscript } = require('youtube-transcript/dist/youtube-transcript.common.js');
@@ -63,36 +60,6 @@ async function startServer() {
     } catch(e: any) {
       console.error('Webhook processing failed', e);
       res.status(500).json({ error: 'Webhook processing failed' });
-    }
-  });
-
-  // API route for AI Generation (Proxy)
-  app.post("/api/ai/generate", async (req, res) => {
-    try {
-      const { prompt, model: modelName, config, contents } = req.body;
-      
-      if (!process.env.GEMINI_API_KEY) {
-        return res.status(500).json({ error: "Master API key not configured on server." });
-      }
-
-      // In @google/genai, generateContent takes a single object with model, contents, and config
-      const generationInput = contents || prompt;
-
-      const response = await ai.models.generateContent({
-        model: modelName || 'gemini-1.5-flash',
-        contents: generationInput,
-        config: config || {}
-      });
-      
-      // Send back the data the client needs
-      res.json({ 
-        text: response.text,
-        candidates: response.candidates,
-        usageMetadata: response.usageMetadata
-      });
-    } catch (error: any) {
-      console.error("AI Generation error:", error);
-      res.status(500).json({ error: error.message || "Failed to generate content" });
     }
   });
 
