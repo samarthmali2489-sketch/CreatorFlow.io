@@ -191,7 +191,7 @@ export default function Auth() {
     e.preventDefault();
     
     if (!isSupabaseConfigured) {
-      setError('Connection failed. Please ensure you have added a valid Supabase URL and Anon Key to your Developer Settings (⚙️ icon). We are currently blocking this request because no keys were found.');
+      setError('Connection failed. Please ensure the backend is properly configured with your Supabase credentials.');
       setFocusState('error');
       return;
     }

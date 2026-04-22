@@ -41,15 +41,9 @@ export default function ThumbnailCreator() {
     setError('');
     
     try {
-      if (window.aistudio && window.aistudio.hasSelectedApiKey) {
-        const hasKey = await window.aistudio.hasSelectedApiKey();
-        if (!hasKey && window.aistudio.openSelectKey) {
-          await window.aistudio.openSelectKey();
-        }
-      }
-
       const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
+      if (!apiKey) throw new Error("Backend API key is not configured yet. The developer will provide it soon!");
+      
       const ai = new GoogleGenAI({ apiKey });
       
       const actualStyle = style === 'Custom' ? customStyle : style;
@@ -88,14 +82,13 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
       const promises = Array.from({ length: 3 }).map(async () => {
         let finalImagePrompt = targetPrompt;
 
-        // If the user uploaded an image, flash-image-preview doesn't accept image parts natively.
-        // So we must use gemini-3.1-flash to meticulously describe the reference aesthetic, and push that text into image-preview.
+        // If the user uploaded an image
         if (referenceImage) {
           const [mimeInfo, base64Data] = referenceImage.split(',');
           const mimeType = mimeInfo.split(':')[1].split(';')[0];
           
           const analysisResponse = await ai.models.generateContent({
-            model: 'gemini-3.1-flash',
+            model: 'gemini-3-flash-preview',
             contents: {
               parts: [
                 { text: "Analyze this image's specific visual style, aesthetics, color grading, lighting, and composition. Give me a 3 sentence detailed aesthetic description I can use to prompt an image generator to replicate this exact same vibe. Focus ONLY on the stylistic look, not the specific subjects." },
@@ -143,12 +136,9 @@ Make it extremely eye-catching, high contrast, perfect composition, appealing to
       console.error("Image generation failed", err);
       
       if (err.message && err.message.includes("Requested entity was not found.")) {
-        if (window.aistudio && window.aistudio.openSelectKey) {
-          await window.aistudio.openSelectKey();
-        }
-        setError('Please select a valid paid Google Cloud API key and try again.');
+        setError('Configured API Key does not have access to the Image Generation model.');
       } else if (err.message === 'Failed to fetch' || err?.message?.includes('Failed to fetch')) {
-        setError('Connection failed. If you provided a custom API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS restrictions.');
+        setError('Connection failed. Ensure the configured API Key is valid and there are no network restrictions.');
       } else {
         setError(err.message || 'Failed to generate thumbnails. Please try another prompt.');
       }
