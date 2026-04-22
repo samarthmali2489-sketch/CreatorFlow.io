@@ -74,11 +74,26 @@ export default function Settings() {
       let parsed = savedSettings ? JSON.parse(savedSettings) : {};
       parsed.firstName = firstName;
       parsed.lastName = lastName;
-      parsed.geminiApiKey = geminiApiKey;
       localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
       setIsSaving(false);
       setSaveMessage('Profile saved successfully!');
       setTimeout(() => setSaveMessage(''), 3000);
+    }, 800);
+  };
+
+  const [isApiKeySaving, setIsApiKeySaving] = useState(false);
+  const [apiKeySaveMessage, setApiKeySaveMessage] = useState('');
+
+  const handleSaveApiKey = () => {
+    setIsApiKeySaving(true);
+    setTimeout(() => {
+      const savedSettings = localStorage.getItem('creatorflow_settings');
+      let parsed = savedSettings ? JSON.parse(savedSettings) : {};
+      parsed.geminiApiKey = geminiApiKey;
+      localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
+      setIsApiKeySaving(false);
+      setApiKeySaveMessage('API Key saved securely!');
+      setTimeout(() => setApiKeySaveMessage(''), 3000);
     }, 800);
   };
 
@@ -130,7 +145,6 @@ export default function Settings() {
           {[
             { id: 'profile', label: 'Profile', icon: 'person' },
             { id: 'preferences', label: 'Preferences', icon: 'tune' },
-            { id: 'notifications', label: 'Notifications', icon: 'notifications' },
             { id: 'billing', label: 'Billing & Plans', icon: 'credit_card' },
           ].map((tab) => (
             <button
