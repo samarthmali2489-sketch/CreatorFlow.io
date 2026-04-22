@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { User, Session } from '@supabase/supabase-js';
+import { get, set } from 'idb-keyval';
 
 const generateId = () => {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -58,6 +59,7 @@ export type SavedThumbnail = {
   url: string;
   topic: string;
   style: string;
+  thumbnailText?: string;
   channelInspiration?: string;
   date: string;
 };
@@ -349,21 +351,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return [];
   });
 
-  const [savedThumbnails, setSavedThumbnails] = useState<SavedThumbnail[]>(() => {
-    const saved = localStorage.getItem('creatorflow_saved_thumbnails');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      const seen = new Set();
-      return parsed.map((t: any) => {
-        if (seen.has(t.id)) {
-          t.id = generateId();
-        }
-        seen.add(t.id);
-        return t;
-      });
-    }
-    return [];
-  });
+  const [savedThumbnails, setSavedThumbnails] = useState<SavedThumbnail[]>([]);
+  const [isThumbnailsLoaded, setIsThumbnailsLoaded] = useState(false);
+
+  // Asynchronously load heavy thumbnails from IndexedDB on mount
+  useEffect(() => {
+    get('creatorflow_saved_thumbnails').then((val) => {
+      if (val) {
+        setSavedThumbnails(val);
+      }
+      setIsThumbnailsLoaded(true);
+    }).catch((err) => {
+      console.warn('Failed to load thumbnails from idb:', err);
+      setIsThumbnailsLoaded(true);
+    });
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('creatorflow_analytics', JSON.stringify(analytics));
@@ -385,9 +387,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('creatorflow_saved_reels', JSON.stringify(savedReels));
   }, [savedReels]);
 
+  // Save massive thumbnails to IndexedDB instead of LocalStorage
   useEffect(() => {
-    localStorage.setItem('creatorflow_saved_thumbnails', JSON.stringify(savedThumbnails));
-  }, [savedThumbnails]);
+    if (isThumbnailsLoaded) {
+      set('creatorflow_saved_thumbnails', savedThumbnails).catch((err) => {
+        console.error('Failed to save thumbnails to idb:', err);
+      });
+    }
+  }, [savedThumbnails, isThumbnailsLoaded]);
 
   const deductCredits = useCallback((amount: number) => {
     if (subscriptionPlan === 'infinity') return true;

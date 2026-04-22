@@ -34,16 +34,26 @@ export default function VideoToReels() {
     setGeneratedReels([]);
 
     try {
-      // 1. Scrape the URL
-      const res = await fetch('/api/scrape', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url.trim() })
-      });
-      
-      if (!res.ok) throw new Error('Failed to fetch video data');
-      const data = await res.json();
-      const transcript = data.text;
+      // 1. Try to Scrape the URL (Will fail on static hosts like Vercel without a Node backend)
+      let customContext = '';
+      try {
+        const res = await fetch('/api/scrape', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: url.trim() })
+        });
+        
+        if (res.ok) {
+          const data = await res.json();
+          customContext = data.text;
+        } else {
+           console.warn("Scraper failed, falling back to Gemini native search:", res.status);
+        }
+      } catch (scrapeErr) {
+         console.warn("Scrape endpoint offline, falling back to Gemini Search", scrapeErr);
+      }
+
+      const contentToAnalyze = customContext || `Please deeply analyze this URL for the video contents: ${url.trim()}`;
 
       setProgressText('AI is analyzing content for viral moments...');
 
@@ -58,7 +68,7 @@ export default function VideoToReels() {
         : '';
 
       const prompt = `You are an expert short-form video producer and viral content strategist. 
-      Analyze the following video transcript and identify the 3 absolute best, most engaging moments that would make highly viral 30-60 second short-form videos.
+      Analyze the following video transcript/URL and identify the 3 absolute best, most engaging moments that would make highly viral 30-60 second short-form videos.
       
       Target Platforms: ${Object.entries(exports).filter(([_, v]) => v).map(([k]) => k).join(', ') || 'TikTok, Reels, Shorts'}
       Face Tracking Preference: ${faceTracking}
@@ -72,7 +82,7 @@ export default function VideoToReels() {
       4. Visual instructions (e.g., "Zoom in on face", "Add B-roll of money", "Pop-up text"). Explicitly mention how to apply the requested ${faceTracking} framing and ${captionStyle} captions.
       
       Transcript/Content:
-      "${transcript}"
+      "${contentToAnalyze}"
       
       Return the response in valid JSON format with this exact structure:
       {
@@ -87,10 +97,11 @@ export default function VideoToReels() {
       }`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
+        model: 'gemini-3.1-pro-preview',
         contents: prompt,
         config: {
           responseMimeType: 'application/json',
+          tools: [{ googleSearch: {} }]
         }
       });
       

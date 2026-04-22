@@ -66,6 +66,12 @@ export default function SavedThumbnails() {
               <div className="px-2 pb-2">
                 <h3 className="font-bold text-gray-900 line-clamp-1" title={thumbnail.topic}>{thumbnail.topic}</h3>
                 <div className="flex flex-wrap gap-2 mt-2">
+                  {thumbnail.thumbnailText && (
+                    <span className="bg-purple-50 text-purple-700 px-2 py-1 flex items-center gap-1 rounded-md text-[10px] font-bold uppercase tracking-widest">
+                      <span className="material-symbols-outlined text-[12px]">title</span>
+                      Text: "{thumbnail.thumbnailText}"
+                    </span>
+                  )}
                   <span className="bg-blue-50 text-blue-700 px-2 py-1 flex items-center gap-1 rounded-md text-[10px] font-bold uppercase tracking-widest">
                     <span className="material-symbols-outlined text-[12px]">palette</span>
                     {thumbnail.style}
