@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleGenAI } from '@google/genai';
-import { getGeminiApiKey } from '../lib/gemini';
+import { getGeminiApiKey, generateContentProxy } from '../lib/gemini';
 import { useAppContext } from '../context/AppContext';
 
 export default function Integrations() {
@@ -117,20 +116,12 @@ export default function Integrations() {
       }
 
       // 2. Analyze with Gemini
-      const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
-      const ai = new GoogleGenAI({ apiKey });
-      
       const prompt = scrapedText 
         ? `Analyze the following content scraped from the creator's ${activeModal} profile (${urlInput}). Extract their exact tone of voice, stylistic quirks, common topics, and target audience. Return a concise but highly detailed summary that can be used as a system prompt to mimic their style perfectly.\n\nContent:\n${scrapedText.substring(0, 15000)}`
         : `Analyze the creator's ${activeModal} profile based on this URL: ${urlInput}. If you recognize the creator, extract their exact tone of voice, stylistic quirks, common topics, and target audience. Return a concise but highly detailed summary that can be used as a system prompt to mimic their style perfectly.`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: prompt,
-        config: {
-          tools: [{ googleSearch: {} }] // Use search grounding if scraping fails or to augment
-        }
+      const response = await generateContentProxy('gemini-3.1-pro-preview', prompt, {
+        tools: [{ googleSearch: {} }] // Use search grounding if scraping fails or to augment
       });
       
       saveProfileAnalysis(activeModal, {

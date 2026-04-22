@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { GoogleGenAI } from '@google/genai';
-import { getGeminiApiKey } from '../lib/gemini';
+import { getGeminiApiKey, generateContentProxy } from '../lib/gemini';
 import { Link } from 'react-router-dom';
 
 export default function YTAndInstaPostsCreator() {
@@ -56,10 +55,6 @@ export default function YTAndInstaPostsCreator() {
         }
       }
 
-      const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
-      const ai = new GoogleGenAI({ apiKey });
-      
       const profileData = profiles[targetPlatform];
       const styleContext = profileData?.analysis 
         ? `\n\nCRITICAL: Match this creator's specific style and tone based on their profile analysis:\n${profileData.analysis}`
@@ -103,13 +98,9 @@ export default function YTAndInstaPostsCreator() {
         ]
       }`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json',
-          tools: [{ googleSearch: {} }]
-        }
+      const response = await generateContentProxy('gemini-3.1-pro-preview', prompt, {
+        responseMimeType: 'application/json',
+        tools: [{ googleSearch: {} }]
       });
       
       let responseText = response.text || '{"posts": []}';

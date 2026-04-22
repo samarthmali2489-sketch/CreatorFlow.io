@@ -21,3 +21,26 @@ export const getGeminiApiKey = (): string => {
   
   return '';
 };
+
+export const generateContentProxy = async (model: string, promptOrContents: any, config: any = {}) => {
+  const body: any = { model, config };
+  
+  if (typeof promptOrContents === 'string') {
+    body.prompt = promptOrContents;
+  } else {
+    body.contents = promptOrContents;
+  }
+
+  const response = await fetch('/api/ai/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Server-side generation failed');
+  }
+
+  return await response.json();
+};

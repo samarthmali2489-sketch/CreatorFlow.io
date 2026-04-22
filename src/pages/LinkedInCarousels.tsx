@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { GoogleGenAI } from '@google/genai';
-import { getGeminiApiKey } from '../lib/gemini';
+import { getGeminiApiKey, generateContentProxy } from '../lib/gemini';
 import { Link } from 'react-router-dom';
 import * as htmlToImage from 'html-to-image';
 import JSZip from 'jszip';
@@ -103,10 +102,6 @@ export default function LinkedInCarousels() {
         }
       }
 
-      const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please add it in Settings.");
-      const ai = new GoogleGenAI({ apiKey });
-      
       const profileData = profiles['linkedin'];
       const styleContext = profileData?.analysis 
         ? `\n\nCRITICAL: Match this creator's specific style and tone based on their LinkedIn profile analysis:\n${profileData.analysis}`
@@ -151,13 +146,9 @@ export default function LinkedInCarousels() {
       }
       Make sure there are exactly ${slideCount} slides.`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json',
-          tools: [{ googleSearch: {} }]
-        }
+      const response = await generateContentProxy('gemini-3.1-pro-preview', prompt, {
+        responseMimeType: 'application/json',
+        tools: [{ googleSearch: {} }]
       });
       
       let responseText = response.text || '{"slides": []}';
