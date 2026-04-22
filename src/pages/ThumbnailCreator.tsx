@@ -143,7 +143,7 @@ CINEMATIC DIRECTOR GUIDELINES:
       if (channelName.trim()) {
         try {
           const channelAnalysisResponse = await ai.models.generateContent({
-            model: 'gemini-3.1-flash-preview',
+            model: 'gemini-3.1-pro-preview',
             contents: {
               parts: [{ text: `Search Google closely for recent YouTube thumbnails and videos from the channel "${channelName}". Deeply analyze their specific visual style, aesthetics, color palettes, lighting, photography style, and common emotional hooks. Give me a 1-paragraph highly detailed aesthetic description that strictly defines their visual identity so I can accurately replicate their thumbnail vibe. Do not include instructions, just the description.` }]
             },
@@ -168,7 +168,7 @@ CINEMATIC DIRECTOR GUIDELINES:
         
         try {
           const analysisResponse = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
+            model: 'gemini-3.1-pro-preview',
             contents: {
               parts: [
                 { text: "Analyze this image's specific visual style, aesthetics, color grading, lighting, and composition. Give me a 3 sentence detailed aesthetic description I can use to prompt an image generator to replicate this exact same vibe. Focus ONLY on the stylistic look, not the specific subjects." },
@@ -224,7 +224,7 @@ CINEMATIC DIRECTOR GUIDELINES:
         if (!textToOverlay) {
             try {
                 const textResponse = await ai.models.generateContent({
-                    model: 'gemini-3.1-flash-preview',
+                    model: 'gemini-3.1-pro-preview',
                     contents: {
                         parts: [{ text: `Generate a super catchy 2-3 word click-bait title for a YouTube video about: ${topic}. Respond ONLY with the text in ALL CAPS, nothing else.` }]
                     }

@@ -126,7 +126,7 @@ export default function Integrations() {
         : `Analyze the creator's ${activeModal} profile based on this URL: ${urlInput}. If you recognize the creator, extract their exact tone of voice, stylistic quirks, common topics, and target audience. Return a concise but highly detailed summary that can be used as a system prompt to mimic their style perfectly.`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
+        model: 'gemini-3.1-pro-preview',
         contents: prompt,
         config: {
           tools: [{ googleSearch: {} }] // Use search grounding if scraping fails or to augment
