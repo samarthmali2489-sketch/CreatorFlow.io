@@ -69,29 +69,27 @@ async function startServer() {
   // API route for AI Generation (Proxy)
   app.post("/api/ai/generate", async (req, res) => {
     try {
-      const { prompt, model, config, contents } = req.body;
+      const { prompt, model: modelName, config, contents } = req.body;
       
       if (!process.env.GEMINI_API_KEY) {
         return res.status(500).json({ error: "Master API key not configured on server." });
       }
 
-      // If 'contents' is provided, use it (multimodal), otherwise fallback to simple text prompt
+      // In @google/genai, generateContent takes a single object with model, contents, and config
       const generationInput = contents || prompt;
 
       const response = await ai.models.generateContent({
-        model: model || 'gemini-1.5-flash',
+        model: modelName || 'gemini-1.5-flash',
         contents: generationInput,
         config: config || {}
       });
       
-      // Clean result for the client - Include text for convenience and the full candidates for complex tasks
-      const result = {
-        text: response.text, // Extract text on server using the SDK's helper
+      // Send back the data the client needs
+      res.json({ 
+        text: response.text,
         candidates: response.candidates,
         usageMetadata: response.usageMetadata
-      };
-      
-      res.json(result);
+      });
     } catch (error: any) {
       console.error("AI Generation error:", error);
       res.status(500).json({ error: error.message || "Failed to generate content" });
