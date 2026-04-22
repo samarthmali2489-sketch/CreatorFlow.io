@@ -143,7 +143,7 @@ export default function Integrations() {
       console.error("Analysis failed", e);
       let errorMsg = e?.message || 'Unknown error';
       if (errorMsg === 'Failed to fetch' || errorMsg.includes('Failed to fetch')) {
-        errorMsg = 'Connection failed. If you provided a custom Gemini API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS.';
+        errorMsg = 'Connection failed. This might be due to a temporary network issue or an invalid configuration. Please try again later or contact support if the problem persists.';
       }
       alert(`Failed to analyze profile. Error: ${errorMsg}`);
       setActiveModal(null);

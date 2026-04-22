@@ -141,7 +141,7 @@ export default function YTAndInstaPostsCreator() {
       console.error("Generation failed", error);
       let errorMsg = error?.message || 'Unknown error';
       if (errorMsg === 'Failed to fetch' || errorMsg.includes('Failed to fetch')) {
-        errorMsg = 'Connection failed. If you provided a custom API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS restrictions.';
+        errorMsg = 'Connection failed. Please check your internet connection or try again later. If the issue persists, contact support.';
       }
       alert(`Failed to generate posts. Error: ${errorMsg}. Please try again.`);
     } finally {

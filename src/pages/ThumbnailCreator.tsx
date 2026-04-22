@@ -259,9 +259,9 @@ CINEMATIC DIRECTOR GUIDELINES:
       console.error("Image generation failed", err);
       
       if (err.message && err.message.includes("Requested entity was not found.")) {
-        setError('Configured API Key does not have access to the Image Generation model.');
+        setError('The generation service is temporarily unavailable. Please try again later.');
       } else if (err.message === 'Failed to fetch' || err?.message?.includes('Failed to fetch')) {
-        setError('Connection failed. Ensure the configured API Key is valid and there are no network restrictions.');
+        setError('Network error: Could not reach the generation servers. Please check your connection.');
       } else {
         setError(err.message || 'Failed to generate thumbnails. Please try another prompt.');
       }

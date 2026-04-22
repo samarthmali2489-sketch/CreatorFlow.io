@@ -192,7 +192,7 @@ export default function LinkedInCarousels() {
       console.error("Generation failed", error);
       let errorMsg = error?.message || 'Unknown error';
       if (errorMsg === 'Failed to fetch' || errorMsg.includes('Failed to fetch')) {
-        errorMsg = 'Connection failed. If you provided a custom API Key, ensure it is completely valid. Invalid keys trigger network fetch errors due to CORS restrictions.';
+        errorMsg = 'Connection failed. High traffic or network issues may be affecting the service. Please try again shortly.';
       }
       alert(`Failed to generate carousel. Error: ${errorMsg}. Please try again.`);
     } finally {
