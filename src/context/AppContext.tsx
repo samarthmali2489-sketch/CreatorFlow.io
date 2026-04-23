@@ -409,9 +409,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [savedThumbnails, isThumbnailsLoaded]);
 
   const deductCredits = useCallback((amount: number) => {
-    // All features are now unlocked and free thanks to the hardcoded premium Gemini key
-    return true;
-  }, []);
+    if (subscriptionPlan === 'infinity') return true;
+    if (credits >= amount) {
+      const newCredits = credits - amount;
+      setCredits(newCredits);
+      // Sync seamlessly to Supabase
+      if (user) {
+        supabase.auth.updateUser({ data: { credits: newCredits } }).catch(() => {});
+      }
+      return true;
+    }
+    return false;
+  }, [subscriptionPlan, credits, user]);
 
   const setAnalyticsData = useCallback((newAnalytics: AnalyticsData) => {
     setAnalytics(newAnalytics);
