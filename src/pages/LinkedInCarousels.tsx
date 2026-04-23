@@ -103,7 +103,7 @@ export default function LinkedInCarousels() {
       }
 
       const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please go to the Settings tab to securely add your custom API Key.");
+      if (!apiKey) throw new Error("Server configuration issue. AI key is missing from backend.");
       const ai = new GoogleGenAI({ apiKey });
       
       const profileData = profiles['linkedin'];
