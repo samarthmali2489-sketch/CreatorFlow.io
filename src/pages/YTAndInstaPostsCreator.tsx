@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { GoogleGenAI } from '@google/genai';
-import { getGeminiApiKey } from '../lib/gemini';
+import { GoogleGenAI, getGeminiApiKey } from '../lib/gemini';
 import { Link } from 'react-router-dom';
 
 export default function YTAndInstaPostsCreator() {
@@ -57,7 +56,7 @@ export default function YTAndInstaPostsCreator() {
       }
 
       const apiKey = getGeminiApiKey();
-      if (!apiKey) throw new Error("Gemini API Key is missing. Please select your API key or configure VITE_TONY_THE_KEY.");
+      if (!apiKey) throw new Error("Gemini API Key is missing. Please go to the Settings tab to securely add your custom API Key.");
       const ai = new GoogleGenAI({ apiKey });
       
       const profileData = profiles[targetPlatform];

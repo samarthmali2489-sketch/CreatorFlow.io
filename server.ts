@@ -5,6 +5,7 @@ import path from "path";
 import crypto from 'crypto';
 import { createRequire } from 'module';
 import dotenv from 'dotenv';
+import { GoogleGenAI } from '@google/genai';
 
 dotenv.config();
 
@@ -17,10 +18,37 @@ async function startServer() {
 
   // Use raw JSON for LemonSqueezy webhook signature verification, normal JSON for everything else
   app.use((req, res, next) => {
+    // Increase payload size limit to 50mb to allow base64 image data for image generation 
     if (req.originalUrl === '/api/webhooks/lemonsqueezy') {
       next();
     } else {
-      express.json()(req, res, next);
+      express.json({ limit: '50mb' })(req, res, next);
+    }
+  });
+
+  // Secure Gemini API Proxy
+  app.post("/api/generate", async (req, res) => {
+    try {
+      // Prioritize the TONY_THE_KEY or standard GEMINI_API_KEY from the server's securely stored environment variables
+      const apiKey = process.env.TONY_THE_KEY || process.env.VITE_TONY_THE_KEY || process.env.GEMINI_API_KEY || process.env.VITE_GEMINI_API_KEY;
+      if (!apiKey) {
+        return res.status(500).json({ error: "Server AI Key not configured. Deployer must securely set TONY_THE_KEY or GEMINI_API_KEY in Vercel environment variables." });
+      }
+
+      const ai = new GoogleGenAI({ apiKey });
+      const { model, contents, config } = req.body;
+
+      const response = await ai.models.generateContent({
+        model: model || 'gemini-3.1-pro-preview',
+        contents,
+        config
+      });
+
+      // Send the entire response object back down to the frontend wrapper
+      res.json(response);
+    } catch (error: any) {
+      console.error("Gemini API proxy error:", error);
+      res.status(500).json({ error: error.message || "Failed to generate content" });
     }
   });
 

@@ -10,6 +10,11 @@ export default function Settings() {
   const [lastName, setLastName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+  
+  // Custom API Key State (Tony the key)
+  const [customKey, setCustomKey] = useState('');
+  const [isKeySaving, setIsKeySaving] = useState(false);
+  const [keySaveMessage, setKeySaveMessage] = useState('');
 
   // Lemon Squeezy State
   const [lsCheckoutUrl, setLsCheckoutUrl] = useState('');
@@ -61,6 +66,7 @@ export default function Settings() {
       setLsCheckoutUrl(parsed.lsCheckoutUrl || '');
       setLsApiKey(parsed.lsApiKey || '');
       setLsWebhookSecret(parsed.lsWebhookSecret || '');
+      setCustomKey(parsed.customApiKey || '');
     }
   }, []);
 
@@ -77,6 +83,19 @@ export default function Settings() {
       setSaveMessage('Profile saved successfully!');
       setTimeout(() => setSaveMessage(''), 3000);
     }, 800);
+  };
+
+  const handleSaveKey = () => {
+    setIsKeySaving(true);
+    setTimeout(() => {
+      const savedSettings = localStorage.getItem('creatorflow_settings');
+      let parsed = savedSettings ? JSON.parse(savedSettings) : {};
+      parsed.customApiKey = customKey;
+      localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
+      setIsKeySaving(false);
+      setKeySaveMessage('API Key securely saved to your browser!');
+      setTimeout(() => setKeySaveMessage(''), 3000);
+    }, 400);
   };
 
   const handleTogglePreference = (key: 'darkMode' | 'autoSave') => {
@@ -127,6 +146,7 @@ export default function Settings() {
           {[
             { id: 'profile', label: 'Profile', icon: 'person' },
             { id: 'preferences', label: 'Preferences', icon: 'tune' },
+            { id: 'api_keys', label: 'API Keys', icon: 'key' },
             { id: 'billing', label: 'Billing & Plans', icon: 'credit_card' },
           ].map((tab) => (
             <button
@@ -224,6 +244,47 @@ export default function Settings() {
                       <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+          {activeTab === 'api_keys' && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
+                <div className="flex items-center gap-3 mb-6 relative">
+                  <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">key</span>
+                  <h2 className="text-xl font-bold">Bring Your Own Key</h2>
+                </div>
+                
+                <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">
+                  To securely bypass shared free-tier quota limits without hardcoding your API key into the source code, paste your personal Gemini API key below. This key ("Tony the key" or otherwise) is encrypted and saved <strong>locally</strong> in your browser.
+                </p>
+
+                <div className="space-y-3">
+                  <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Your Paid API Key</label>
+                  <div className="relative">
+                    <input 
+                      type="password" 
+                      value={customKey}
+                      onChange={(e) => setCustomKey(e.target.value)}
+                      placeholder="e.g. AIzaSy..." 
+                      className="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl p-4 pr-12 text-on-surface focus:ring-2 focus:ring-primary transition-all font-mono" 
+                    />
+                    <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-50">lock</span>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex items-center justify-end gap-4">
+                  {keySaveMessage && <span className="text-sm font-bold text-green-600 animate-in fade-in">{keySaveMessage}</span>}
+                  <button 
+                    onClick={handleSaveKey}
+                    disabled={isKeySaving}
+                    className="bg-primary hover:bg-primary-dim text-white px-6 py-3 rounded-xl font-bold transition-all disabled:opacity-70 flex items-center gap-2 shadow-lg shadow-primary/20"
+                  >
+                    {isKeySaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : <span className="material-symbols-outlined text-sm">enhanced_encryption</span>}
+                    Securely Save Key
+                  </button>
                 </div>
               </section>
             </div>
