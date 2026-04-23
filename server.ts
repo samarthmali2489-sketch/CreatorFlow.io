@@ -3,7 +3,7 @@ import express from "express";
 import app from "./api/index.ts";
 
 async function startServer() {
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {

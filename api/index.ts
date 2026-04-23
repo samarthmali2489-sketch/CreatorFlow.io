@@ -1,14 +1,11 @@
 import express from "express";
 import * as cheerio from "cheerio";
 import crypto from 'crypto';
-import { createRequire } from 'module';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import { YoutubeTranscript } from 'youtube-transcript/dist/youtube-transcript.esm.js';
 
 dotenv.config();
-
-const require = createRequire(import.meta.url);
-const { YoutubeTranscript } = require('youtube-transcript/dist/youtube-transcript.common.js');
 
 const app = express();
 
