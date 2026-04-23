@@ -227,9 +227,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session }, error }) => {
       if (error) {
-        console.warn("Session error:", error.message);
-        if (error.message.includes('Refresh Token Not Found')) {
+        if (error.message.includes('Refresh Token Not Found') || error.message.includes('refresh_token_not_found')) {
+          // Benign error when session expires or user is deleted.
+          // Suppress warning and forcibly clear state to escape loops.
           supabase.auth.signOut().catch(() => {});
+          
+          const keysToRemove = [];
+          for (let i = 0; i < localStorage.length; i++) {
+             const key = localStorage.key(i);
+             if (key && key.startsWith('sb-') && key.endsWith('-auth-token')) {
+                 keysToRemove.push(key);
+             }
+          }
+          keysToRemove.forEach(k => localStorage.removeItem(k));
+        } else {
+          console.warn("Session error:", error.message);
         }
       }
       handleAuthChange(session);
