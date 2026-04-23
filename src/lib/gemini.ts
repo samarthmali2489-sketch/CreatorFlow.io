@@ -19,8 +19,18 @@ export class GoogleGenAI {
       if (!res.ok) {
         let msg = 'Failed to generate content';
         try { 
-          const err = await res.json(); 
-          msg = err.error || msg; 
+          const text = await res.text();
+          let err: any;
+          try { err = JSON.parse(text); } catch (e) {}
+          msg = err?.error || text || msg; 
+          
+          // If error is serialized JSON in a string, try to parse it to show something readable
+          if (typeof msg === 'string' && msg.startsWith('{') && msg.includes('"error"')) {
+            try {
+              const parsedErrMsg = JSON.parse(msg);
+              msg = parsedErrMsg.error.message || msg;
+            } catch(e) {}
+          }
         } catch(e) {}
         throw new Error(msg);
       }
@@ -30,7 +40,7 @@ export class GoogleGenAI {
       // Reconstruct the response object for the frontend expectations
       return {
         ...payload,
-        text: () => {
+        get text() {
           if (payload.candidates?.[0]?.content?.parts) {
              return payload.candidates[0].content.parts.map((p: any) => p.text || '').join("");
           }

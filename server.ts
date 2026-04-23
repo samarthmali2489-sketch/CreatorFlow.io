@@ -47,8 +47,15 @@ async function startServer() {
       // Send the entire response object back down to the frontend wrapper
       res.json(response);
     } catch (error: any) {
-      console.error("Gemini API proxy error:", error);
-      res.status(500).json({ error: error.message || "Failed to generate content" });
+      console.error("Gemini API proxy error:", error.message || error);
+      
+      // Attempt to extract the exact GoogleGenAI error string if possible
+      let errorResponseStr = "Failed to generate content";
+      if (error && typeof error.message === 'string') {
+          errorResponseStr = error.message;
+      }
+      
+      res.status(500).json({ error: errorResponseStr });
     }
   });
 
