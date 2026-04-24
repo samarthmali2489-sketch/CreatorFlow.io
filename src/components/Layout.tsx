@@ -181,7 +181,7 @@ export default function Layout() {
             <div className="w-full bg-zinc-200 rounded-full h-1.5 mb-3 overflow-hidden">
               <div 
                 className="bg-primary h-1.5 rounded-full transition-all duration-500" 
-                style={{ width: subscriptionPlan === 'infinity' ? '100%' : subscriptionPlan === 'pro' ? `${(credits / 1000) * 100}%` : `${(credits / 150) * 100}%` }}
+                style={{ width: subscriptionPlan === 'infinity' ? '100%' : subscriptionPlan === 'pro' ? `${(credits / 500) * 100}%` : `${(credits / 80) * 100}%` }}
               ></div>
             </div>
             <Link to="/upgrade" className={cn("w-full flex items-center justify-center py-2 text-white text-xs font-bold rounded-lg transition-colors shadow-sm", subscriptionPlan === 'infinity' ? 'bg-primary hover:bg-primary-dim cursor-default' : 'bg-zinc-900 hover:bg-zinc-800')}>
@@ -196,7 +196,7 @@ export default function Layout() {
       </aside>
 
       {/* Main Content Area */}
-      <main className="md:ml-64 pt-24 pb-12 min-h-screen relative z-10 bg-white/40 backdrop-blur-[2px]">
+      <main className="md:ml-64 pt-24 pb-12 min-h-screen relative z-10 bg-white/40">
         <Outlet />
       </main>
     </div>

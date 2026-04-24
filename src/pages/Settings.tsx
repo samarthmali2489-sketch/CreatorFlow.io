@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 
 export default function Settings() {
-  const { user, darkMode, setDarkMode, autoSave, setAutoSave, subscriptionPlan, setSubscriptionPlan, credits } = useAppContext();
+  const { user, darkMode, setDarkMode, autoSave, setAutoSave, showRefImageWarning, setShowRefImageWarning, subscriptionPlan, setSubscriptionPlan, credits } = useAppContext();
   const [activeTab, setActiveTab] = useState('profile');
   
   // Profile State
@@ -79,9 +79,10 @@ export default function Settings() {
     }, 800);
   };
 
-  const handleTogglePreference = (key: 'darkMode' | 'autoSave') => {
+  const handleTogglePreference = (key: 'darkMode' | 'autoSave' | 'showRefImageWarning') => {
     if (key === 'darkMode') setDarkMode(!darkMode);
     if (key === 'autoSave') setAutoSave(!autoSave);
+    if (key === 'showRefImageWarning') setShowRefImageWarning(!showRefImageWarning);
   };
 
   const handleUpgradeClick = (e: React.MouseEvent) => {
@@ -221,6 +222,17 @@ export default function Settings() {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" checked={autoSave} onChange={() => handleTogglePreference('autoSave')} className="sr-only peer" />
+                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
+                  </div>
+                  <hr className="border-outline-variant/20" />
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-bold text-on-surface">Thumbnail Assistant</h3>
+                      <p className="text-sm text-on-surface-variant">Show tips when generating thumbnails without a reference image.</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" checked={showRefImageWarning} onChange={() => handleTogglePreference('showRefImageWarning')} className="sr-only peer" />
                       <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>

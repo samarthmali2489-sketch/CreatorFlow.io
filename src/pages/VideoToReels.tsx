@@ -168,7 +168,20 @@ export default function VideoToReels() {
   ];
 
   return (
-    <div className="max-w-[1600px] mx-auto p-8 lg:p-12 min-h-screen bg-[#f8f9fa]">
+    <div className="max-w-[1600px] mx-auto p-8 lg:p-12 min-h-screen bg-[#f8f9fa] relative overflow-hidden">
+      {/* Coming Soon Overlay */}
+      <div className="absolute inset-0 z-50 bg-white/40 backdrop-blur-[4px] flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-[2rem] shadow-2xl border border-blue-100 max-w-lg text-center drop-shadow-xl">
+          <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600">
+             <span className="material-symbols-outlined text-4xl">construction</span>
+          </div>
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-3 tracking-tight">Feature Coming Soon!</h2>
+          <p className="text-gray-600 text-lg leading-relaxed">
+            Our developers are working day and night to bring this feature to you as soon as possible. Stay tuned!
+          </p>
+        </div>
+      </div>
+
       {/* Header */}
       <div className="mb-10">
         <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-2">Content Lab</p>

@@ -97,6 +97,8 @@ interface AppContextType {
   setDarkMode: (dark: boolean) => void;
   autoSave: boolean;
   setAutoSave: (save: boolean) => void;
+  showRefImageWarning: boolean;
+  setShowRefImageWarning: (show: boolean) => void;
   subscriptionPlan: 'free' | 'pro' | 'infinity';
   setSubscriptionPlan: (plan: 'free' | 'pro' | 'infinity') => void;
   credits: number;
@@ -129,13 +131,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return true;
   });
 
+  const [showRefImageWarning, setShowRefImageWarning] = useState(() => {
+    const saved = localStorage.getItem('creatorflow_settings');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.showRefImageWarning ?? true;
+    }
+    return true;
+  });
+
   const [credits, setCreditsState] = useState<number>(() => {
     const saved = localStorage.getItem('creatorflow_credits');
     if (saved) {
       const parsed = parseInt(saved, 10);
       return Math.min(parsed, 100000); // Higher cap for legit top ups & infinity
     }
-    return 150;
+    return 80;
   });
 
   const setCredits = useCallback((newCredits: number) => {
@@ -155,9 +166,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     
     // Automatically provision credits on upgrade
     let newCredits = credits;
-    if (plan === 'pro') newCredits = 1000;
+    if (plan === 'pro') newCredits = 500;
     if (plan === 'infinity') newCredits = 99999;
-    if (plan === 'free') newCredits = 150;
+    if (plan === 'free') newCredits = 80;
 
     setCredits(newCredits);
     
@@ -179,8 +190,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     let parsed = saved ? JSON.parse(saved) : {};
     parsed.darkMode = darkMode;
     parsed.autoSave = autoSave;
+    parsed.showRefImageWarning = showRefImageWarning;
     localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
-  }, [darkMode, autoSave]);
+  }, [darkMode, autoSave, showRefImageWarning]);
 
   useEffect(() => {
     const handleAuthChange = (session: Session | null) => {
@@ -196,9 +208,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (metadataCredits !== undefined) {
           setCredits(metadataCredits);
         } else {
-          updateData.credits = 150;
+          updateData.credits = 80;
           needsUpdate = true;
-          setCredits(150);
+          setCredits(80);
         }
 
         const metadataPlan = session.user.user_metadata?.plan;
@@ -569,6 +581,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       savedReels, saveReel, deleteReel,
       savedThumbnails, saveThumbnail, deleteThumbnail, deleteAllSavedThumbnails,
       darkMode, setDarkMode, autoSave, setAutoSave,
+      showRefImageWarning, setShowRefImageWarning,
       subscriptionPlan, setSubscriptionPlan,
       credits, deductCredits
     }}>

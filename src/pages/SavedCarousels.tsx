@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useAppContext } from '../context/AppContext';
 import { Link } from 'react-router-dom';
 
 export default function SavedCarousels() {
-  const { savedCarousels, deleteCarousel, deleteAllSavedCarousels } = useAppContext();
+  const { savedCarousels, deleteCarousel, deleteAllSavedCarousels, user } = useAppContext();
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [selectedCarousel, setSelectedCarousel] = useState<any | null>(null);
 
@@ -106,22 +107,64 @@ export default function SavedCarousels() {
               <div className="flex gap-6 overflow-x-auto pb-6 snap-x custom-scrollbar">
                 {carousel.slides.map((slide: any, idx: number) => {
                   const theme = carousel.theme || DEFAULT_THEME;
+                  const creatorName = carousel.creatorName || user?.user_metadata?.full_name || user?.user_metadata?.name || 'John Doe';
+                  const creatorHandle = carousel.creatorHandle || `@${creatorName.toLowerCase().replace(/\s+/g, '')}`;
                   return (
-                    <div key={idx} className={`min-w-[320px] w-[320px] aspect-[4/5] border border-outline-variant/20 rounded-2xl p-8 flex flex-col justify-center snap-center relative shadow-sm hover:border-primary/30 transition-colors ${theme.background} ${theme.font}`} style={{ backgroundImage: theme.pattern }}>
-                      <div className={`absolute top-6 left-6 w-10 h-10 rounded-full flex items-center justify-center font-black text-lg ${theme.accentBg} ${theme.background === 'bg-white' ? 'text-white' : 'text-white'}`}>
-                        {idx + 1}
+                    <div 
+                      key={idx} 
+                      className={`min-w-[320px] w-[320px] aspect-[4/5] shrink-0 shadow-2xl rounded-xl relative overflow-hidden snap-center hover:shadow-lg transition-all ${theme.background} ${theme.font} border border-outline-variant/10`}
+                      style={{ backgroundImage: theme.pattern }}
+                    >
+                      <div className={`absolute top-4 right-4 text-5xl font-black select-none pointer-events-none opacity-10 z-0 ${theme.text}`}>
+                        {String(idx + 1).padStart(2, '0')}
                       </div>
-                      <h4 className={`text-2xl font-black tracking-tight mb-6 text-center leading-tight ${theme.text}`}>{slide.title}</h4>
-                      {slide.content && <p className={`text-center text-base leading-relaxed ${theme.subtext}`}>{slide.content}</p>}
-                      {slide.points && slide.points.length > 0 && (
-                        <ul className="mt-4 space-y-2">
-                          {slide.points.map((point: string, i: number) => (
-                            <li key={i} className={`text-sm flex items-start gap-2 ${theme.subtext}`}>
-                              <span className={`material-symbols-outlined text-sm mt-0.5 ${theme.accent}`}>check_circle</span>
-                              <span className="text-left">{point}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      <div className="relative h-full px-6 pt-10 pb-20 flex flex-col z-10 overflow-hidden">
+                        <div className="my-auto flex flex-col w-full h-fit">
+                          {slide.type === 'hook' && <div className={`w-10 h-1 mb-4 ${theme.accentBg} shrink-0`}></div>}
+                          {slide.type !== 'hook' && <p className={`${theme.accent} text-[10px] font-bold uppercase tracking-[0.2em] mb-3 shrink-0`}>{slide.type}</p>}
+                          
+                          <h4 className={`text-xl font-black tracking-tighter leading-[1.2] mb-3 shrink-0 ${theme.text}`}>{slide.title}</h4>
+                          
+                          {slide.imageUrl && (
+                            <div className="mb-3 rounded-xl overflow-hidden flex-shrink-0 w-full h-[100px] relative mt-1 group">
+                              <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
+                              <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 shadow-xl ring-1 ring-black/10" />
+                            </div>
+                          )}
+                          
+                          {slide.content && !slide.imageUrl && <p className={`text-sm leading-relaxed shrink-0 ${theme.subtext}`}>{slide.content}</p>}
+                          {slide.content && slide.imageUrl && <p className={`text-xs leading-snug shrink-0 line-clamp-3 ${theme.subtext}`}>{slide.content}</p>}
+                          
+                          {slide.points && slide.points.length > 0 && (
+                            <ul className={`mt-2 space-y-2 shrink-0 ${slide.imageUrl ? 'text-[10px]' : ''}`}>
+                              {slide.points.slice(0, 3).map((point: string, i: number) => (
+                                <li key={i} className={`text-xs flex items-start gap-2 ${theme.subtext}`}>
+                                  <span className={`material-symbols-outlined text-xs mt-0.5 ${theme.accent}`}>check_circle</span>
+                                  <span className="text-left line-clamp-2">{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      </div>
+
+                      {slide.type === 'hook' && (
+                        <div className="absolute bottom-6 left-6 flex items-center gap-3 z-20">
+                          <div className="w-8 h-8 rounded-full bg-black/10 overflow-hidden border border-white/20 shadow-sm flex items-center justify-center shrink-0">
+                            <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-full h-full object-cover" />
+                          </div>
+                          <div className="max-w-[150px]">
+                            <p className={`font-bold text-xs truncate ${theme.text}`}>{creatorName}</p>
+                            <p className={`text-[10px] truncate ${theme.subtext}`}>{creatorHandle}</p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {slide.type !== 'hook' && (
+                        <div className="absolute bottom-5 left-6 flex items-center gap-2 opacity-90 z-20 backdrop-blur-sm px-2 py-1 -ml-2 rounded-lg">
+                          <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-5 h-5 rounded-full object-cover shrink-0" />
+                          <p className={`text-[10px] font-bold truncate max-w-[200px] ${theme.subtext}`}>{creatorHandle}</p>
+                        </div>
                       )}
                     </div>
                   );
@@ -132,8 +175,8 @@ export default function SavedCarousels() {
         </div>
       )}
 
-      {selectedCarousel && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setSelectedCarousel(null)}>
+      {selectedCarousel && createPortal(
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[100] p-4" onClick={() => setSelectedCarousel(null)}>
           <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-6xl w-full max-h-[95vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-start mb-8">
               <div>
@@ -148,22 +191,75 @@ export default function SavedCarousels() {
             <div className="flex gap-6 overflow-x-auto pb-8 snap-x custom-scrollbar">
               {selectedCarousel.slides.map((slide: any, idx: number) => {
                 const theme = selectedCarousel.theme || DEFAULT_THEME;
+                const creatorName = selectedCarousel.creatorName || user?.user_metadata?.full_name || user?.user_metadata?.name || 'John Doe';
+                const creatorHandle = selectedCarousel.creatorHandle || `@${creatorName.toLowerCase().replace(/\s+/g, '')}`;
                 return (
-                  <div key={idx} className={`min-w-[400px] w-[400px] aspect-[4/5] border border-outline-variant/20 rounded-2xl p-10 flex flex-col justify-center snap-center relative shadow-lg ${theme.background} ${theme.font}`} style={{ backgroundImage: theme.pattern }}>
-                    <div className={`absolute top-8 left-8 w-12 h-12 rounded-full flex items-center justify-center font-black text-xl ${theme.accentBg} text-white`}>
-                      {idx + 1}
+                  <div 
+                    key={idx} 
+                    className={`min-w-[450px] w-[450px] aspect-[4/5] shrink-0 shadow-2xl rounded-xl relative overflow-hidden snap-center ${theme.background} ${theme.font} border border-outline-variant/10`}
+                    style={{ backgroundImage: theme.pattern }}
+                  >
+                    <div className={`absolute top-6 right-6 text-7xl font-black select-none pointer-events-none opacity-10 z-0 ${theme.text}`}>
+                      {String(idx + 1).padStart(2, '0')}
                     </div>
-                    <h4 className={`text-3xl font-black tracking-tight mb-6 text-center leading-tight ${theme.text}`}>{slide.title}</h4>
-                    {slide.content && <p className={`text-center text-lg leading-relaxed ${theme.subtext}`}>{slide.content}</p>}
-                    {slide.points && slide.points.length > 0 && (
-                      <ul className="mt-6 space-y-3">
-                        {slide.points.map((point: string, i: number) => (
-                          <li key={i} className={`text-base flex items-start gap-3 ${theme.subtext}`}>
-                            <span className={`material-symbols-outlined text-base mt-1 ${theme.accent}`}>check_circle</span>
-                            <span className="text-left">{point}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="relative h-full px-10 pt-12 pb-24 flex flex-col z-10 overflow-hidden">
+                      <div className="my-auto flex flex-col w-full h-fit">
+                        {slide.type === 'hook' && <div className={`w-12 h-1 mb-6 ${theme.accentBg} shrink-0`}></div>}
+                        {slide.type !== 'hook' && <p className={`${theme.accent} text-xs font-bold uppercase tracking-[0.2em] mb-4 shrink-0`}>{slide.type}</p>}
+                        
+                        <h2 className={`text-2xl lg:text-3xl font-black tracking-tighter leading-[1.2] mb-4 shrink-0 ${theme.text}`}>
+                          {slide.title}
+                        </h2>
+                        
+                        {slide.imageUrl && (
+                          <div className="mb-4 rounded-xl overflow-hidden flex-shrink-0 w-full h-[160px] relative mt-2 group">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
+                            <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover shadow-2xl ring-1 ring-black/10" />
+                          </div>
+                        )}
+                        
+                        {slide.content && !slide.imageUrl && (
+                          <p className={`text-lg leading-relaxed shrink-0 ${theme.subtext}`}>
+                            {slide.content}
+                          </p>
+                        )}
+
+                        {slide.content && slide.imageUrl && (
+                          <p className={`text-sm md:text-base leading-snug shrink-0 ${theme.subtext}`}>
+                            {slide.content}
+                          </p>
+                        )}
+                        
+                        {slide.points && slide.points.length > 0 && (
+                          <div className={`space-y-3 mt-3 shrink-0 ${slide.imageUrl ? 'text-xs' : ''}`}>
+                            {slide.points.slice(0, 3).map((point: string, i: number) => (
+                              <div key={i} className={`flex items-start gap-2 ${theme.subtext}`}>
+                                <span className={`material-symbols-outlined ${theme.accent} ${slide.imageUrl ? 'text-sm mt-0' : 'mt-0.5'}`} style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                <span className={slide.imageUrl ? 'text-xs leading-tight' : 'text-sm md:text-base line-clamp-2'}>{point}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {slide.type === 'hook' && (
+                      <div className="absolute bottom-8 left-10 flex items-center gap-4 z-20">
+                        <div className="w-12 h-12 rounded-full bg-black/10 overflow-hidden border-2 border-white/20 shadow-sm flex items-center justify-center shrink-0">
+                          <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-full h-full object-cover" />
+                        </div>
+                        <div className="max-w-[200px]">
+                          <p className={`font-bold text-sm truncate ${theme.text}`}>{creatorName}</p>
+                          <p className={`text-xs truncate ${theme.subtext}`}>{creatorHandle}</p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {slide.type !== 'hook' && (
+                      <div className="absolute bottom-6 left-10 flex items-center gap-3 opacity-90 z-20 backdrop-blur-sm px-2 py-1 -ml-2 rounded-lg">
+                        <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-6 h-6 rounded-full object-cover shrink-0" />
+                        <p className={`text-xs font-bold truncate max-w-[250px] ${theme.subtext}`}>{creatorHandle}</p>
+                      </div>
                     )}
                   </div>
                 );
@@ -181,7 +277,8 @@ export default function SavedCarousels() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

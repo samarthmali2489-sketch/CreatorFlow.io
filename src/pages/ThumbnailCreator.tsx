@@ -12,84 +12,8 @@ declare global {
   }
 }
 
-// Utility to forcefully overlay massive, YouTube-style text via HTML Canvas
-const overlayTextOnImage = async (base64Image: string, text: string): Promise<string> => {
-  if (!text) return base64Image;
-  
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return resolve(base64Image);
-      
-      // Draw the hyper-realistic background
-      ctx.drawImage(img, 0, 0);
-      
-      // Setup Text Styles for YouTube 
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      
-      // Dynamic font size: Massive text
-      let fontSize = Math.floor(canvas.height / 5);
-      ctx.font = `900 italic ${fontSize}px "Impact", "Arial Black", sans-serif`;
-      
-      // Basic word wrap
-      const words = text.toUpperCase().split(' ');
-      let lines: string[] = [];
-      let currentLine = "";
-      for (const word of words) {
-        if (!currentLine) {
-           currentLine = word;
-        } else if (ctx.measureText(currentLine + " " + word).width < canvas.width * 0.9) {
-           currentLine += " " + word;
-        } else {
-           lines.push(currentLine);
-           currentLine = word;
-        }
-      }
-      if (currentLine) lines.push(currentLine);
-      
-      const totalHeight = lines.length * fontSize * 1.1;
-      let startY = canvas.height - (totalHeight / 2) - (canvas.height * 0.1); 
-      
-      lines.forEach((line, index) => {
-        const y = startY + (index * fontSize * 1.1) - (totalHeight / 2);
-        
-        ctx.fillStyle = "#FFF300"; // Signature click-bait yellow
-        ctx.strokeStyle = "#000000"; // Thick black outline
-        ctx.lineWidth = fontSize * 0.15;
-        ctx.lineJoin = "round";
-        ctx.miterLimit = 2;
-
-        // Base black stroke for contrast
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-        ctx.shadowBlur = 35;
-        ctx.shadowOffsetX = 12;
-        ctx.shadowOffsetY = 12;
-        ctx.strokeText(line, canvas.width / 2, y);
-        
-        // Remove shadow for inner layers
-        ctx.shadowColor = 'transparent';
-        ctx.fillText(line, canvas.width / 2, y);
-        
-        // Inner white stroke for sharpness
-        ctx.lineWidth = fontSize * 0.04;
-        ctx.strokeStyle = "#FFFFFF";
-        ctx.strokeText(line, canvas.width / 2, y);
-      });
-      
-      resolve(canvas.toDataURL('image/jpeg', 0.95));
-    };
-    img.src = base64Image;
-  });
-};
-
 export default function ThumbnailCreator() {
-  const { saveThumbnail, deductCredits, addGeneration } = useAppContext();
+  const { saveThumbnail, deductCredits, addGeneration, showRefImageWarning, setShowRefImageWarning } = useAppContext();
   const [topic, setTopic] = useState('');
   const [thumbnailText, setThumbnailText] = useState('');
   const [style, setStyle] = useState('MrBeast / High Energy');
@@ -100,15 +24,23 @@ export default function ThumbnailCreator() {
   const [error, setError] = useState('');
   const [generatedThumbnails, setGeneratedThumbnails] = useState<string[]>([]);
   const [savedStatus, setSavedStatus] = useState<Record<number, boolean>>({});
+  const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [dontShowAgain, setDontShowAgain] = useState(false);
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (skipWarning = false) => {
     if (!topic.trim()) return;
     if (style === 'Custom' && !customStyle.trim()) {
       setError('Please provide a description for the custom style.');
       return;
     }
 
-    if (!deductCredits(10)) {
+    if (!referenceImage && showRefImageWarning && !skipWarning) {
+      setShowWarningModal(true);
+      return;
+    }
+
+    if (!deductCredits(20)) {
       alert("Not enough credits! Please upgrade your plan.");
       return;
     }
@@ -123,21 +55,8 @@ export default function ThumbnailCreator() {
       
       const actualStyle = style === 'Custom' ? customStyle : style;
       
-      let targetPrompt = `Create a cinematic, high-CTR YouTube thumbnail background. DO NOT INCLUDE ANY TEXT, WORDS, OR LETTERS IN THIS IMAGE. 
-Topic: ${topic}. 
-Visual Style: ${actualStyle}.
-CINEMATIC DIRECTOR GUIDELINES:
-- Lighting: Rim lighting, dual-tone neon lighting (e.g., Teal and Orange), or dramatic volumetric fog to add depth.
-- Composition: Rule of Thirds, Extreme Close-up, or Low Angle Shot making the subject look heroic and dominant.
-- Subject: Inject a vividly expressive main character showing an exaggerated emotional response (e.g., wide-eyed shock, intense focus, anger, jaw-dropping surprise) reflecting the topic.
-- Contrast: Ensure the main subject is sharply focused with a shallow depth of field (heavy bokeh effect). The background should be blurry but contextually recognizable.
-- Mobile Optimization: Use highly saturated colors and bold, readable silhouettes that pass the 'squint test'.
-- Aesthetics: 8k resolution, hyper-realistic textures. 
-- Negative Constraints: Absolutely NO text, letters, or words. NO cartoonish styles (unless gaming/cartoon requested), NO blurry subjects, NO deformed features, NO cluttered backgrounds.`;
-      
-      let finalImagePrompt = targetPrompt;
-
       // 1. Actively analyze the requested channel using Grounded Search
+      let channelAesthetic = "";
       if (channelName.trim()) {
         try {
           const channelAnalysisResponse = await ai.models.generateContent({
@@ -149,17 +68,14 @@ CINEMATIC DIRECTOR GUIDELINES:
               tools: [{ googleSearch: {} }]
             }
           });
-          const channelAesthetic = channelAnalysisResponse.text || '';
-          if (channelAesthetic) {
-            finalImagePrompt += `\n\nCHANNEL AESTHETIC DIRECTIVE: You must rigidly follow this visual style description to match the user's requested channel inspiration (${channelName}): ${channelAesthetic}`;
-          }
+          channelAesthetic = channelAnalysisResponse.text || '';
         } catch (searchErr) {
-          console.warn("Channel search failed, falling back to basic prompt.", searchErr);
-          finalImagePrompt += `\n\nCRITICAL: Try your best to replicate the exact aesthetic, color grading, and visual style of the YouTube channel "${channelName}".`;
+          console.warn("Channel search failed", searchErr);
         }
       }
 
       // 2. Actively analyze the reference image
+      let referenceAesthetic = "";
       if (referenceImage) {
         const [mimeInfo, base64Data] = referenceImage.split(',');
         const mimeType = mimeInfo.split(':')[1].split(';')[0];
@@ -169,7 +85,7 @@ CINEMATIC DIRECTOR GUIDELINES:
             model: 'gemini-3.1-pro-preview',
             contents: {
               parts: [
-                { text: "Analyze this image's specific visual style, aesthetics, color grading, lighting, and composition. Give me a 3 sentence detailed aesthetic description I can use to prompt an image generator to replicate this exact same vibe. Focus ONLY on the stylistic look, not the specific subjects." },
+                { text: "Analyze this image meticulously. Extract the exact camera angle, lighting setup (e.g., hard flash, soft window light, neon), color grading, subject posing, facial expression intensity, compositional layout, and crucially, the exact typography style of any text present in the image (font type, weight, colors, stroke, 3D effect, placement). Give me a highly detailed structural breakdown so I can prompt an image generator to replicate this exact same vibe, layout, photography style, and typographic treatment." },
                 {
                   inlineData: {
                     data: base64Data,
@@ -179,18 +95,54 @@ CINEMATIC DIRECTOR GUIDELINES:
               ]
             }
           });
-          const aestheticDescription = analysisResponse.text || '';
-          if (aestheticDescription) {
-            finalImagePrompt += `\n\nREFERENCE IMAGE AESTHETIC DIRECTIVE: You must rigidly follow this visual style description to match the user's requested reference look: ${aestheticDescription}`;
-          }
+          referenceAesthetic = analysisResponse.text || '';
         } catch (imgErr) {
           console.warn("Reference image analysis failed.", imgErr);
         }
       }
 
-      finalImagePrompt += `\n\nCRUEL CRITERIA: DO NOT use childish, cheap clip-art, or amateur vector styles. This MUST look like a multi-million-subscriber Youtube channel's premium thumbnail: highly produced, extremely crisp, breathtaking cinematography, dramatic shading, and professional-grade editing. ABSOLUTELY NO TEXT.`;
+      // 3. Build User Context for Thumbnail God prompt formulation
+      let userContext = `Video Title/Topic: ${topic}`;
+      if (thumbnailText.trim()) userContext += `\nRequested Text/Hook: ${thumbnailText}`;
+      if (actualStyle) userContext += `\nStyle/Category: ${actualStyle}`;
+      if (channelAesthetic) userContext += `\nChannel Aesthetic to mimic: ${channelAesthetic}`;
+      if (referenceAesthetic) userContext += `\nCRITICAL REFERENCE IMAGE AESTHETIC ENFORCEMENT:\nThe user uploaded a reference image. You MUST mirror this exact composition, layout, camera angle, posing, lighting, and crucially, the EXACT TYPOGRAPHY AND TEXT STYLE (font, color, stroke, 3D effect) seen in the reference perfectly: ${referenceAesthetic}`;
 
-      // 3. Generate exactly 1 Thumbnail using gemini-3-pro-image-preview
+      const thumbnailGodInstruction = `You are Thumbnail God — the world's best YouTube thumbnail engineer.
+
+Your ONLY job: Turn any video into the MOST clickable, viral YouTube thumbnail possible. The base image MUST look like a completely real photograph (NO CGI, NO plastic skin, NO "AI look"), while seamlessly integrating stunning, highly stylized text typography.
+
+Every single thumbnail must follow these strict rules (never break them):
+1. Realism: "Photorealistic, shot on Sony A7S III, raw photography, natural skin textures with slight imperfections."
+2. Aspect ratio: 16:9
+3. Reference Style: If Reference Image details are provided, the generated text typography MUST exactly match the typography style described in the reference.
+4. Main subject: Highly charismatic, relatable human face. The emotion should match the mood of the video. 
+5. Text integration (CRITICAL): The text MUST be perfectly integrated into the thumbnail design. Use descriptions that make the text look natively rendered and high-quality, matching the reference image's text style exactly if provided, or otherwise using bold, clean, modern typography.
+6. Short text: Distill the message into exactly 2-4 massive, catchy words.
+7. Lighting: Emulate real-world vlogger lighting (e.g., softbox, ring light, natural daylight, or RGB room lights).
+8. Negative rules: NO blurry text, NO misspellings, NO extra limbs, NO watermark.
+
+When the user gives you information, do this exact pipeline internally:
+Step 1: Analyze the input and create a 2-4 word powerful semantic hook (if not provided).
+Step 2: Build the Nano Banana 2 prompt using this template:
+"Viral YouTube thumbnail photograph, 16:9 aspect ratio, [insert strict lighting/camera details from Reference Image if available, otherwise realistic photography, 35mm lens], [detailed scene with a realistic human subject showing [emotion], natural skin], [background elements], [describe highly cohesive, stylized bold text reading '[2-4 WORD HOOK]' matching the reference typography exactly], authentic vlogger style, raw photo, realistic."
+
+RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
+
+      const promptBuilderResponse = await ai.models.generateContent({
+          model: 'gemini-3.1-pro-preview',
+          contents: {
+            parts: [{ text: userContext }]
+          },
+          config: {
+            systemInstruction: thumbnailGodInstruction
+          }
+      });
+
+      const finalImagePrompt = promptBuilderResponse.text.trim();
+      setGeneratedPrompt(finalImagePrompt);
+
+      // 4. Generate Thumbnail directly using the curated exact prompt
       const response = await ai.models.generateContent({
         model: 'gemini-3-pro-image-preview',
         contents: {
@@ -214,39 +166,15 @@ CINEMATIC DIRECTOR GUIDELINES:
       }
 
       if (finalBase64) {
-        // 4. Overlay Text programmatically if requested
-        let resultingImage = finalBase64;
-        
-        // If the user didn't provide text, generate 2-3 massive click-bait words
-        let textToOverlay = thumbnailText.trim();
-        if (!textToOverlay) {
-            try {
-                const textResponse = await ai.models.generateContent({
-                    model: 'gemini-3.1-pro-preview',
-                    contents: {
-                        parts: [{ text: `Generate a super catchy 2-3 word click-bait title for a YouTube video about: ${topic}. Respond ONLY with the text in ALL CAPS, nothing else.` }]
-                    }
-                });
-                textToOverlay = (textResponse.text || '').trim();
-            } catch (err) {
-                console.warn("Auto text generation failed.", err);
-            }
-        }
-        
-        if (textToOverlay) {
-            resultingImage = await overlayTextOnImage(finalBase64, textToOverlay);
-        }
-
-        setGeneratedThumbnails([resultingImage]);
+        setGeneratedThumbnails([finalBase64]);
         setSavedStatus({ 0: true }); 
         addGeneration('YouTube Thumbnail');
         
-        // Auto-save the thumbnail so the user doesn't lose it
         saveThumbnail({
-          url: resultingImage,
+          url: finalBase64,
           topic,
-          thumbnailText: textToOverlay,
-          style: style === 'Custom' ? customStyle : style,
+          thumbnailText: thumbnailText.trim() || undefined,
+          style: actualStyle,
           channelInspiration: channelName.trim() ? channelName : undefined,
         });
 
@@ -365,7 +293,7 @@ CINEMATIC DIRECTOR GUIDELINES:
             </div>
 
             <button
-              onClick={handleGenerate}
+              onClick={() => handleGenerate(false)}
               disabled={isProcessing || !topic.trim() || (style === 'Custom' && !customStyle.trim())}
               className="w-full bg-blue-600 text-white px-8 py-5 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2 text-lg active:scale-[0.98]"
             >
@@ -497,9 +425,67 @@ CINEMATIC DIRECTOR GUIDELINES:
                     {style === 'Custom' ? customStyle : style} 
                     {channelName.trim() && ` • Inspired by ${channelName}`}
                   </p>
+                  
+                  {generatedPrompt && (
+                    <div className="mt-4 p-4 bg-gray-50 rounded-xl text-left border border-gray-100">
+                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nano Banana 2 Prompt Used:</p>
+                      <p className="text-sm text-gray-800 font-mono italic break-words">{generatedPrompt}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Warning Modal */}
+      {showWarningModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+                <span className="material-symbols-outlined">warning</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">No Reference Image Provided</h3>
+              <p className="text-gray-600 text-sm mb-6">
+                Providing a reference image helps the AI generate significantly higher quality thumbnails by giving it a specific visual anchor for typography, lighting, and composition. 
+              </p>
+              
+              <label className="flex items-center gap-2 mb-6 cursor-pointer group">
+                <div className="relative flex items-center">
+                  <input 
+                    type="checkbox" 
+                    checked={dontShowAgain}
+                    onChange={(e) => setDontShowAgain(e.target.checked)}
+                    className="peer w-5 h-5 appearance-none border-2 border-gray-300 rounded cursor-pointer checked:bg-blue-600 checked:border-blue-600 transition-all"
+                  />
+                  <span className="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">check</span>
+                </div>
+                <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">Don't show this tip again</span>
+              </label>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setShowWarningModal(false)}
+                  className="flex-1 px-4 py-2.5 rounded-lg font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+                >
+                  Cancel & Add Image
+                </button>
+                <button
+                  onClick={() => {
+                    if (dontShowAgain) {
+                      setShowRefImageWarning(false);
+                    }
+                    setShowWarningModal(false);
+                    handleGenerate(true);
+                  }}
+                  className="flex-1 px-4 py-2.5 rounded-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                >
+                  Continue Anyway
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

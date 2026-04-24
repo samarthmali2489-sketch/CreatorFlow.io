@@ -11,6 +11,8 @@ type Slide = {
   title: string;
   content?: string;
   points?: string[];
+  imagePrompt?: string;
+  imageUrl?: string;
 };
 
 type Theme = {
@@ -34,7 +36,7 @@ const DYNAMIC_THEMES: Theme[] = [
 ];
 
 export default function LinkedInCarousels() {
-  const { addGeneration, profiles, saveCarousel, savedCarousels, deleteCarousel, deductCredits } = useAppContext();
+  const { addGeneration, profiles, saveCarousel, savedCarousels, deleteCarousel, deductCredits, user } = useAppContext();
   const [sourceText, setSourceText] = useState('');
   const [customInstructions, setCustomInstructions] = useState('');
   const [slideCount, setSlideCount] = useState(5);
@@ -131,8 +133,13 @@ export default function LinkedInCarousels() {
       
       1. Slide 1 (type: "hook"): The Hook. Must be an irresistible hook. Use a big, bold question or a controversial statement from the video. Keep it under 15 words. Stop the scroll.
       2. Slide 2 (type: "problem"): The Problem. Why the viewer should care. Agitate the pain point that the source material solves.
-      3. Slides 3 to ${slideCount - 1} (type: "value" or "list"): The Value. Break down the core message into easily digestible, punchy slides. Use lists, frameworks, steps, or "nuggets" extracted directly from the source. Every word must earn its place.
-      4. Slide ${slideCount} (type: "conclusion"): The CTA. Summarize the main takeaway and include a strong Call to Action (e.g., "Follow for more", "Save this post", "What's your take?").
+      3. Slides 3 to ${slideCount - 1} (type: "value" or "list"): The Value. Break down the core message into easily digestible, punchy slides. Use lists, frameworks, steps, or nuggets extracted directly from the source. Every word must earn its place.
+      4. Slide ${slideCount} (type: "conclusion"): The CTA. Summarize the main takeaway and include a strong Call to Action.
+
+      NANO BANANA VISUALS (CRITICAL):
+      We use an advanced AI image generator (Nano Banana) to render custom graphics directly onto the slides. 
+      If a slide explains a workflow, process, comparison, or abstract concept, provide a highly detailed image generation prompt in the "imagePrompt" field for that slide. 
+      CRITICAL STYLE RULE: DO NOT request photorealistic or regular photos. You MUST request visually stunning, premium cartoonish illustrations, sleek vector art, 3D isometric graphics, or high-end minimalist graphics. Example styles: "premium 3D isometric illustration, vibrant colors, clean flat background", "minimalist flat vector art, corporate memphis style", "sleek modern neon line-art infographic". Let the graphics act as visual analogies to make the carousel 10x more engaging. Only do this for 1 or 3 slides max where it truly adds visual storytelling value. Omit the field if not needed.
       
       Formatting: Keep sentences short. Use whitespace effectively.
       
@@ -144,7 +151,8 @@ export default function LinkedInCarousels() {
             "type": "hook", // Must be exactly "hook", "problem", "value", "list", or "conclusion"
             "title": "Main headline for the slide (short and punchy)",
             "content": "Optional subtext or paragraph (keep it brief)",
-            "points": ["Optional bullet point 1", "Optional bullet point 2"] // Only use for "list" type
+            "points": ["Optional bullet point 1", "Optional bullet point 2"], // Only use for "list" type
+            "imagePrompt": "Optional detailed Nano Banana image prompt to generate a relevant diagram/illustration (omit if no image needed)"
           }
         ]
       }
@@ -171,20 +179,61 @@ export default function LinkedInCarousels() {
         result = { slides: [] };
       }
 
-      setSlides(result.slides || []);
-      setActiveSlide(0);
-      
+      let parsedSlides = result.slides || [];
+
       // Randomize theme for "Nano Banana" dynamic workflow
       const randomTheme = DYNAMIC_THEMES[Math.floor(Math.random() * DYNAMIC_THEMES.length)];
       setCurrentTheme(randomTheme);
       
+      // Before setting slides, process images concurrently
+      const slidesWithImages = await Promise.all(parsedSlides.map(async (slide: Slide) => {
+        if (!slide.imagePrompt) return slide;
+        
+        try {
+          const imgResponse = await ai.models.generateContent({
+             model: 'gemini-3-pro-image-preview',
+             contents: {
+               parts: [{ text: slide.imagePrompt }]
+             },
+             config: {
+               imageConfig: {
+                 aspectRatio: '16:9',
+                 imageSize: '1K'
+               }
+             }
+          });
+          
+          let finalBase64 = null;
+          const parts = imgResponse.candidates?.[0]?.content?.parts || [];
+          for (const part of parts) {
+            if (part.inlineData) {
+               finalBase64 = `data:${part.inlineData.mimeType || 'image/jpeg'};base64,${part.inlineData.data}`;
+               break;
+            }
+          }
+          
+          if (finalBase64) {
+             return { ...slide, imageUrl: finalBase64 };
+          }
+          return slide;
+        } catch (e) {
+          console.warn("Image generation failed for slide", e);
+          return slide;
+        }
+      }));
+
+      setSlides(slidesWithImages);
+      setActiveSlide(0);
+      
       addGeneration('LinkedIn Carousel');
       
-      if (result.slides && result.slides.length > 0) {
+      if (slidesWithImages && slidesWithImages.length > 0) {
         saveCarousel({
           topic: result.carouselTitle || sourceText.substring(0, 50) + (sourceText.length > 50 ? '...' : ''),
-          slides: result.slides,
-          theme: randomTheme
+          slides: slidesWithImages,
+          theme: randomTheme,
+          creatorName,
+          creatorHandle
         });
       }
     } catch (error: any) {
@@ -268,57 +317,71 @@ export default function LinkedInCarousels() {
       <div 
         key={index} 
         ref={el => slideRefs.current[index] = el}
-        className={`snap-center shrink-0 w-[450px] aspect-square shadow-2xl rounded-xl relative overflow-hidden ${background} ${font}`}
+        className={`snap-center shrink-0 w-[450px] aspect-[4/5] shadow-2xl rounded-xl relative overflow-hidden ${background} ${font}`}
         style={{ backgroundImage: pattern }}
       >
-        <div className="relative h-full p-12 flex flex-col justify-center z-10">
-          {slide.type === 'hook' && <div className={`w-12 h-1 mb-8 ${accentBg}`}></div>}
-          {slide.type !== 'hook' && <p className={`${accent} text-xs font-bold uppercase tracking-[0.2em] mb-6`}>{slide.type}</p>}
-          
-          <h2 className={`text-3xl lg:text-4xl font-black tracking-tighter leading-[1.2] mb-6 ${text}`}>
-            {slide.title}
-          </h2>
-          
-          {slide.content && (
-            <p className={`text-lg leading-relaxed ${subtext}`}>
-              {slide.content}
-            </p>
-          )}
-          
-          {slide.points && slide.points.length > 0 && (
-            <div className="space-y-4 mt-4">
-              {slide.points.map((point, i) => (
-                <div key={i} className={`flex items-start gap-4 ${subtext}`}>
-                  <span className={`material-symbols-outlined ${accent} mt-0.5`} style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                  <span className="text-sm md:text-base">{point}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {slide.type === 'hook' && (
-            <div className="absolute bottom-12 left-12 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-black/10 overflow-hidden border-2 border-white/20 shadow-sm flex items-center justify-center">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" alt="Avatar" className="w-full h-full object-cover" />
+        <div className={`absolute top-6 right-6 text-7xl font-black select-none pointer-events-none opacity-10 z-0 ${text}`}>
+          {String(index + 1).padStart(2, '0')}
+        </div>
+        <div className="relative h-full px-10 pt-12 pb-24 flex flex-col z-10 overflow-hidden">
+          <div className="my-auto flex flex-col w-full h-fit">
+            {slide.type === 'hook' && <div className={`w-12 h-1 mb-6 ${accentBg} shrink-0`}></div>}
+            {slide.type !== 'hook' && <p className={`${accent} text-xs font-bold uppercase tracking-[0.2em] mb-4 shrink-0`}>{slide.type}</p>}
+            
+            <h2 className={`text-2xl lg:text-3xl font-black tracking-tighter leading-[1.2] mb-4 shrink-0 ${text}`}>
+              {slide.title}
+            </h2>
+            
+            {slide.imageUrl && (
+              <div className="mb-4 rounded-xl overflow-hidden flex-shrink-0 w-full h-[160px] relative mt-2 group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
+                <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 shadow-2xl ring-1 ring-black/10" />
               </div>
-              <div>
-                <p className={`font-bold text-sm ${text}`}>{creatorName}</p>
-                <p className={`text-xs ${subtext}`}>{creatorHandle}</p>
+            )}
+            
+            {slide.content && !slide.imageUrl && (
+              <p className={`text-lg leading-relaxed shrink-0 ${subtext}`}>
+                {slide.content}
+              </p>
+            )}
+
+            {slide.content && slide.imageUrl && (
+              <p className={`text-sm md:text-base leading-snug shrink-0 ${subtext}`}>
+                {slide.content}
+              </p>
+            )}
+            
+            {slide.points && slide.points.length > 0 && (
+              <div className={`space-y-3 mt-3 shrink-0 ${slide.imageUrl ? 'text-xs' : ''}`}>
+                {slide.points.slice(0, 3).map((point, i) => (
+                  <div key={i} className={`flex items-start gap-2 ${subtext}`}>
+                    <span className={`material-symbols-outlined ${accent} ${slide.imageUrl ? 'text-sm mt-0' : 'mt-0.5'}`} style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                    <span className={slide.imageUrl ? 'text-xs leading-tight' : 'text-sm md:text-base line-clamp-2'}>{point}</span>
+                  </div>
+                ))}
               </div>
-            </div>
-          )}
-          
-          {slide.type !== 'hook' && (
-            <div className="absolute bottom-8 left-12 flex items-center gap-3 opacity-80">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" alt="Avatar" className="w-6 h-6 rounded-full object-cover" />
-              <p className={`text-xs font-bold ${subtext}`}>{creatorHandle}</p>
-            </div>
-          )}
-          
-          <div className={`absolute top-12 right-12 text-8xl font-black select-none pointer-events-none opacity-10 ${text}`}>
-            {String(index + 1).padStart(2, '0')}
+            )}
           </div>
         </div>
+
+        {slide.type === 'hook' && (
+          <div className="absolute bottom-8 left-10 flex items-center gap-4 z-20">
+            <div className="w-12 h-12 rounded-full bg-black/10 overflow-hidden border-2 border-white/20 shadow-sm flex items-center justify-center shrink-0">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" alt="Avatar" className="w-full h-full object-cover" />
+            </div>
+            <div className="max-w-[200px]">
+              <p className={`font-bold text-sm truncate ${text}`}>{creatorName}</p>
+              <p className={`text-xs truncate ${subtext}`}>{creatorHandle}</p>
+            </div>
+          </div>
+        )}
+        
+        {slide.type !== 'hook' && (
+          <div className="absolute bottom-6 left-10 flex items-center gap-3 opacity-90 z-20 backdrop-blur-sm px-2 py-1 -ml-2 rounded-lg">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" alt="Avatar" className="w-6 h-6 rounded-full object-cover shrink-0" />
+            <p className={`text-xs font-bold truncate max-w-[250px] ${subtext}`}>{creatorHandle}</p>
+          </div>
+        )}
       </div>
     );
   };

@@ -89,12 +89,12 @@ export default function Upgrade() {
           <div className="bg-surface-container-low p-4 rounded-xl mb-8 flex items-center justify-between border border-outline-variant/20">
             <span className="text-sm font-bold text-on-surface-variant">Credits:</span>
             <span className="text-sm font-black text-on-surface">
-              {subscriptionPlan === 'infinity' ? '∞' : subscriptionPlan === 'pro' ? `${credits} / 1000` : `${credits} / 150`}
+              {subscriptionPlan === 'infinity' ? '∞' : subscriptionPlan === 'pro' ? `${credits} / 500` : `${credits} / 80`}
             </span>
           </div>
 
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 150 Free Credits</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 80 Free Credits</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 30 Credits per Video to Reel</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 10 Credits per other features</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Access to ALL Features</li>
@@ -115,7 +115,7 @@ export default function Upgrade() {
           <div className="text-5xl font-black mb-8">$19<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white">1000 Credits</strong> per month</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white">500 Credits</strong> per month</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> High-fidelity Video to Reels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>

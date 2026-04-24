@@ -5,46 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function Analytics() {
   const { analytics } = useAppContext();
-  const [timeframe, setTimeframe] = useState('Last 30 Days');
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [showDetails, setShowDetails] = useState(false);
-  const [customDateRange, setCustomDateRange] = useState({ start: '', end: '' });
   const navigate = useNavigate();
 
-  const getData = () => {
-    // Generate organic-looking projections based on the user's actual generated volume
-    const baseLine = Math.max(analytics.totalGenerations * 50, 100); 
-    
-    // Growth multiplier scales slightly if they use the app more
-    const stepGrowth = analytics.totalGenerations > 0 ? 0.12 : 0.04;
-    
-    const buildData = (labels: string[], startVal: number, growth: number) => {
-      let current = startVal;
-      return labels.map((label, i) => {
-        // Pseudo-random fluctuation based on index for organic look
-        const fluctuation = 1 + (Math.sin(i * 45) * 0.2); 
-        current = current + (current * growth) * fluctuation;
-        return { name: label, views: Math.round(current) };
-      });
-    };
-
-    if (timeframe === 'Yearly') {
-      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      return buildData(labels, baseLine * 3, stepGrowth);
-    } else if (timeframe === 'Last Quarter') {
-       const labels = Array.from({length: 12}).map((_, i) => `Week ${i+1}`);
-       return buildData(labels, baseLine, stepGrowth * 0.6);
-    } else if (timeframe === 'Custom') {
-       const labels = Array.from({length: 14}).map((_, i) => `Day ${i+1}`);
-       return buildData(labels, baseLine * 0.5, stepGrowth * 0.3);
-    } 
-    
-    // Default 'Last 30 Days'
-    const days = Array.from({length: 30}).map((_, i) => `Day ${i+1}`);
-    return buildData(days, baseLine * 0.4, stepGrowth * 0.2);
-  };
-
-  const data = getData();
+  const data = analytics.chartData?.map(d => ({ name: d.name, generations: d.value })) || [];
 
   const totalContent: number = Object.values(analytics.contentTypes || {}).reduce((a: number, b: any) => a + Number(b), 0) as number;
   const getPercentage = (type: string) => {
@@ -68,17 +32,6 @@ export default function Analytics() {
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 block">Performance Overview</span>
           <h1 className="text-4xl md:text-5xl font-extrabold text-zinc-900 tracking-tighter">Analytics Lab</h1>
-        </div>
-        <div className="flex items-center gap-3 bg-surface-container-low p-1 rounded-xl overflow-x-auto">
-          {['Last 30 Days', 'Last Quarter', 'Yearly', 'Custom'].map(tf => (
-            <button 
-              key={tf}
-              onClick={() => setTimeframe(tf)}
-              className={`whitespace-nowrap px-4 py-2 text-sm font-semibold rounded-lg transition-colors ${timeframe === tf ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500 hover:text-zinc-700'}`}
-            >
-              {tf}
-            </button>
-          ))}
         </div>
       </header>
 
@@ -141,28 +94,8 @@ export default function Analytics() {
         {/* Main Chart Area */}
         <div className="lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 border border-zinc-100 shadow-[0px_24px_48px_rgba(0,0,0,0.02)]">
           <div className="flex justify-between items-center mb-8">
-            <h3 className="text-xl font-extrabold tracking-tight">Growth Projection</h3>
-            <select 
-              value={timeframe} 
-              onChange={(e) => setTimeframe(e.target.value)}
-              className="bg-surface-container border-none text-xs font-bold rounded-lg px-4 py-2"
-            >
-              <option value="Daily">Daily</option>
-              <option value="Weekly">Weekly</option>
-              <option value="Monthly">Monthly</option>
-              <option value="Last 30 Days">Last 30 Days</option>
-              <option value="Last Quarter">Last Quarter</option>
-              <option value="Yearly">Yearly</option>
-              <option value="Custom">Custom</option>
-            </select>
+            <h3 className="text-xl font-extrabold tracking-tight">Activity Over Time</h3>
           </div>
-          {timeframe === 'Custom' && (
-            <div className="flex items-center gap-4 mb-6">
-              <input type="date" value={customDateRange.start} onChange={e => setCustomDateRange({ ...customDateRange, start: e.target.value })} className="bg-surface-container text-xs font-bold rounded-lg px-4 py-2 outline-none" />
-              <span className="text-zinc-500 font-bold">to</span>
-              <input type="date" value={customDateRange.end} onChange={e => setCustomDateRange({ ...customDateRange, end: e.target.value })} className="bg-surface-container text-xs font-bold rounded-lg px-4 py-2 outline-none" />
-            </div>
-          )}
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
@@ -186,7 +119,7 @@ export default function Analytics() {
                   itemStyle={{ color: '#09090b' }}
                 />
                 <Bar 
-                  dataKey="views" 
+                  dataKey="generations" 
                   radius={[6, 6, 0, 0]}
                   onMouseEnter={(_, index) => setActiveIndex(index)}
                   onMouseLeave={() => setActiveIndex(null)}
@@ -204,57 +137,53 @@ export default function Analytics() {
           </div>
         </div>
 
-        {/* Channel Breakdown */}
+        {/* Content Breakdown */}
         <div className="lg:col-span-4 bg-white rounded-xl p-8 border border-zinc-100 shadow-sm flex flex-col">
-          <h3 className="text-xl font-extrabold tracking-tight mb-8">Traffic Sources</h3>
-          <div className="space-y-6 flex-1 max-h-[300px] overflow-y-auto pr-2">
+          <h3 className="text-xl font-extrabold tracking-tight mb-8">Content Generation</h3>
+          <div className="space-y-6 flex-1 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
             {Object.entries(analytics.contentTypes || {})
-              .sort(([, a], [, b]) => Number(b) - Number(a)) // Sort by highest
-              .filter(([_, count]) => Number(count) > 0) // Only show active sources
-              .map(([key, _]) => {
-                const perc = getPercentage(key);
+              .map(([key, count]) => {
                 let icon = 'public';
                 let colorClass = 'bg-primary';
                 
                 if (key.includes('Thumbnail')) { icon = 'image'; colorClass = 'bg-indigo-500'; }
                 else if (key.includes('YouTube')) { icon = 'movie'; colorClass = 'bg-red-500'; }
                 else if (key.includes('Instagram')) { icon = 'smartphone'; colorClass = 'bg-pink-500'; }
-                else if (key.includes('LinkedIn')) { icon = 'description'; colorClass = 'bg-blue-600'; }
-                else if (key.includes('TikTok')) { icon = 'music_note'; colorClass = 'bg-black'; }
+                else if (key.includes('LinkedIn')) { icon = 'view_carousel'; colorClass = 'bg-blue-600'; }
+                else if (key.includes('TikTok') || key.includes('Reels')) { icon = 'music_note'; colorClass = 'bg-black'; }
 
-                return (
-                  <div key={key} className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-zinc-600">{icon}</span>
+                return { type: key, generations: count, icon, color: colorClass };
+              })
+              .sort((a, b) => Number(b.generations) - Number(a.generations))
+              .map((item, idx) => (
+                <div key={idx} className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center shrink-0`}>
+                    <span className="material-symbols-outlined text-white">{item.icon}</span>
+                  </div>
+                  <div className="flex-1 overflow-hidden">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-sm font-bold text-zinc-900 truncate pr-2">{item.type}</span>
+                      <span className="text-sm font-black text-zinc-900">{item.generations}</span>
                     </div>
-                    <div className="flex-1">
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm font-bold truncate pr-2 max-w-[150px]">{key}</span>
-                        <span className="text-sm font-medium">{perc}%</span>
-                      </div>
-                      <div className="w-full bg-zinc-100 h-2 rounded-full overflow-hidden">
-                        <div className={`h-2 rounded-full transition-all duration-500 ${colorClass}`} style={{ width: `${perc}%` }}></div>
-                      </div>
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="text-zinc-500 font-medium">Items Generated</span>
+                      <span className="font-bold text-zinc-400">
+                        {getPercentage(item.type)}%
+                      </span>
                     </div>
                   </div>
-                );
-            })}
+                </div>
+              ))}
             
             {/* Empty state if nothing generated yet */}
-            {Object.values(analytics.contentTypes || {}).reduce((a: number, b: any) => a + Number(b), 0) === 0 && (
+            {Object.keys(analytics.contentTypes || {}).length === 0 && (
               <div className="flex flex-col items-center justify-center p-6 text-center h-full opacity-50">
                 <span className="material-symbols-outlined text-4xl mb-2 text-zinc-400">query_stats</span>
                 <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">No data yet</p>
-                <p className="text-xs text-zinc-400 mt-2">Generate content to see your metrics scale organically here.</p>
+                <p className="text-xs text-zinc-400 mt-2">Generate content to track your activity.</p>
               </div>
             )}
           </div>
-          <button 
-            onClick={() => setShowDetails(true)}
-            className="w-full mt-8 py-3 bg-zinc-50 border border-zinc-200 text-zinc-900 text-sm font-bold rounded-xl hover:bg-zinc-100 transition-colors"
-          >
-            View Details
-          </button>
         </div>
       </div>
 
@@ -311,67 +240,6 @@ export default function Analytics() {
           </table>
         </div>
       </div>
-
-      {showDetails && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl">
-            <div className="p-6 border-b border-zinc-100 flex justify-between items-center">
-              <h3 className="text-xl font-black text-zinc-900">Traffic Source Details</h3>
-              <button onClick={() => setShowDetails(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
-                <span className="material-symbols-outlined text-sm font-bold">close</span>
-              </button>
-            </div>
-            <div className="p-6 max-h-[60vh] overflow-y-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-xs font-bold text-zinc-400 uppercase tracking-widest border-b border-zinc-100">
-                    <th className="pb-4 pt-2">Source</th>
-                    <th className="pb-4 pt-2">Total Impressions</th>
-                    <th className="pb-4 pt-2">Clicks</th>
-                    <th className="pb-4 pt-2">Conversion</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-50 text-sm font-medium">
-                  <tr>
-                    <td className="py-4 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-primary"></span> YouTube Shorts</td>
-                    <td className="py-4 text-zinc-600">345,120</td>
-                    <td className="py-4 text-zinc-600">45,020</td>
-                    <td className="py-4 text-emerald-600">13.04%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-primary-container"></span> Instagram Reels</td>
-                    <td className="py-4 text-zinc-600">229,400</td>
-                    <td className="py-4 text-zinc-600">31,100</td>
-                    <td className="py-4 text-emerald-600">13.55%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-zinc-400"></span> LinkedIn (Organic)</td>
-                    <td className="py-4 text-zinc-600">120,500</td>
-                    <td className="py-4 text-zinc-600">18,300</td>
-                    <td className="py-4 text-emerald-600">15.18%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-sky-400"></span> X / Twitter</td>
-                    <td className="py-4 text-zinc-600">85,200</td>
-                    <td className="py-4 text-zinc-600">9,500</td>
-                    <td className="py-4 text-emerald-600">11.15%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-amber-400"></span> Direct Traffic</td>
-                    <td className="py-4 text-zinc-600">15,000</td>
-                    <td className="py-4 text-zinc-600">2,400</td>
-                    <td className="py-4 text-emerald-600">16.00%</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className="mt-8 bg-zinc-50 rounded-xl p-4 border border-zinc-100 flex gap-4 items-center">
-                <span className="material-symbols-outlined text-primary text-3xl">lightbulb</span>
-                <p className="text-sm font-medium text-zinc-600">Your conversion rate from LinkedIn is significantly higher than other platforms. Consider increasing your LinkedIn carousel output.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
