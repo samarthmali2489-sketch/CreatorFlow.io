@@ -13,6 +13,7 @@ export default function Layout() {
   const location = useLocation();
   const { signOut, subscriptionPlan, credits } = useAppContext();
   const [isContentLabOpen, setIsContentLabOpen] = useState(location.pathname.includes('/content-lab'));
+  const [isLibraryOpen, setIsLibraryOpen] = useState(location.pathname.includes('/saved-') || location.pathname.includes('/content-lab/saved-thumbnails'));
   const [isShopifyToolsOpen, setIsShopifyToolsOpen] = useState(location.pathname.includes('/shopify-tools'));
   const [isCreateMenuOpen, setIsCreateMenuOpen] = useState(false);
 
@@ -26,7 +27,7 @@ export default function Layout() {
             <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
               <span className="material-symbols-outlined text-primary text-[18px]">bolt</span>
             </div>
-            CreatorFlow
+            Klipora
           </span>
           <div className="hidden md:flex items-center gap-1 bg-zinc-100/50 p-1 rounded-lg border border-zinc-200/50">
             <div className="bg-white text-zinc-900 font-semibold px-4 py-1.5 rounded-md shadow-sm border border-zinc-200/50 text-sm">Workspaces</div>
@@ -126,6 +127,29 @@ export default function Layout() {
                 <Link to="/content-lab/thumbnail-creator" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/thumbnail-creator' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Thumbnail Creator</Link>
                 <Link to="/content-lab/linkedin-carousels" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/linkedin-carousels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>LinkedIn Carousels</Link>
                 <Link to="/content-lab/yt-insta-posts" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/yt-insta-posts' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>YT & Insta Posts</Link>
+              </div>
+            )}
+          </div>
+
+          <div className="py-1">
+            <button 
+              onClick={() => setIsLibraryOpen(!isLibraryOpen)}
+              className={cn("w-full flex items-center justify-between px-3 py-2.5 transition-all rounded-xl group", (location.pathname.includes('/saved-') || location.pathname.includes('/content-lab/saved-thumbnails')) ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}
+            >
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined">collections_bookmark</span>
+                <span>Library</span>
+              </div>
+              <span className="material-symbols-outlined text-sm transition-transform group-hover:rotate-90">
+                {isLibraryOpen ? 'expand_more' : 'chevron_right'}
+              </span>
+            </button>
+            
+            {isLibraryOpen && (
+              <div className="ml-9 mt-2 space-y-1 border-l-2 border-primary/10 pl-3">
+                <Link to="/content-lab/saved-thumbnails" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/saved-thumbnails' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Saved Thumbnails</Link>
+                <Link to="/saved-posts" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/saved-posts' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Saved Posts</Link>
+                <Link to="/saved-carousels" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/saved-carousels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Saved Carousels</Link>
               </div>
             )}
           </div>

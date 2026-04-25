@@ -20,7 +20,7 @@ export default function Landing() {
             <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20">
               <span className="material-symbols-outlined text-primary text-[18px]">bolt</span>
             </div>
-            CreatorFlow
+            Klipora
           </Link>
           <div className="hidden md:flex gap-1 p-1 bg-zinc-100/50 rounded-full border border-zinc-200/50">
             <a href="#capabilities" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Capabilities</a>
@@ -232,19 +232,19 @@ export default function Landing() {
                <ul className="space-y-4 flex-1 mb-10 text-sm text-zinc-600 font-medium">
                  <li className="flex items-start gap-3">
                    <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
-                   <span>150 Free Credits / Mo</span>
+                   <span>80 Free Credits / Mo</span>
                  </li>
                  <li className="flex items-start gap-3">
                    <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
-                   <span>All Platform Features Unlocked</span>
+                   <span>Unlimited LinkedIn Posts</span>
                  </li>
-                 <li className="flex items-start gap-3 pl-8 text-zinc-500">
-                   <span className="text-xs opacity-60 mt-1">↳</span>
-                   <span>30 Credits / Reels Export</span>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+                   <span>AI-powered Shorts Generation</span>
                  </li>
-                 <li className="flex items-start gap-3 pl-8 text-zinc-500">
-                   <span className="text-xs opacity-60 mt-1">↳</span>
-                   <span>10 Credits / Core Features</span>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+                   <span>Includes Watermark</span>
                  </li>
                </ul>
 
@@ -265,28 +265,28 @@ export default function Landing() {
                <ul className="space-y-4 flex-1 mb-10 text-sm text-zinc-300 font-medium">
                  <li className="flex items-start gap-3">
                    <span className="material-symbols-outlined text-[20px] text-primary">check</span>
-                   <span>1000 Monthly Credits</span>
+                   <span>500 Monthly Credits</span>
                  </li>
                  <li className="flex items-start gap-3">
                    <span className="material-symbols-outlined text-[20px] text-primary">check</span>
-                   <span>All Platform Features Unlocked</span>
+                   <span>Unlimited LinkedIn Carousels</span>
                  </li>
-                 <li className="flex items-start gap-3 pl-8 text-zinc-400">
-                   <span className="text-xs opacity-60 mt-1">↳</span>
-                   <span>30 Credits / Reels Export</span>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-primary">check</span>
+                   <span>YouTube Thumbnails ("Nano Banana")</span>
                  </li>
-                 <li className="flex items-start gap-3 pl-8 text-zinc-400">
-                   <span className="text-xs opacity-60 mt-1">↳</span>
-                   <span>10 Credits / Core Features</span>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-primary">check</span>
+                   <span>Export to Reels, Shorts & TikTok</span>
                  </li>
                </ul>
 
                <Link to="/auth" className="w-full bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center">Upgrade to Pro</Link>
             </div>
 
-            {/* Infinity / Enterprise Plan */}
+            {/* Infinity Plan */}
             <div id="enterprise" className="bg-white rounded-3xl p-10 border border-zinc-200 shadow-sm flex flex-col hover:shadow-lg transition-shadow">
-               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-600 text-xs font-bold tracking-wide mb-6 border border-zinc-200 self-start">Enterprise</div>
+               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-600 text-xs font-bold tracking-wide mb-6 border border-zinc-200 self-start">Infinity</div>
                <div className="flex items-baseline gap-2 mb-10">
                  <span className="text-6xl font-black tracking-tighter text-zinc-900">$50</span>
                  <span className="text-sm text-zinc-500 font-semibold">/mo</span>
@@ -295,23 +295,27 @@ export default function Landing() {
                <ul className="space-y-4 flex-1 mb-10 text-sm text-zinc-600 font-medium">
                  <li className="flex items-start gap-3">
                    <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
-                   <span>Infinite Generations</span>
+                   <span className="font-bold text-zinc-900">Infinite Generations</span>
                  </li>
                  <li className="flex items-start gap-3">
                    <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
-                   <span>All Platform Features Unlocked</span>
+                   <span>Premium AI Models</span>
                  </li>
-                 <li className="flex items-start gap-3 pl-8 text-zinc-500">
-                   <span className="text-xs opacity-60 mt-1">↳</span>
-                   <span>Dedicated Infrastructure</span>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+                   <span>Unlimited Profiles</span>
                  </li>
-                 <li className="flex items-start gap-3 pl-8 text-zinc-500">
-                   <span className="text-xs opacity-60 mt-1">↳</span>
-                   <span>API Documentation Access</span>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+                   <span>API Access</span>
+                 </li>
+                 <li className="flex items-start gap-3">
+                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+                   <span>Dedicated Account Manager</span>
                  </li>
                </ul>
 
-               <Link to="/auth" className="w-full border border-zinc-200 py-3.5 rounded-xl font-bold bg-white text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-colors flex items-center justify-center">Request Access</Link>
+               <Link to="/auth" className="w-full border border-zinc-200 py-3.5 rounded-xl font-bold bg-white text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-colors flex items-center justify-center">Go Infinite</Link>
             </div>
           </div>
         </section>
@@ -360,7 +364,7 @@ export default function Landing() {
                      </div>
                      Does it actually sound like me?
                   </h3>
-                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Yes. CreatorFlow analyzes your connected profiles (YouTube, LinkedIn) to extract structural data about your phrasing, pacing, and vocabulary. It doesn't use generic AI templates; it clones your blueprint.</p>
+                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Yes. Klipora analyzes your connected profiles (YouTube, LinkedIn) to extract structural data about your phrasing, pacing, and vocabulary. It doesn't use generic AI templates; it clones your blueprint.</p>
                 </div>
 
                 <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-blue-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
@@ -411,7 +415,7 @@ export default function Landing() {
               </h2>
               <p className="text-zinc-400 font-medium mb-12 max-w-xl mx-auto text-lg">Stop doing manual distribution. Start building systems.</p>
               <Link to="/auth" className="inline-flex bg-primary text-white px-10 py-5 rounded-2xl text-base font-bold tracking-wide hover:bg-primary-dim transition-all shadow-[0_0_40px_rgba(var(--color-primary),0.3)] items-center justify-center gap-3 hover:scale-105 active:scale-95 duration-200">
-                Launch CreatorFlow
+                Launch Klipora
                 <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
               </Link>
             </div>
@@ -428,10 +432,10 @@ export default function Landing() {
                   <div className="w-6 h-6 bg-primary rounded bg-opacity-10 flex items-center justify-center">
                     <span className="material-symbols-outlined text-primary text-[14px]">bolt</span>
                   </div>
-                  CreatorFlow
+                  Klipora
                 </div>
                 <div className="text-sm text-zinc-500 leading-relaxed font-medium">
-                   © 2026 CreatorFlow AI<br/>
+                   © 2026 Klipora AI<br/>
                    Engineered for the precision architect.
                 </div>
               </div>

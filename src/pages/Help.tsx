@@ -22,7 +22,7 @@ export default function Help() {
         .from('support_messages')
         .insert([
           { 
-            user_email: user?.email || 'anonymous@creatorflow.com',
+            user_email: user?.email || 'anonymous@klipora.in',
             message: contactMessage
           }
         ]);
@@ -61,7 +61,7 @@ export default function Help() {
           <span>Documentation</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-4">Help Center</h1>
-        <p className="text-on-surface-variant text-lg max-w-2xl">Learn how to use CreatorFlow to 10x your content output and streamline your workflow.</p>
+        <p className="text-on-surface-variant text-lg max-w-2xl">Learn how to use Klipora to 10x your content output and streamline your workflow.</p>
       </header>
 
       <div className="flex flex-col md:flex-row gap-12 items-start">
@@ -102,9 +102,9 @@ export default function Help() {
           {activeSection === 'getting-started' && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-3xl font-black tracking-tight mb-4">Welcome to CreatorFlow</h2>
+                <h2 className="text-3xl font-black tracking-tight mb-4">Welcome to Klipora</h2>
                 <p className="text-lg text-on-surface-variant leading-relaxed">
-                  CreatorFlow is your all-in-one AI-powered studio for content creation, analytics, and e-commerce growth. 
+                  Klipora is your all-in-one AI-powered studio for content creation, analytics, and e-commerce growth. 
                   This guide will help you navigate the platform and get the most out of our tools.
                 </p>
               </div>

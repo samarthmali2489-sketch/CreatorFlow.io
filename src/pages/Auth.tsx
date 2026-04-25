@@ -282,7 +282,7 @@ export default function Auth() {
               <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
                 <span className="material-symbols-outlined text-[18px]">stream</span>
               </div>
-              CreatorFlow.
+              Klipora.
             </div>
 
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
@@ -374,7 +374,7 @@ export default function Auth() {
 
           <div className="mt-10 pt-8 border-t border-slate-100 text-center text-sm">
             <p className="text-slate-500 font-medium">
-              {isSignUp ? 'Already have an account?' : "New to CreatorFlow?"}{' '}
+              {isSignUp ? 'Already have an account?' : "New to Klipora?"}{' '}
               <button
                 type="button"
                 onClick={() => {

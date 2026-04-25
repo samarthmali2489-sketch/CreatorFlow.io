@@ -16,7 +16,7 @@ export default function Upgrade() {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success') || urlParams.has('orderId') || urlParams.has('checkoutId')) {
-        setSubscriptionPlan('pro');
+        setSubscriptionPlan((window as any).__pendingPlan || 'pro');
         setShowSuccessMessage(true);
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -39,7 +39,8 @@ export default function Upgrade() {
             (window as any).LemonSqueezy.Setup({
               eventHandler: (event: any) => {
                 if (event.event === 'Checkout.Success') {
-                  setSubscriptionPlan('pro');
+                  const plan = (window as any).__pendingPlan || 'pro';
+                  setSubscriptionPlan(plan);
                   setShowSuccessMessage(true);
                 }
               }
@@ -54,14 +55,15 @@ export default function Upgrade() {
     }
   }, [setSubscriptionPlan]);
 
-  const handleUpgradeClick = (e: React.MouseEvent) => {
+  const handleUpgradeClick = (e: React.MouseEvent, plan: 'pro' | 'infinity', checkoutUrl: string) => {
     e.preventDefault();
+    (window as any).__pendingPlan = plan;
     if (typeof window !== 'undefined' && (window as any).LemonSqueezy && (window as any).LemonSqueezy.Url) {
       // Open in Lemon Squeezy overlay for a seamless experience
-      (window as any).LemonSqueezy.Url.Open(lsCheckoutUrl);
+      (window as any).LemonSqueezy.Url.Open(checkoutUrl);
     } else {
       // Fallback to redirecting to the hosted page
-      window.open(lsCheckoutUrl, '_blank');
+      window.open(checkoutUrl, '_self');
     }
   };
 
@@ -122,14 +124,14 @@ export default function Upgrade() {
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
           </ul>
           
-          {subscriptionPlan === 'pro' ? (
+          {subscriptionPlan === 'pro' || subscriptionPlan === 'infinity' ? (
             <button className="w-full py-4 rounded-xl font-bold bg-surface-container text-on-surface transition-colors cursor-default text-center flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-[20px] text-green-400">check_circle</span>
-              Current Plan
+              {subscriptionPlan === 'pro' ? 'Current Plan' : 'Included in Infinity'}
             </button>
           ) : (
             <button 
-              onClick={handleUpgradeClick}
+              onClick={(e) => handleUpgradeClick(e, 'pro', lsCheckoutUrl)}
               className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
@@ -162,12 +164,8 @@ export default function Upgrade() {
             </button>
           ) : (
             <button 
-              onClick={() => {
-                // Mock upgrade for preview
-                setSubscriptionPlan('infinity');
-                setShowSuccessMessage(true);
-              }}
-              className="w-full py-4 rounded-xl font-bold bg-zinc-900 text-white hover:bg-black transition-colors relative z-10"
+              onClick={(e) => handleUpgradeClick(e, 'infinity', 'https://creator-flow-io.lemonsqueezy.com/checkout/buy/eacc7548-c9e0-4133-b4d6-f02d79c1841d')}
+              className="w-full py-4 rounded-xl font-bold bg-zinc-900 text-white hover:bg-black transition-colors relative z-10 text-center block"
             >
               Go Infinite
             </button>

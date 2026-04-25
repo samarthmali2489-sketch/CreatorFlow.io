@@ -167,17 +167,8 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
 
       if (finalBase64) {
         setGeneratedThumbnails([finalBase64]);
-        setSavedStatus({ 0: true }); 
+        setSavedStatus({ 0: false }); 
         addGeneration('YouTube Thumbnail');
-        
-        saveThumbnail({
-          url: finalBase64,
-          topic,
-          thumbnailText: thumbnailText.trim() || undefined,
-          style: actualStyle,
-          channelInspiration: channelName.trim() ? channelName : undefined,
-        });
-
       } else {
         throw new Error('No images generated');
       }
