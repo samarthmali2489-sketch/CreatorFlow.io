@@ -25,6 +25,28 @@ type AnalyticsData = {
   contentTypes: Record<string, number>;
 };
 
+const DEFAULT_ANALYTICS: AnalyticsData = {
+  totalGenerations: 0,
+  videosProcessed: 0,
+  platformsConnected: 0,
+  recentActivity: [],
+  chartData: [
+    { name: 'Mon', value: 0 },
+    { name: 'Tue', value: 0 },
+    { name: 'Wed', value: 0 },
+    { name: 'Thu', value: 0 },
+    { name: 'Fri', value: 0 },
+    { name: 'Sat', value: 0 },
+    { name: 'Sun', value: 0 },
+  ],
+  contentTypes: {
+    'YouTube Shorts': 0,
+    'Instagram Reels': 0,
+    'LinkedIn': 0,
+    'TikTok Native': 0,
+  }
+};
+
 export type SavedPost = {
   id: string;
   platform: string;
@@ -201,6 +223,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setAuthLoading(false);
       
       if (session?.user) {
+        const currentUserId = session.user.id;
+        const lastUserId = localStorage.getItem('creatorflow_last_user_id');
+        
+        if (lastUserId && lastUserId !== currentUserId) {
+          localStorage.removeItem('creatorflow_profiles');
+          localStorage.removeItem('creatorflow_saved_posts');
+          localStorage.removeItem('creatorflow_saved_carousels');
+          localStorage.removeItem('creatorflow_saved_reels');
+          import('idb-keyval').then(({ del }) => del('creatorflow_saved_thumbnails'));
+          setProfiles({});
+          setSavedPosts([]);
+          setSavedCarousels([]);
+          setSavedReels([]);
+          setSavedThumbnails([]);
+        }
+        localStorage.setItem('creatorflow_last_user_id', currentUserId);
+
         let updateData: any = {};
         let needsUpdate = false;
 
@@ -228,6 +267,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (metadataAnalytics !== undefined) {
           setAnalytics(metadataAnalytics);
           localStorage.setItem('creatorflow_analytics', JSON.stringify(metadataAnalytics));
+        } else {
+          updateData.analytics = DEFAULT_ANALYTICS;
+          needsUpdate = true;
+          setAnalytics(DEFAULT_ANALYTICS);
+          localStorage.setItem('creatorflow_analytics', JSON.stringify(DEFAULT_ANALYTICS));
         }
 
         if (needsUpdate) {
@@ -276,6 +320,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const signOut = async () => {
     try {
       await supabase.auth.signOut();
+      localStorage.removeItem('creatorflow_analytics');
+      localStorage.removeItem('creatorflow_profiles');
+      localStorage.removeItem('creatorflow_saved_posts');
+      localStorage.removeItem('creatorflow_saved_carousels');
+      localStorage.removeItem('creatorflow_saved_reels');
+      localStorage.removeItem('creatorflow_plan');
+      localStorage.removeItem('creatorflow_credits');
+      import('idb-keyval').then(({ del }) => del('creatorflow_saved_thumbnails'));
+      
+      setAnalytics(DEFAULT_ANALYTICS);
+      setProfiles({});
+      setSavedPosts([]);
+      setSavedCarousels([]);
+      setSavedReels([]);
+      setSavedThumbnails([]);
+      setCreditsState(80);
+      setSubscriptionPlanState('free');
     } catch (e) {
       console.warn("Sign out error:", e);
     }
