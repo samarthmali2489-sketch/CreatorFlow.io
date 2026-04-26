@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { GoogleGenAI, getGeminiApiKey } from '../lib/gemini';
 import { useAppContext } from '../context/AppContext';
 import { Link } from 'react-router-dom';
+import { GeneratingAnimation } from '../components/GeneratingAnimation';
 
 declare global {
   interface Window {
@@ -381,8 +382,14 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
         </div>
       </div>
 
+      {isProcessing && (
+        <div className="mb-16">
+           <GeneratingAnimation text="Rendering Nano Banana 2 Thumbnail..." />
+        </div>
+      )}
+
       {/* Results Section */}
-      {generatedThumbnails.length > 0 && (
+      {!isProcessing && generatedThumbnails.length > 0 && (
         <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">Generated Concepts</h2>

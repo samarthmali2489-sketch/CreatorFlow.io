@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import * as htmlToImage from 'html-to-image';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { GeneratingAnimation } from '../components/GeneratingAnimation';
 
 type Slide = {
   type: 'hook' | 'problem' | 'value' | 'list' | 'conclusion';
@@ -561,6 +562,10 @@ export default function LinkedInCarousels() {
             </div>
           </div>
 
+          {isGenerating && (
+            <GeneratingAnimation text="Generating Carousel..." />
+          )}
+
           {slides.length === 0 && !isGenerating && (
             <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[450px]">
               <span className="material-symbols-outlined text-4xl text-outline mb-4">view_carousel</span>
@@ -568,7 +573,7 @@ export default function LinkedInCarousels() {
             </div>
           )}
 
-          {slides.length > 0 && (
+          {slides.length > 0 && !isGenerating && (
             <>
               <div className="slide-preview-container flex gap-8 overflow-x-auto pb-8 snap-x px-4 scroll-smooth">
                 {slides.map((slide, index) => renderSlide(slide, index))}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { GoogleGenAI, getGeminiApiKey } from '../lib/gemini';
 import { Link } from 'react-router-dom';
+import { GeneratingAnimation } from '../components/GeneratingAnimation';
 
 export default function YTAndInstaPostsCreator() {
   const { addGeneration, profiles, savePost, savedPosts, deletePost, deductCredits } = useAppContext();
@@ -295,6 +296,10 @@ export default function YTAndInstaPostsCreator() {
             )}
           </div>
 
+          {isGenerating && (
+            <GeneratingAnimation text={`Generating ${targetPlatform === 'youtube' ? 'YouTube' : 'Instagram'} Posts...`} />
+          )}
+
           {generatedPosts.length === 0 && !isGenerating && (
             <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[300px]">
               <span className="material-symbols-outlined text-4xl text-outline mb-4">edit_document</span>
@@ -302,7 +307,7 @@ export default function YTAndInstaPostsCreator() {
             </div>
           )}
 
-          {generatedPosts.map((post, index) => (
+          {!isGenerating && generatedPosts.map((post, index) => (
             <div key={index} className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group">
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                 <button 

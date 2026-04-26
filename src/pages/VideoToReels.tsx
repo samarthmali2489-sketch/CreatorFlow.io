@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { GoogleGenAI, getGeminiApiKey } from '../lib/gemini';
+import { GeneratingAnimation } from '../components/GeneratingAnimation';
 
 export default function VideoToReels() {
   const { addVideoProcessed, profiles, savedReels, saveReel, deductCredits } = useAppContext();
@@ -311,8 +312,14 @@ export default function VideoToReels() {
         </div>
       </div>
 
+      {isProcessing && (
+        <div className="mb-16">
+          <GeneratingAnimation text={progressText || 'Extracting Concepts...'} />
+        </div>
+      )}
+
       {/* Generated Reels Section (If any) */}
-      {generatedReels.length > 0 && (
+      {!isProcessing && generatedReels.length > 0 && (
         <div className="mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">Extracted Viral Concepts</h2>
