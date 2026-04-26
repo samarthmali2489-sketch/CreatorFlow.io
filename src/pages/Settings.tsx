@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Settings() {
-  const { user, darkMode, setDarkMode, autoSave, setAutoSave, showRefImageWarning, setShowRefImageWarning, subscriptionPlan, setSubscriptionPlan, credits } = useAppContext();
+  const { user, autoSave, setAutoSave, showRefImageWarning, setShowRefImageWarning, subscriptionPlan, setSubscriptionPlan, credits } = useAppContext();
+  const { theme, setTheme } = useTheme();
   const [activeTab, setActiveTab] = useState('profile');
   
   // Profile State
@@ -79,8 +81,7 @@ export default function Settings() {
     }, 800);
   };
 
-  const handleTogglePreference = (key: 'darkMode' | 'autoSave' | 'showRefImageWarning') => {
-    if (key === 'darkMode') setDarkMode(!darkMode);
+  const handleTogglePreference = (key: 'autoSave' | 'showRefImageWarning') => {
     if (key === 'autoSave') setAutoSave(!autoSave);
     if (key === 'showRefImageWarning') setShowRefImageWarning(!showRefImageWarning);
   };
@@ -189,7 +190,7 @@ export default function Settings() {
                   <button 
                     onClick={handleSaveProfile}
                     disabled={isSaving}
-                    className="bg-primary hover:bg-primary-dim text-white px-6 py-2.5 rounded-lg font-bold transition-all disabled:opacity-70 flex items-center gap-2"
+                    className="bg-primary hover:bg-primary-dim text-white dark:text-zinc-900 px-6 py-2.5 rounded-lg font-bold transition-all disabled:opacity-70 flex items-center gap-2"
                   >
                     {isSaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : null}
                     Save Changes
@@ -206,13 +207,18 @@ export default function Settings() {
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-bold text-on-surface">Dark Mode</h3>
-                      <p className="text-sm text-on-surface-variant">Toggle dark mode appearance.</p>
+                      <h3 className="font-bold text-on-surface">App Theme</h3>
+                      <p className="text-sm text-on-surface-variant">Select light, dark, or system default.</p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" checked={darkMode} onChange={() => handleTogglePreference('darkMode')} className="sr-only peer" />
-                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                    </label>
+                    <select
+                      value={theme}
+                      onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'system')}
+                      className="bg-surface-container-high border-none text-on-surface rounded-lg p-2 font-medium focus:ring-2 focus:ring-primary outline-none"
+                    >
+                      <option value="system">System</option>
+                      <option value="light">Light</option>
+                      <option value="dark">Dark</option>
+                    </select>
                   </div>
                   <hr className="border-outline-variant/20" />
                   <div className="flex items-center justify-between">
@@ -222,7 +228,7 @@ export default function Settings() {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" checked={autoSave} onChange={() => handleTogglePreference('autoSave')} className="sr-only peer" />
-                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-zinc-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>
                   <hr className="border-outline-variant/20" />
@@ -233,7 +239,7 @@ export default function Settings() {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" checked={showRefImageWarning} onChange={() => handleTogglePreference('showRefImageWarning')} className="sr-only peer" />
-                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white dark:bg-zinc-900 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>
                 </div>

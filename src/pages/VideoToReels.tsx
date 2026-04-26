@@ -157,7 +157,7 @@ export default function VideoToReels() {
       onClick={onChange}
       className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${enabled ? 'bg-blue-600' : 'bg-gray-600'}`}
     >
-      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${enabled ? 'translate-x-5' : 'translate-x-0'}`} />
+      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white dark:bg-zinc-900 shadow ring-0 transition duration-200 ease-in-out ${enabled ? 'translate-x-5' : 'translate-x-0'}`} />
     </button>
   );
 
@@ -170,8 +170,8 @@ export default function VideoToReels() {
   return (
     <div className="max-w-[1600px] mx-auto p-8 lg:p-12 min-h-screen bg-[#f8f9fa] relative overflow-hidden">
       {/* Coming Soon Overlay */}
-      <div className="absolute inset-0 z-50 bg-white/40 backdrop-blur-[4px] flex items-center justify-center p-4">
-        <div className="bg-white p-8 rounded-[2rem] shadow-2xl border border-blue-100 max-w-lg text-center drop-shadow-xl">
+      <div className="absolute inset-0 z-50 bg-white dark:bg-zinc-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-xl border border-blue-100 max-w-lg text-center">
           <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600">
              <span className="material-symbols-outlined text-4xl">construction</span>
           </div>
@@ -192,7 +192,7 @@ export default function VideoToReels() {
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {/* Left Column - Upload */}
-        <div className="lg:col-span-2 bg-white rounded-[2rem] shadow-sm border border-gray-100 p-12 flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden">
+        <div className="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-[2rem] shadow-sm border border-gray-100 p-12 flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden">
           {inputMode === 'drop' ? (
             <div className="flex flex-col items-center z-10 w-full max-w-md text-center">
               <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
@@ -201,8 +201,8 @@ export default function VideoToReels() {
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Drop your long-form video here</h2>
               <p className="text-gray-500 mb-8">Support for MP4, MOV, and AVI up to 2GB</p>
               <div className="flex gap-4 w-full justify-center">
-                <button className="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm">Browse Files</button>
-                <button onClick={() => setInputMode('url')} className="px-6 py-3 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-colors shadow-sm">Import from URL</button>
+                <button className="px-6 py-3 bg-blue-600 text-white dark:text-zinc-900 font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm">Browse Files</button>
+                <button onClick={() => setInputMode('url')} className="px-6 py-3 bg-white dark:bg-zinc-900 border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-colors shadow-sm">Import from URL</button>
               </div>
             </div>
           ) : (
@@ -210,7 +210,7 @@ export default function VideoToReels() {
               <button onClick={() => setInputMode('drop')} className="self-start mb-6 text-sm text-gray-500 hover:text-gray-900 flex items-center gap-1 transition-colors">
                 <span className="material-symbols-outlined text-sm">arrow_back</span> Back to upload
               </button>
-              <div className="w-full space-y-4 bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+              <div className="w-full space-y-4 bg-white dark:bg-zinc-900 p-8 rounded-3xl shadow-xl border border-gray-100">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Import from URL</h3>
                 <p className="text-gray-500 text-sm mb-6">Paste a YouTube link to generate viral reel concepts.</p>
                 <input
@@ -230,7 +230,7 @@ export default function VideoToReels() {
                 <button
                   onClick={handleGenerate}
                   disabled={isProcessing || !url.trim()}
-                  className="w-full bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 text-white dark:text-zinc-900 px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2"
                 >
                   {isProcessing ? (
                     <><span className="material-symbols-outlined animate-spin">progress_activity</span> {progressText || 'Analyzing Video...'}</>
@@ -259,22 +259,22 @@ export default function VideoToReels() {
             <div className="mb-8">
               <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Face Tracking</label>
               <div className="flex bg-gray-200/50 p-1 rounded-xl gap-1">
-                <button onClick={() => setFaceTracking('Active Speaker')} className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${faceTracking === 'Active Speaker' ? 'bg-white text-blue-600 shadow-sm border border-blue-100' : 'text-gray-600 hover:text-gray-900'}`}>Active Speaker</button>
-                <button onClick={() => setFaceTracking('Center Crop')} className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${faceTracking === 'Center Crop' ? 'bg-white text-blue-600 shadow-sm border border-blue-100' : 'text-gray-600 hover:text-gray-900'}`}>Center Crop</button>
+                <button onClick={() => setFaceTracking('Active Speaker')} className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${faceTracking === 'Active Speaker' ? 'bg-white dark:bg-zinc-900 text-blue-600 shadow-sm border border-blue-100' : 'text-gray-600 hover:text-gray-900'}`}>Active Speaker</button>
+                <button onClick={() => setFaceTracking('Center Crop')} className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${faceTracking === 'Center Crop' ? 'bg-white dark:bg-zinc-900 text-blue-600 shadow-sm border border-blue-100' : 'text-gray-600 hover:text-gray-900'}`}>Center Crop</button>
               </div>
             </div>
 
             <div>
               <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Captions Style</label>
               <div className="grid grid-cols-3 gap-3">
-                <button onClick={() => setCaptionStyle('single')} className={`h-16 bg-white rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${captionStyle === 'single' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
+                <button onClick={() => setCaptionStyle('single')} className={`h-16 bg-white dark:bg-zinc-900 rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${captionStyle === 'single' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
                   <div className="w-8 h-1.5 bg-blue-600 rounded-full"></div>
                 </button>
-                <button onClick={() => setCaptionStyle('double')} className={`h-16 bg-white rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${captionStyle === 'double' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
+                <button onClick={() => setCaptionStyle('double')} className={`h-16 bg-white dark:bg-zinc-900 rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${captionStyle === 'double' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
                   <div className="w-8 h-1.5 bg-blue-600 rounded-full"></div>
                   <div className="w-8 h-1.5 bg-blue-600 rounded-full"></div>
                 </button>
-                <button onClick={() => setCaptionStyle('none')} className={`h-16 bg-white rounded-xl flex flex-col items-center justify-center transition-all ${captionStyle === 'none' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
+                <button onClick={() => setCaptionStyle('none')} className={`h-16 bg-white dark:bg-zinc-900 rounded-xl flex flex-col items-center justify-center transition-all ${captionStyle === 'none' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
                   <span className="material-symbols-outlined text-gray-300 text-2xl">block</span>
                 </button>
               </div>
@@ -282,24 +282,24 @@ export default function VideoToReels() {
           </div>
 
           {/* Omnichannel Export */}
-          <div className="bg-[#1a1d20] rounded-[2rem] p-8 text-white shadow-xl">
+          <div className="bg-[#1a1d20] rounded-[2rem] p-8 text-white dark:text-zinc-900 shadow-xl">
             <h3 className="font-bold text-lg mb-6">Omnichannel Export</h3>
             <div className="space-y-4">
-              <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="flex items-center justify-between bg-white dark:bg-zinc-900/5 p-4 rounded-xl border border-white/10">
                 <div className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-pink-500">music_note</span>
                   <span className="font-medium text-sm">TikTok Native</span>
                 </div>
                 <ToggleSwitch enabled={exports.tiktok} onChange={() => toggleExport('tiktok')} />
               </div>
-              <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="flex items-center justify-between bg-white dark:bg-zinc-900/5 p-4 rounded-xl border border-white/10">
                 <div className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-red-500">play_arrow</span>
                   <span className="font-medium text-sm">YouTube Shorts</span>
                 </div>
                 <ToggleSwitch enabled={exports.youtube} onChange={() => toggleExport('youtube')} />
               </div>
-              <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="flex items-center justify-between bg-white dark:bg-zinc-900/5 p-4 rounded-xl border border-white/10">
                 <div className="flex items-center gap-3">
                   <span className="material-symbols-outlined text-orange-500">movie</span>
                   <span className="font-medium text-sm">Instagram Reels</span>
@@ -323,7 +323,7 @@ export default function VideoToReels() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {generatedReels.map((reel, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+              <div key={index} className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black">
                     {index + 1}
@@ -352,7 +352,7 @@ export default function VideoToReels() {
                 </div>
                 
                 <div className="mt-6 pt-4 border-t border-gray-100 flex gap-2">
-                  <button className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors">
+                  <button className="flex-1 bg-blue-600 text-white dark:text-zinc-900 py-2.5 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors">
                     Send to Editor
                   </button>
                   <button onClick={() => handleSaveReel(reel)} className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-bold hover:bg-gray-200 transition-colors">
@@ -378,7 +378,7 @@ export default function VideoToReels() {
               <img src={exp.image} alt={exp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
               
-              <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10">
+              <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-sm text-white dark:text-zinc-900 text-[10px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10">
                 <span className="material-symbols-outlined text-[12px]">
                   {exp.platforms[0] === 'YOUTUBE' ? 'play_arrow' : exp.platforms[0] === 'INSTAGRAM' ? 'movie' : 'music_note'}
                 </span>
@@ -386,8 +386,8 @@ export default function VideoToReels() {
               </div>
               
               <div className="absolute bottom-4 left-4 right-4">
-                <h4 className="text-white font-bold text-sm truncate mb-1">{exp.title}</h4>
-                <p className="text-white/70 text-[10px] font-medium">{exp.duration}</p>
+                <h4 className="text-white dark:text-zinc-900 font-bold text-sm truncate mb-1">{exp.title}</h4>
+                <p className="text-white dark:text-zinc-900/70 text-[10px] font-medium">{exp.duration}</p>
               </div>
             </div>
           ))}

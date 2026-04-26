@@ -303,7 +303,7 @@ export default function YTAndInstaPostsCreator() {
           )}
 
           {generatedPosts.map((post, index) => (
-            <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group">
+            <div key={index} className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group">
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                 <button 
                   onClick={() => handleCopy(index, post)}
@@ -346,7 +346,7 @@ export default function YTAndInstaPostsCreator() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {savedPosts.slice(0, 3).map((post) => (
-              <div key={post.id} className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group flex flex-col">
+              <div key={post.id} className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group flex flex-col">
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                   <button 
                     onClick={() => deletePost(post.id)}

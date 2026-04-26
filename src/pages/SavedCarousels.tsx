@@ -8,7 +8,7 @@ export default function SavedCarousels() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [selectedCarousel, setSelectedCarousel] = useState<any | null>(null);
 
-  const DEFAULT_THEME = { id: 'minimal-light', background: 'bg-white', text: 'text-zinc-900', subtext: 'text-zinc-500', accent: 'text-zinc-900', accentBg: 'bg-zinc-900', font: 'font-serif', pattern: 'none' };
+  const DEFAULT_THEME = { id: 'minimal-light', background: 'bg-white dark:bg-zinc-900', text: 'text-zinc-900 dark:text-white', subtext: 'text-zinc-500 dark:text-zinc-400', accent: 'text-zinc-900 dark:text-white', accentBg: 'bg-zinc-900 dark:bg-zinc-100', font: 'font-serif', pattern: 'none' };
 
   const formatSlidesText = (slides: any[]) => {
     return slides.map((s, i) => {
@@ -97,7 +97,7 @@ export default function SavedCarousels() {
                 </div>
                 <button 
                   onClick={(e) => { e.stopPropagation(); handlePostToLinkedIn(carousel.slides); }}
-                  className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+                  className="px-6 py-2.5 bg-blue-600 text-white dark:text-zinc-900 rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                   Post to LinkedIn
@@ -112,7 +112,7 @@ export default function SavedCarousels() {
                   return (
                     <div 
                       key={idx} 
-                      className={`min-w-[320px] w-[320px] aspect-[4/5] shrink-0 shadow-2xl rounded-xl relative overflow-hidden snap-center hover:shadow-lg transition-all ${theme.background} ${theme.font} border border-outline-variant/10`}
+                      className={`min-w-[320px] w-[320px] aspect-[4/5] shrink-0 shadow-lg rounded-xl relative overflow-hidden snap-center hover:shadow-lg transition-all ${theme.background} ${theme.font} border border-outline-variant/10`}
                       style={{ backgroundImage: theme.pattern }}
                     >
                       <div className={`absolute top-4 right-4 text-5xl font-black select-none pointer-events-none opacity-10 z-0 ${theme.text}`}>
@@ -177,7 +177,7 @@ export default function SavedCarousels() {
 
       {selectedCarousel && createPortal(
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[100] p-4" onClick={() => setSelectedCarousel(null)}>
-          <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-6xl w-full max-h-[95vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-6xl w-full max-h-[95vh] overflow-y-auto shadow-lg" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h2 className="text-3xl font-black tracking-tight mb-2">{selectedCarousel.topic}</h2>
@@ -196,7 +196,7 @@ export default function SavedCarousels() {
                 return (
                   <div 
                     key={idx} 
-                    className={`min-w-[450px] w-[450px] aspect-[4/5] shrink-0 shadow-2xl rounded-xl relative overflow-hidden snap-center ${theme.background} ${theme.font} border border-outline-variant/10`}
+                    className={`min-w-[450px] w-[450px] aspect-[4/5] shrink-0 shadow-lg rounded-xl relative overflow-hidden snap-center ${theme.background} ${theme.font} border border-outline-variant/10`}
                     style={{ backgroundImage: theme.pattern }}
                   >
                     <div className={`absolute top-6 right-6 text-7xl font-black select-none pointer-events-none opacity-10 z-0 ${theme.text}`}>
@@ -214,7 +214,7 @@ export default function SavedCarousels() {
                         {slide.imageUrl && (
                           <div className="mb-4 rounded-xl overflow-hidden flex-shrink-0 w-full h-[160px] relative mt-2 group">
                             <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
-                            <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover shadow-2xl ring-1 ring-black/10" />
+                            <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover shadow-lg ring-1 ring-black/10" />
                           </div>
                         )}
                         
@@ -271,7 +271,7 @@ export default function SavedCarousels() {
                 <span className="material-symbols-outlined">{copiedId === selectedCarousel.id ? 'check' : 'content_copy'}</span>
                 {copiedId === selectedCarousel.id ? 'Copied!' : 'Copy All Text'}
               </button>
-              <button onClick={() => handlePostToLinkedIn(selectedCarousel.slides)} className="flex-1 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-lg">
+              <button onClick={() => handlePostToLinkedIn(selectedCarousel.slides)} className="flex-1 py-4 bg-blue-600 text-white dark:text-zinc-900 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-lg">
                 <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 Post to LinkedIn
               </button>

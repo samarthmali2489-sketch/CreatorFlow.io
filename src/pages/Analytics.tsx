@@ -31,22 +31,22 @@ export default function Analytics() {
       <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 block">Performance Overview</span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-zinc-900 tracking-tighter">Analytics Lab</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tighter">Analytics Lab</h1>
         </div>
       </header>
 
       {/* KPI Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {/* Total Reach */}
-        <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_rgba(0,0,0,0.02)] border border-zinc-100 flex flex-col justify-between min-h-[200px] group hover:border-primary/20 transition-all">
+        <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_rgba(0,0,0,0.02)] border border-zinc-100 dark:border-zinc-800 flex flex-col justify-between min-h-[200px] group hover:border-primary/20 transition-all">
           <div>
             <div className="flex justify-between items-start mb-4">
-              <span className="text-zinc-500 font-medium">Total Generations</span>
+              <span className="text-zinc-500 dark:text-zinc-400 font-medium">Total Generations</span>
               <div className="p-2 bg-primary/5 rounded-lg">
                 <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>trending_up</span>
               </div>
             </div>
-            <div className="text-5xl font-black tracking-tighter text-zinc-900">{analytics.totalGenerations}</div>
+            <div className="text-5xl font-black tracking-tighter text-zinc-900 dark:text-white">{analytics.totalGenerations}</div>
           </div>
           <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-emerald-600">
             <span className="material-symbols-outlined text-sm">north</span>
@@ -55,12 +55,12 @@ export default function Analytics() {
         </div>
 
         {/* Engagement Rate */}
-        <div className="bg-zinc-900 p-8 rounded-xl shadow-xl flex flex-col justify-between min-h-[200px] text-white">
+        <div className="bg-zinc-900 dark:bg-zinc-100 p-8 rounded-xl shadow-xl flex flex-col justify-between min-h-[200px] text-white dark:text-zinc-900">
           <div>
             <div className="flex justify-between items-start mb-4">
               <span className="text-zinc-400 font-medium">Videos Processed</span>
-              <div className="p-2 bg-white/10 rounded-lg">
-                <span className="material-symbols-outlined text-white" style={{ fontVariationSettings: "'FILL' 1" }}>movie</span>
+              <div className="p-2 bg-white dark:bg-zinc-900/10 rounded-lg">
+                <span className="material-symbols-outlined text-white dark:text-zinc-900" style={{ fontVariationSettings: "'FILL' 1" }}>movie</span>
               </div>
             </div>
             <div className="text-5xl font-black tracking-tighter">{analytics.videosProcessed}</div>
@@ -72,15 +72,15 @@ export default function Analytics() {
         </div>
 
         {/* Conversions */}
-        <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_rgba(0,0,0,0.02)] border border-zinc-100 flex flex-col justify-between min-h-[200px] group hover:border-primary/20 transition-all">
+        <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_rgba(0,0,0,0.02)] border border-zinc-100 dark:border-zinc-800 flex flex-col justify-between min-h-[200px] group hover:border-primary/20 transition-all">
           <div>
             <div className="flex justify-between items-start mb-4">
-              <span className="text-zinc-500 font-medium">Platforms Connected</span>
+              <span className="text-zinc-500 dark:text-zinc-400 font-medium">Platforms Connected</span>
               <div className="p-2 bg-primary/5 rounded-lg">
                 <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>hub</span>
               </div>
             </div>
-            <div className="text-5xl font-black tracking-tighter text-zinc-900">{analytics.platformsConnected}</div>
+            <div className="text-5xl font-black tracking-tighter text-zinc-900 dark:text-white">{analytics.platformsConnected}</div>
           </div>
           <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-emerald-600">
             <span className="material-symbols-outlined text-sm">north</span>
@@ -92,7 +92,7 @@ export default function Analytics() {
       {/* Detailed Analysis Section */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
         {/* Main Chart Area */}
-        <div className="lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 border border-zinc-100 shadow-[0px_24px_48px_rgba(0,0,0,0.02)]">
+        <div className="lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 border border-zinc-100 dark:border-zinc-800 shadow-[0px_24px_48px_rgba(0,0,0,0.02)]">
           <div className="flex justify-between items-center mb-8">
             <h3 className="text-xl font-extrabold tracking-tight">Activity Over Time</h3>
           </div>
@@ -138,7 +138,7 @@ export default function Analytics() {
         </div>
 
         {/* Content Breakdown */}
-        <div className="lg:col-span-4 bg-white rounded-xl p-8 border border-zinc-100 shadow-sm flex flex-col">
+        <div className="lg:col-span-4 bg-white dark:bg-zinc-900 rounded-xl p-8 border border-zinc-100 dark:border-zinc-800 shadow-sm flex flex-col">
           <h3 className="text-xl font-extrabold tracking-tight mb-8">Content Generation</h3>
           <div className="space-y-6 flex-1 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
             {Object.entries(analytics.contentTypes || {})
@@ -158,15 +158,15 @@ export default function Analytics() {
               .map((item, idx) => (
                 <div key={idx} className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center shrink-0`}>
-                    <span className="material-symbols-outlined text-white">{item.icon}</span>
+                    <span className="material-symbols-outlined text-white dark:text-zinc-900">{item.icon}</span>
                   </div>
                   <div className="flex-1 overflow-hidden">
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm font-bold text-zinc-900 truncate pr-2">{item.type}</span>
-                      <span className="text-sm font-black text-zinc-900">{item.generations}</span>
+                      <span className="text-sm font-bold text-zinc-900 dark:text-white truncate pr-2">{item.type}</span>
+                      <span className="text-sm font-black text-zinc-900 dark:text-white">{item.generations}</span>
                     </div>
                     <div className="flex justify-between items-center text-xs">
-                      <span className="text-zinc-500 font-medium">Items Generated</span>
+                      <span className="text-zinc-500 dark:text-zinc-400 font-medium">Items Generated</span>
                       <span className="font-bold text-zinc-400">
                         {getPercentage(item.type)}%
                       </span>
@@ -179,7 +179,7 @@ export default function Analytics() {
             {Object.keys(analytics.contentTypes || {}).length === 0 && (
               <div className="flex flex-col items-center justify-center p-6 text-center h-full opacity-50">
                 <span className="material-symbols-outlined text-4xl mb-2 text-zinc-400">query_stats</span>
-                <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">No data yet</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">No data yet</p>
                 <p className="text-xs text-zinc-400 mt-2">Generate content to track your activity.</p>
               </div>
             )}
@@ -188,15 +188,15 @@ export default function Analytics() {
       </div>
 
       {/* Recent Activity Table */}
-      <div className="bg-surface-container-lowest rounded-xl border border-zinc-100 shadow-[0px_24px_48px_rgba(0,0,0,0.02)] overflow-hidden">
-        <div className="px-8 py-6 border-b border-zinc-100 flex justify-between items-center">
+      <div className="bg-surface-container-lowest rounded-xl border border-zinc-100 dark:border-zinc-800 shadow-[0px_24px_48px_rgba(0,0,0,0.02)] overflow-hidden">
+        <div className="px-8 py-6 border-b border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
           <h3 className="text-xl font-extrabold tracking-tight">Recent Activity</h3>
           <Link to="/recent-activity" className="text-sm font-bold text-primary hover:underline">See All</Link>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-zinc-50 text-zinc-500 text-xs font-bold uppercase tracking-widest">
+              <tr className="bg-zinc-50 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-widest">
                 <th className="px-8 py-4">Action</th>
                 <th className="px-6 py-4">Time</th>
                 <th className="px-8 py-4 text-right">Details</th>
@@ -205,25 +205,25 @@ export default function Analytics() {
             <tbody className="divide-y divide-zinc-100">
               {analytics.recentActivity.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-8 py-8 text-center text-zinc-500 font-medium">
+                  <td colSpan={3} className="px-8 py-8 text-center text-zinc-500 dark:text-zinc-400 font-medium">
                     No recent activity. Start generating content!
                   </td>
                 </tr>
               ) : (
                 analytics.recentActivity.slice(0, 3).map((activity) => (
-                  <tr key={activity.id} className="hover:bg-zinc-50 transition-colors group">
+                  <tr key={activity.id} className="hover:bg-zinc-50 dark:bg-zinc-800 transition-colors group">
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                           <span className="material-symbols-outlined text-sm">bolt</span>
                         </div>
                         <div>
-                          <p className="font-bold text-zinc-900">{activity.action}</p>
+                          <p className="font-bold text-zinc-900 dark:text-white">{activity.action}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-5">
-                      <span className="text-sm font-medium text-zinc-500">{activity.time}</span>
+                      <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{activity.time}</span>
                     </td>
                     <td className="px-8 py-5 text-right">
                       <button 

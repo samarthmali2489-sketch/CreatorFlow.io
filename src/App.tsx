@@ -22,6 +22,7 @@ import Settings from './pages/Settings';
 import Help from './pages/Help';
 import Auth from './pages/Auth';
 import { AppProvider, useAppContext } from './context/AppContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 function AppRoutes() {
   const { user, authLoading } = useAppContext();
@@ -67,8 +68,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <AppRoutes />
-    </AppProvider>
+    <ThemeProvider>
+      <AppProvider>
+        <AppRoutes />
+      </AppProvider>
+    </ThemeProvider>
   );
 }

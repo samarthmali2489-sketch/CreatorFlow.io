@@ -48,7 +48,7 @@ export default function SavedThumbnails() {
               <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
                 <img src={thumbnail.url} alt="Saved thumbnail" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                  <a href={thumbnail.url} download={`saved-thumbnail-${thumbnail.id}.jpg`} className="bg-white text-gray-900 w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <a href={thumbnail.url} download={`saved-thumbnail-${thumbnail.id}.jpg`} className="bg-white dark:bg-zinc-900 text-gray-900 w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined font-bold text-sm">download</span>
                   </a>
                   <button 

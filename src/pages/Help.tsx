@@ -74,7 +74,7 @@ export default function Help() {
                 onClick={() => setActiveSection(section.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-left ${
                   activeSection === section.id
-                    ? 'bg-primary text-white shadow-md shadow-primary/20'
+                    ? 'bg-primary text-white dark:text-zinc-900 shadow-md shadow-primary/20'
                     : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface'
                 }`}
               >
@@ -89,7 +89,7 @@ export default function Help() {
             <p className="text-sm text-on-surface-variant mb-4">Our support team is available 24/7 to assist you.</p>
             <button 
               onClick={() => setIsContactModalOpen(true)}
-              className="w-full bg-white border border-outline-variant/30 text-on-surface px-4 py-2 rounded-lg font-bold hover:bg-zinc-50 transition-colors text-sm"
+              className="w-full bg-white dark:bg-zinc-900 border border-outline-variant/30 text-on-surface px-4 py-2 rounded-lg font-bold hover:bg-zinc-50 dark:bg-zinc-800 transition-colors text-sm"
             >
               Contact Support
             </button>
@@ -137,7 +137,7 @@ export default function Help() {
                 </p>
               </div>
 
-              <div className="bg-zinc-900 rounded-2xl p-6 text-white shadow-xl overflow-hidden relative">
+              <div className="bg-zinc-900 dark:bg-zinc-100 rounded-2xl p-6 text-white dark:text-zinc-900 shadow-xl overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[80px] rounded-full"></div>
                 <h3 className="font-bold text-zinc-400 mb-6 uppercase tracking-widest text-xs">Visual Guide</h3>
                 <div className="flex flex-col gap-4 relative z-10">
@@ -177,7 +177,7 @@ export default function Help() {
                 <h3 className="text-xl font-bold">How it works</h3>
                 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">1</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">1</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">Upload or Link</h4>
                     <p className="text-on-surface-variant">Upload an MP4 file or paste a YouTube link. Our AI will download and process the video.</p>
@@ -190,7 +190,7 @@ export default function Help() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">2</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">2</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">AI Face Tracking</h4>
                     <p className="text-on-surface-variant">The AI automatically detects the active speaker and crops the video to 9:16, keeping them perfectly centered.</p>
@@ -198,7 +198,7 @@ export default function Help() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">3</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">3</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">Dynamic Captions</h4>
                     <p className="text-on-surface-variant">Alex Hormozi-style captions are generated and synced perfectly with the audio to maximize retention.</p>
@@ -221,20 +221,20 @@ export default function Help() {
                 <h3 className="text-xl font-bold text-blue-900 mb-6">The Carousel Formula</h3>
                 
                 <div className="flex overflow-x-auto pb-4 gap-4 snap-x">
-                  <div className="shrink-0 w-48 h-48 bg-white rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
+                  <div className="shrink-0 w-48 h-48 bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
                     <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">Slide 1</span>
-                    <h4 className="font-black text-lg text-zinc-900">The Hook</h4>
-                    <p className="text-xs text-zinc-500 mt-2">A bold statement to stop the scroll.</p>
+                    <h4 className="font-black text-lg text-zinc-900 dark:text-white">The Hook</h4>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2">A bold statement to stop the scroll.</p>
                   </div>
-                  <div className="shrink-0 w-48 h-48 bg-white rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
+                  <div className="shrink-0 w-48 h-48 bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
                     <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">Slides 2-4</span>
-                    <h4 className="font-black text-lg text-zinc-900">The Value</h4>
-                    <p className="text-xs text-zinc-500 mt-2">Actionable steps and frameworks.</p>
+                    <h4 className="font-black text-lg text-zinc-900 dark:text-white">The Value</h4>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2">Actionable steps and frameworks.</p>
                   </div>
-                  <div className="shrink-0 w-48 h-48 bg-white rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
+                  <div className="shrink-0 w-48 h-48 bg-white dark:bg-zinc-900 rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
                     <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">Last Slide</span>
-                    <h4 className="font-black text-lg text-zinc-900">The CTA</h4>
-                    <p className="text-xs text-zinc-500 mt-2">"Follow for more tips."</p>
+                    <h4 className="font-black text-lg text-zinc-900 dark:text-white">The CTA</h4>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2">"Follow for more tips."</p>
                   </div>
                 </div>
               </div>
@@ -266,9 +266,9 @@ export default function Help() {
                     <h3 className="text-xl font-bold">YouTube Community</h3>
                   </div>
                   <p className="text-sm text-on-surface-variant mb-4">Optimized for driving engagement, asking questions, and teasing upcoming videos.</p>
-                  <div className="bg-white p-4 rounded-xl text-xs border border-outline-variant/20 shadow-sm">
+                  <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl text-xs border border-outline-variant/20 shadow-sm">
                     <p className="font-bold mb-2">Example Output:</p>
-                    <p className="text-zinc-600">"Just wrapped up editing the new video on AI workflows... 🤯 What's the biggest bottleneck in your creation process right now? Let me know below! 👇"</p>
+                    <p className="text-zinc-600 dark:text-zinc-400">"Just wrapped up editing the new video on AI workflows... 🤯 What's the biggest bottleneck in your creation process right now? Let me know below! 👇"</p>
                   </div>
                 </div>
 
@@ -278,9 +278,9 @@ export default function Help() {
                     <h3 className="text-xl font-bold">Instagram Captions</h3>
                   </div>
                   <p className="text-sm text-on-surface-variant mb-4">Optimized for storytelling, visual descriptions, and encouraging saves/shares.</p>
-                  <div className="bg-white p-4 rounded-xl text-xs border border-outline-variant/20 shadow-sm">
+                  <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl text-xs border border-outline-variant/20 shadow-sm">
                     <p className="font-bold mb-2">Example Output:</p>
-                    <p className="text-zinc-600">"The reality of building a creator business isn't always aesthetic desk setups. ☕️ Swipe to see the 3 frameworks that actually moved the needle for me this month. ➡️ Save this for your next planning session!"</p>
+                    <p className="text-zinc-600 dark:text-zinc-400">"The reality of building a creator business isn't always aesthetic desk setups. ☕️ Swipe to see the 3 frameworks that actually moved the needle for me this month. ➡️ Save this for your next planning session!"</p>
                   </div>
                 </div>
               </div>
@@ -300,7 +300,7 @@ export default function Help() {
                 <h3 className="text-xl font-bold">How it works</h3>
                 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">1</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">1</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">Enter Your Topic</h4>
                     <p className="text-on-surface-variant">Type in exactly what your video is about. Be specific to get more tailored visual metaphors.</p>
@@ -308,7 +308,7 @@ export default function Help() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">2</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">2</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">Select A Style</h4>
                     <p className="text-on-surface-variant">Choose from proven styles like "MrBeast / High Energy" or select "Custom" to type out your exact desired visual aesthetic (e.g. Cyberpunk, Minimalist vector).</p>
@@ -316,7 +316,7 @@ export default function Help() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">3</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">3</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">Channel Inspiration Tool</h4>
                     <p className="text-on-surface-variant">Want to mimic your favorite creator? Type in their YouTube channel name. The AI connects to Google Search live to analyze their recent thumbnails' lighting, grading, and composition to replicate their aesthetic!</p>
@@ -324,7 +324,7 @@ export default function Help() {
                 </div>
 
                 <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">4</div>
+                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">4</div>
                   <div>
                     <h4 className="font-bold text-lg mb-1">Save & Download</h4>
                     <p className="text-on-surface-variant">You'll receive 3 text-free backgrounds. You can download them directly or save them to your library to use later with Photoshop or Canva.</p>
@@ -344,14 +344,14 @@ export default function Help() {
                 </p>
               </div>
 
-              <div className="bg-zinc-900 rounded-3xl p-8 text-white text-center">
+              <div className="bg-zinc-900 dark:bg-zinc-100 rounded-3xl p-8 text-white dark:text-zinc-900 text-center">
                 <div className="flex justify-center items-center gap-8 mb-8">
                   <div className="w-32 h-32 bg-zinc-800 rounded-xl border-2 border-dashed border-zinc-600 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-4xl text-zinc-500">inventory_2</span>
+                    <span className="material-symbols-outlined text-4xl text-zinc-500 dark:text-zinc-400">inventory_2</span>
                   </div>
                   <span className="material-symbols-outlined text-4xl text-primary">arrow_forward</span>
                   <div className="w-32 h-32 bg-gradient-to-br from-primary/40 to-purple-500/40 rounded-xl border border-primary/50 flex items-center justify-center shadow-[0_0_30px_rgba(var(--color-primary),0.3)]">
-                    <span className="material-symbols-outlined text-4xl text-white">auto_awesome</span>
+                    <span className="material-symbols-outlined text-4xl text-white dark:text-zinc-900">auto_awesome</span>
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Studio Quality, Zero Equipment</h3>
@@ -365,22 +365,22 @@ export default function Help() {
 
       {isContactModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
-            <div className="p-6 border-b border-zinc-100 flex justify-between items-center">
-              <h3 className="text-xl font-black text-zinc-900">Contact Support</h3>
-              <button onClick={() => setIsContactModalOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-md overflow-hidden shadow-lg">
+            <div className="p-6 border-b border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
+              <h3 className="text-xl font-black text-zinc-900 dark:text-white">Contact Support</h3>
+              <button onClick={() => setIsContactModalOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 transition-colors">
                 <span className="material-symbols-outlined text-sm font-bold">close</span>
               </button>
             </div>
             <form onSubmit={handleContactSubmit} className="p-6">
               <div className="mb-4">
-                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">How can we help?</label>
+                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-2">How can we help?</label>
                 <textarea
                   required
                   value={contactMessage}
                   onChange={(e) => setContactMessage(e.target.value)}
                   placeholder="Describe your issue or question..."
-                  className="w-full h-32 bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
+                  className="w-full h-32 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
                 ></textarea>
               </div>
 
@@ -402,14 +402,14 @@ export default function Help() {
                 <button
                   type="button"
                   onClick={() => setIsContactModalOpen(false)}
-                  className="px-4 py-2 font-bold text-zinc-500 hover:text-zinc-700 transition-colors"
+                  className="px-4 py-2 font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary-dim transition-all disabled:opacity-70 flex items-center gap-2"
+                  className="px-6 py-2 bg-primary text-white dark:text-zinc-900 font-bold rounded-lg hover:bg-primary-dim transition-all disabled:opacity-70 flex items-center gap-2"
                 >
                   {isSubmitting ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : 'Send Message'}
                 </button>

@@ -27,8 +27,8 @@ type Theme = {
 };
 
 const DYNAMIC_THEMES: Theme[] = [
-  { id: 'midnight-blue', background: 'bg-slate-900', text: 'text-white', subtext: 'text-slate-300', accent: 'text-blue-400', accentBg: 'bg-blue-500', font: 'font-sans', pattern: 'radial-gradient(circle at top right, rgba(59,130,246,0.15), transparent 50%)' },
-  { id: 'minimal-light', background: 'bg-white', text: 'text-zinc-900', subtext: 'text-zinc-500', accent: 'text-zinc-900', accentBg: 'bg-zinc-900', font: 'font-serif', pattern: 'none' },
+  { id: 'midnight-blue', background: 'bg-slate-900', text: 'text-white dark:text-zinc-900', subtext: 'text-slate-300', accent: 'text-blue-400', accentBg: 'bg-blue-500', font: 'font-sans', pattern: 'radial-gradient(circle at top right, rgba(59,130,246,0.15), transparent 50%)' },
+  { id: 'minimal-light', background: 'bg-white dark:bg-zinc-900', text: 'text-zinc-900 dark:text-white', subtext: 'text-zinc-500 dark:text-zinc-400', accent: 'text-zinc-900 dark:text-white', accentBg: 'bg-zinc-900 dark:bg-zinc-100', font: 'font-serif', pattern: 'none' },
   { id: 'emerald-city', background: 'bg-emerald-950', text: 'text-emerald-50', subtext: 'text-emerald-200/70', accent: 'text-emerald-400', accentBg: 'bg-emerald-500', font: 'font-sans', pattern: 'linear-gradient(135deg, rgba(16,185,129,0.1) 0%, transparent 100%)' },
   { id: 'sunset-orange', background: 'bg-orange-50', text: 'text-orange-950', subtext: 'text-orange-800/70', accent: 'text-orange-600', accentBg: 'bg-orange-600', font: 'font-sans', pattern: 'radial-gradient(circle at bottom left, rgba(249,115,22,0.1), transparent 60%)' },
   { id: 'cyberpunk', background: 'bg-zinc-950', text: 'text-fuchsia-50', subtext: 'text-fuchsia-200/60', accent: 'text-fuchsia-400', accentBg: 'bg-fuchsia-500', font: 'font-mono', pattern: 'linear-gradient(to bottom, rgba(217,70,239,0.05), rgba(168,85,247,0.05))' },
@@ -317,7 +317,7 @@ export default function LinkedInCarousels() {
       <div 
         key={index} 
         ref={el => slideRefs.current[index] = el}
-        className={`snap-center shrink-0 w-[450px] aspect-[4/5] shadow-2xl rounded-xl relative overflow-hidden ${background} ${font}`}
+        className={`snap-center shrink-0 w-[450px] aspect-[4/5] shadow-lg rounded-xl relative overflow-hidden ${background} ${font}`}
         style={{ backgroundImage: pattern }}
       >
         <div className={`absolute top-6 right-6 text-7xl font-black select-none pointer-events-none opacity-10 z-0 ${text}`}>
@@ -335,7 +335,7 @@ export default function LinkedInCarousels() {
             {slide.imageUrl && (
               <div className="mb-4 rounded-xl overflow-hidden flex-shrink-0 w-full h-[160px] relative mt-2 group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
-                <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 shadow-2xl ring-1 ring-black/10" />
+                <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 shadow-lg ring-1 ring-black/10" />
               </div>
             )}
             
@@ -608,7 +608,7 @@ export default function LinkedInCarousels() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {savedCarousels.slice(0, 3).map((carousel) => (
-              <div key={carousel.id} className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group flex flex-col">
+              <div key={carousel.id} className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group flex flex-col">
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                   <button 
                     onClick={() => deleteCarousel(carousel.id)}

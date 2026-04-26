@@ -15,7 +15,7 @@ export default function ProductPhotoStudio() {
           Transform your Shopify product shots into editorial-grade marketing assets using AI-powered background removal and scene generation.
         </p>
         
-        <div className="inline-flex items-center gap-2 bg-zinc-100 text-zinc-600 px-4 py-2 rounded-full font-bold text-sm relative z-10">
+        <div className="inline-flex items-center gap-2 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-4 py-2 rounded-full font-bold text-sm relative z-10">
           <span className="material-symbols-outlined text-sm">schedule</span>
           Coming Soon
         </div>

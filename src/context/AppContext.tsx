@@ -115,8 +115,6 @@ interface AppContextType {
   deleteThumbnail: (id: string) => void;
   deleteAllSavedThumbnails: () => void;
 
-  darkMode: boolean;
-  setDarkMode: (dark: boolean) => void;
   autoSave: boolean;
   setAutoSave: (save: boolean) => void;
   showRefImageWarning: boolean;
@@ -135,15 +133,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [authLoading, setAuthLoading] = useState(true);
 
   // Load preferences from localStorage settings
-  const [darkMode, setDarkMode] = useState(() => {
-    const saved = localStorage.getItem('creatorflow_settings');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      return parsed.darkMode || false;
-    }
-    return false;
-  });
-
   const [autoSave, setAutoSave] = useState(() => {
     const saved = localStorage.getItem('creatorflow_settings');
     if (saved) {
@@ -201,20 +190,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [user, credits, setCredits]);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    
     // Update local storage settings safely
     const saved = localStorage.getItem('creatorflow_settings');
     let parsed = saved ? JSON.parse(saved) : {};
-    parsed.darkMode = darkMode;
     parsed.autoSave = autoSave;
     parsed.showRefImageWarning = showRefImageWarning;
     localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
-  }, [darkMode, autoSave, showRefImageWarning]);
+  }, [autoSave, showRefImageWarning]);
 
   useEffect(() => {
     const handleAuthChange = (session: Session | null) => {
@@ -231,7 +213,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           localStorage.removeItem('creatorflow_saved_posts');
           localStorage.removeItem('creatorflow_saved_carousels');
           localStorage.removeItem('creatorflow_saved_reels');
-          import('idb-keyval').then(({ del }) => del('creatorflow_saved_thumbnails'));
+          import('idb-keyval').then(({ del }) => {
+            del('creatorflow_saved_thumbnails');
+            del('creatorflow_saved_posts');
+            del('creatorflow_saved_carousels');
+            del('creatorflow_saved_reels');
+          });
           setProfiles({});
           setSavedPosts([]);
           setSavedCarousels([]);
@@ -327,7 +314,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       localStorage.removeItem('creatorflow_saved_reels');
       localStorage.removeItem('creatorflow_plan');
       localStorage.removeItem('creatorflow_credits');
-      import('idb-keyval').then(({ del }) => del('creatorflow_saved_thumbnails'));
+      import('idb-keyval').then(({ del }) => {
+        del('creatorflow_saved_thumbnails');
+        del('creatorflow_saved_posts');
+        del('creatorflow_saved_carousels');
+        del('creatorflow_saved_reels');
+      });
       
       setAnalytics(DEFAULT_ANALYTICS);
       setProfiles({});
@@ -388,68 +380,62 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return {};
   });
 
-  const [savedPosts, setSavedPosts] = useState<SavedPost[]>(() => {
-    const saved = localStorage.getItem('creatorflow_saved_posts');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      const seen = new Set();
-      return parsed.map((p: any) => {
-        if (seen.has(p.id)) {
-          p.id = generateId();
-        }
-        seen.add(p.id);
-        return p;
-      });
-    }
-    return [];
-  });
-
-  const [savedCarousels, setSavedCarousels] = useState<SavedCarousel[]>(() => {
-    const saved = localStorage.getItem('creatorflow_saved_carousels');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      const seen = new Set();
-      return parsed.map((c: any) => {
-        if (seen.has(c.id)) {
-          c.id = generateId();
-        }
-        seen.add(c.id);
-        return c;
-      });
-    }
-    return [];
-  });
-
-  const [savedReels, setSavedReels] = useState<SavedReel[]>(() => {
-    const saved = localStorage.getItem('creatorflow_saved_reels');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      const seen = new Set();
-      return parsed.map((r: any) => {
-        if (seen.has(r.id)) {
-          r.id = generateId();
-        }
-        seen.add(r.id);
-        return r;
-      });
-    }
-    return [];
-  });
-
+  const [savedPosts, setSavedPosts] = useState<SavedPost[]>([]);
+  const [savedCarousels, setSavedCarousels] = useState<SavedCarousel[]>([]);
+  const [savedReels, setSavedReels] = useState<SavedReel[]>([]);
   const [savedThumbnails, setSavedThumbnails] = useState<SavedThumbnail[]>([]);
-  const [isThumbnailsLoaded, setIsThumbnailsLoaded] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  // Asynchronously load heavy thumbnails from IndexedDB on mount
+  // Asynchronously load heavy saved objects from IndexedDB on mount
   useEffect(() => {
-    get('creatorflow_saved_thumbnails').then((val) => {
-      if (val) {
-        setSavedThumbnails(val);
+    const loadData = async () => {
+      try {
+        // Fallback to localStorage if idb is empty (migration)
+        let fallbackPosts = [];
+        let fallbackCarousels = [];
+        let fallbackReels = [];
+        try { fallbackPosts = JSON.parse(localStorage.getItem('creatorflow_saved_posts') || '[]'); } catch (e) {}
+        try { fallbackCarousels = JSON.parse(localStorage.getItem('creatorflow_saved_carousels') || '[]'); } catch (e) {}
+        try { fallbackReels = JSON.parse(localStorage.getItem('creatorflow_saved_reels') || '[]'); } catch (e) {}
+
+        const [posts, carousels, reels, thumbnails] = await Promise.all([
+          get('creatorflow_saved_posts').then(val => {
+            if (val && val.length > 0) return val;
+            return fallbackPosts;
+          }),
+          get('creatorflow_saved_carousels').then(val => {
+            if (val && val.length > 0) return val;
+            return fallbackCarousels;
+          }),
+          get('creatorflow_saved_reels').then(val => {
+            if (val && val.length > 0) return val;
+            return fallbackReels;
+          }),
+          get('creatorflow_saved_thumbnails').then(val => val || [])
+        ]);
+
+        // Deduplicate any IDs when loading from fallback
+        const dedup = (arr: any[]) => {
+          const seen = new Set();
+          return arr.map(item => {
+            if (seen.has(item.id)) item.id = generateId();
+            seen.add(item.id);
+            return item;
+          });
+        };
+
+        setSavedPosts(dedup(posts));
+        setSavedCarousels(dedup(carousels));
+        setSavedReels(dedup(reels));
+        setSavedThumbnails(dedup(thumbnails));
+      } catch (err) {
+        console.warn('Failed to load data from idb:', err);
+      } finally {
+        setIsDataLoaded(true);
       }
-      setIsThumbnailsLoaded(true);
-    }).catch((err) => {
-      console.warn('Failed to load thumbnails from idb:', err);
-      setIsThumbnailsLoaded(true);
-    });
+    };
+    
+    loadData();
   }, []);
 
   useEffect(() => {
@@ -461,25 +447,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [profiles]);
 
   useEffect(() => {
-    localStorage.setItem('creatorflow_saved_posts', JSON.stringify(savedPosts));
-  }, [savedPosts]);
-
-  useEffect(() => {
-    localStorage.setItem('creatorflow_saved_carousels', JSON.stringify(savedCarousels));
-  }, [savedCarousels]);
-
-  useEffect(() => {
-    localStorage.setItem('creatorflow_saved_reels', JSON.stringify(savedReels));
-  }, [savedReels]);
-
-  // Save massive thumbnails to IndexedDB instead of LocalStorage
-  useEffect(() => {
-    if (isThumbnailsLoaded) {
-      set('creatorflow_saved_thumbnails', savedThumbnails).catch((err) => {
-        console.error('Failed to save thumbnails to idb:', err);
-      });
+    if (isDataLoaded) {
+      set('creatorflow_saved_posts', savedPosts).catch(console.error);
     }
-  }, [savedThumbnails, isThumbnailsLoaded]);
+  }, [savedPosts, isDataLoaded]);
+
+  useEffect(() => {
+    if (isDataLoaded) {
+      set('creatorflow_saved_carousels', savedCarousels).catch(console.error);
+    }
+  }, [savedCarousels, isDataLoaded]);
+
+  useEffect(() => {
+    if (isDataLoaded) {
+      set('creatorflow_saved_reels', savedReels).catch(console.error);
+    }
+  }, [savedReels, isDataLoaded]);
+
+  useEffect(() => {
+    if (isDataLoaded) {
+      set('creatorflow_saved_thumbnails', savedThumbnails).catch(console.error);
+    }
+  }, [savedThumbnails, isDataLoaded]);
 
   const deductCredits = useCallback((amount: number) => {
     if (subscriptionPlan === 'infinity') return true;
@@ -641,7 +630,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       savedCarousels, saveCarousel, deleteCarousel, deleteAllSavedCarousels,
       savedReels, saveReel, deleteReel,
       savedThumbnails, saveThumbnail, deleteThumbnail, deleteAllSavedThumbnails,
-      darkMode, setDarkMode, autoSave, setAutoSave,
+      autoSave, setAutoSave,
       showRefImageWarning, setShowRefImageWarning,
       subscriptionPlan, setSubscriptionPlan,
       credits, deductCredits

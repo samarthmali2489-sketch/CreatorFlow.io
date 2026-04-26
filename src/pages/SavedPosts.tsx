@@ -98,7 +98,7 @@ export default function SavedPosts() {
 
       {selectedPost && createPortal(
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4" onClick={() => setSelectedPost(null)}>
-          <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-lg" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-start mb-6">
               <div className="flex items-center gap-3">
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center ${selectedPost.platform === 'youtube' ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600'}`}>

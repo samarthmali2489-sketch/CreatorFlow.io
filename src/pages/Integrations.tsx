@@ -64,7 +64,7 @@ export default function Integrations() {
       name: 'Notion',
       description: 'Export generated scripts, captions, and ideas to your Notion workspace.',
       icon: 'description',
-      color: 'text-zinc-800',
+      color: 'text-zinc-800 dark:text-zinc-200',
       bgColor: 'bg-zinc-800/10',
       connected: false,
       comingSoon: true,
@@ -152,7 +152,7 @@ export default function Integrations() {
 
   return (
     <div className="max-w-[1400px] mx-auto p-8 lg:p-12 relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 blur-3xl rounded-full pointer-events-none -z-10"></div>
       
       <header className="mb-16 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-lowest border border-outline-variant/20 mb-6 shadow-sm">
@@ -167,7 +167,7 @@ export default function Integrations() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {integrations.map((integration) => (
-          <div key={integration.id} className="group relative bg-surface-container-lowest rounded-[2rem] p-8 border border-outline-variant/10 shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col h-full overflow-hidden">
+          <div key={integration.id} className="group relative bg-surface-container-lowest rounded-[2rem] p-8 border border-outline-variant/10 shadow-sm hover:shadow-lg hover:shadow-primary/5 transition-all duration-500 flex flex-col h-full overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
             <div className="flex items-start justify-between mb-8">
@@ -178,13 +178,13 @@ export default function Integrations() {
               </div>
               
               {integration.comingSoon ? (
-                <span className="px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase text-zinc-500 bg-zinc-100 border border-zinc-200">
+                <span className="px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800">
                   Soon
                 </span>
               ) : (
                 <button 
                   onClick={() => handleConnectClick(integration.id, integration.comingSoon)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 ${integration.connected ? 'text-green-600 bg-green-50 border border-green-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 group/btn' : 'text-primary bg-primary/10 border border-primary/20 hover:bg-primary hover:text-white cursor-pointer shadow-sm'}`}
+                  className={`px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 ${integration.connected ? 'text-green-600 bg-green-50 border border-green-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 group/btn' : 'text-primary bg-primary/10 border border-primary/20 hover:bg-primary hover:text-white dark:text-zinc-900 cursor-pointer shadow-sm'}`}
                 >
                   <span className="group-hover/btn:hidden">{integration.connected ? 'Connected' : 'Connect'}</span>
                   <span className="hidden group-hover/btn:inline">Disconnect</span>
@@ -203,7 +203,7 @@ export default function Integrations() {
                   <span className="material-symbols-outlined text-green-500 text-sm">check_circle</span>
                   <p className="text-xs text-on-surface-variant font-bold uppercase tracking-widest">AI Analysis Active</p>
                 </div>
-                <p className="text-sm text-zinc-600 line-clamp-3 leading-relaxed bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">{profiles[integration.id].analysis}</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">{profiles[integration.id].analysis}</p>
               </div>
             )}
           </div>
@@ -212,8 +212,8 @@ export default function Integrations() {
 
       {/* Connection Modal */}
       {activeModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-          <div className="bg-surface-container-lowest rounded-[2rem] p-10 max-w-lg w-full shadow-2xl border border-outline-variant/20 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+          <div className="bg-surface-container-lowest rounded-[2rem] p-10 max-w-lg w-full shadow-lg border border-outline-variant/20 animate-in zoom-in-95 duration-200">
             <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
               <span className="material-symbols-outlined text-3xl text-primary">link</span>
             </div>
@@ -239,7 +239,7 @@ export default function Integrations() {
               <button 
                 onClick={runAnalysis}
                 disabled={!urlInput || isAnalyzing}
-                className="px-8 py-3 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-all disabled:opacity-50 flex items-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
+                className="px-8 py-3 rounded-xl font-bold bg-primary text-white dark:text-zinc-900 hover:bg-primary-dim transition-all disabled:opacity-50 flex items-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
               >
                 {isAnalyzing ? (
                   <>

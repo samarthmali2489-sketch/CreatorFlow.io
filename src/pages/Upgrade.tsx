@@ -110,14 +110,14 @@ export default function Upgrade() {
         </div>
 
         {/* Starter Plan / Pro Plan */}
-        <div className="bg-zinc-900 text-white rounded-[2rem] p-8 border border-zinc-800 flex flex-col relative transform md:-translate-y-4 shadow-2xl">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Most Popular</div>
+        <div className="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 rounded-[2rem] p-8 border border-zinc-800 flex flex-col relative transform md:-translate-y-4 shadow-lg">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white dark:text-zinc-900 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Most Popular</div>
           <h2 className="text-2xl font-bold mb-2">Pro Plan</h2>
           <p className="text-zinc-400 mb-6">Unlock full access to AI social media generation.</p>
           <div className="text-5xl font-black mb-8">$19<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white">500 Credits</strong> per month</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white dark:text-zinc-900">500 Credits</strong> per month</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> High-fidelity Video to Reels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
@@ -132,7 +132,7 @@ export default function Upgrade() {
           ) : (
             <button 
               onClick={(e) => handleUpgradeClick(e, 'pro', lsCheckoutUrl)}
-              className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-xl font-bold bg-primary text-white dark:text-zinc-900 hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
               Upgrade to Pro
@@ -165,7 +165,7 @@ export default function Upgrade() {
           ) : (
             <button 
               onClick={(e) => handleUpgradeClick(e, 'infinity', 'https://creator-flow-io.lemonsqueezy.com/checkout/buy/eacc7548-c9e0-4133-b4d6-f02d79c1841d')}
-              className="w-full py-4 rounded-xl font-bold bg-zinc-900 text-white hover:bg-black transition-colors relative z-10 text-center block"
+              className="w-full py-4 rounded-xl font-bold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-black transition-colors relative z-10 text-center block"
             >
               Go Infinite
             </button>

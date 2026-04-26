@@ -1,0 +1,1338 @@
+src/pages/Landing.tsx:    <div className="min-h-screen bg-slate-50 text-zinc-900 font-sans selection:bg-primary-container selection:text-on-primary-container pb-0 relative">
+src/pages/Landing.tsx:      <div className="fixed top-0 inset-x-0 z-50 flex justify-center p-4 py-6 pointer-events-none">
+src/pages/Landing.tsx:        <header className="flex justify-between items-center px-4 md:px-6 py-3 border border-white/20 bg-white/70 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] w-full max-w-[1000px] pointer-events-auto transition-all duration-300 hover:bg-white/80">
+src/pages/Landing.tsx:          <Link to="/" className="text-lg font-black tracking-tight flex items-center gap-2">
+src/pages/Landing.tsx:            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20">
+src/pages/Landing.tsx:              <span className="material-symbols-outlined text-primary text-[18px]">bolt</span>
+src/pages/Landing.tsx:          <div className="hidden md:flex gap-1 p-1 bg-zinc-100/50 rounded-full border border-zinc-200/50">
+src/pages/Landing.tsx:            <a href="#capabilities" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Capabilities</a>
+src/pages/Landing.tsx:            <a href="#pricing" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Pricing</a>
+src/pages/Landing.tsx:            <a href="#enterprise" className="text-zinc-600 hover:text-zinc-900 hover:bg-white/60 px-4 py-1.5 rounded-full transition-colors text-sm font-semibold">Enterprise</a>
+src/pages/Landing.tsx:          <div className="flex items-center gap-3">
+src/pages/Landing.tsx:            <Link to="/auth" className="hidden sm:block text-sm font-semibold text-zinc-600 hover:text-zinc-900 px-3 py-1.5 rounded-full hover:bg-zinc-100/50 transition-colors">Log in</Link>
+src/pages/Landing.tsx:            <Link to="/auth" className="bg-zinc-900 hover:bg-zinc-800 text-white px-5 py-2 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg border border-zinc-800">Start Free</Link>
+src/pages/Landing.tsx:      <main className="max-w-[1200px] mx-auto px-6 relative z-10">
+src/pages/Landing.tsx:        <section className="py-24 md:py-32 flex flex-col items-center text-center">
+src/pages/Landing.tsx:          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-wide mb-8 border border-primary/20">
+src/pages/Landing.tsx:            <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
+src/pages/Landing.tsx:          <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.95] text-zinc-900 mb-8 max-w-4xl">
+src/pages/Landing.tsx:            Architect your <span className="text-primary">content.</span>
+src/pages/Landing.tsx:          <p className="text-lg md:text-xl text-zinc-500 max-w-2xl font-medium mb-12 leading-relaxed">
+src/pages/Landing.tsx:          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto relative z-10">
+src/pages/Landing.tsx:            <Link to="/auth" className="bg-primary text-white px-8 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+src/pages/Landing.tsx:              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+src/pages/Landing.tsx:            <Link to="/auth" className="bg-white text-zinc-700 border border-zinc-200 px-8 py-4 rounded-xl text-sm font-bold tracking-wide flex items-center justify-center gap-2 hover:bg-zinc-50 transition-colors shadow-sm">
+src/pages/Landing.tsx:        <section className="pb-24 pt-12 border-b border-zinc-200 flex flex-col items-center">
+src/pages/Landing.tsx:            <p className="text-xs font-bold text-zinc-400 tracking-widest uppercase mb-8">Trusted by 10,000+ Next-Gen Creators</p>
+src/pages/Landing.tsx:            <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+src/pages/Landing.tsx:               <div className="text-2xl font-black tracking-tighter">YouTube</div>
+src/pages/Landing.tsx:               <div className="text-2xl font-black tracking-tight">Instagram</div>
+src/pages/Landing.tsx:               <div className="text-2xl font-black tracking-normal">TikTok</div>
+src/pages/Landing.tsx:               <div className="text-2xl font-bold tracking-tight">LinkedIn</div>
+src/pages/Landing.tsx:               <div className="text-2xl font-black tracking-tighter italic">X / Twitter</div>
+src/pages/Landing.tsx:        <section id="capabilities" className="py-32">
+src/pages/Landing.tsx:          <div className="flex flex-col md:flex-row justify-between mb-20 gap-10 items-end">
+src/pages/Landing.tsx:              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/20">
+src/pages/Landing.tsx:                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+src/pages/Landing.tsx:              <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-[1.1]">
+src/pages/Landing.tsx:                <span className="text-zinc-400">Capabilities.</span>
+src/pages/Landing.tsx:            <div className="md:w-[450px]">
+src/pages/Landing.tsx:              <p className="text-zinc-500 text-lg leading-relaxed font-medium">Built for high-output environments requiring absolute structural integrity of brand voice and omnichannel scaling.</p>
+src/pages/Landing.tsx:          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-[380px]">
+src/pages/Landing.tsx:            <div className="lg:col-span-7 bg-white rounded-[2rem] p-10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-300 border border-zinc-200 group flex flex-col justify-between relative overflow-hidden">
+src/pages/Landing.tsx:              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[200px]">smartphone</span>
+src/pages/Landing.tsx:              <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center border border-blue-100 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[32px]">smartphone</span>
+src/pages/Landing.tsx:              <div className="relative z-10">
+src/pages/Landing.tsx:                <div className="flex items-center gap-3 mb-4">
+src/pages/Landing.tsx:                  <h3 className="text-3xl font-black tracking-tight text-zinc-900 group-hover:text-primary transition-colors">Video to Reels</h3>
+src/pages/Landing.tsx:                  <span className="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold tracking-widest uppercase shadow-sm">AI Powered</span>
+src/pages/Landing.tsx:                <p className="text-zinc-500 text-lg leading-relaxed max-w-[85%] font-medium">Algorithmic extraction of high-retention narrative segments from long-form content, optimized automatically for vertical viewing.</p>
+src/pages/Landing.tsx:            <div className="lg:col-span-5 bg-zinc-950 text-white rounded-[2rem] p-10 shadow-2xl border border-zinc-800 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden">
+src/pages/Landing.tsx:              <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 to-zinc-950"></div>
+src/pages/Landing.tsx:              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12 text-zinc-100">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[200px]">edit_document</span>
+src/pages/Landing.tsx:              <div className="w-16 h-16 bg-zinc-800 text-zinc-300 rounded-2xl flex items-center justify-center border border-zinc-700 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[32px]">edit_document</span>
+src/pages/Landing.tsx:              <div className="relative z-10">
+src/pages/Landing.tsx:                <h3 className="text-3xl font-black tracking-tight mb-4 group-hover:text-zinc-200 transition-colors">Post Creator</h3>
+src/pages/Landing.tsx:                <p className="text-zinc-400 text-lg leading-relaxed font-medium">Omnichannel post synthesis engineered to replicate your specific brand voice across all major platforms.</p>
+src/pages/Landing.tsx:            <div className="lg:col-span-5 bg-primary text-white rounded-[2rem] p-10 shadow-2xl shadow-primary/20 hover:-translate-y-1 hover:shadow-primary/30 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden">
+src/pages/Landing.tsx:              <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dim"></div>
+src/pages/Landing.tsx:              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[200px]">view_carousel</span>
+src/pages/Landing.tsx:              <div className="w-16 h-16 bg-white/20 text-white rounded-2xl flex items-center justify-center border border-white/30 backdrop-blur-md shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[32px]">view_carousel</span>
+src/pages/Landing.tsx:              <div className="relative z-10">
+src/pages/Landing.tsx:                <h3 className="text-3xl font-black tracking-tight mb-4 leading-tight">LinkedIn Carousels</h3>
+src/pages/Landing.tsx:                <p className="text-blue-50 text-lg leading-relaxed font-medium">Systematic conversion of unstructured ideas into high-conversion PDF slide decks.</p>
+src/pages/Landing.tsx:            <div className="lg:col-span-7 bg-white rounded-[2rem] p-10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-zinc-200/50 transition-all duration-300 border border-zinc-200 group flex flex-col justify-between relative overflow-hidden">
+src/pages/Landing.tsx:               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none transform translate-x-12 -translate-y-12">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[200px]">wallpaper</span>
+src/pages/Landing.tsx:               <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center border border-indigo-100 shadow-sm relative z-10 group-hover:scale-110 transition-transform duration-300">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[32px]">wallpaper</span>
+src/pages/Landing.tsx:               <div className="relative z-10">
+src/pages/Landing.tsx:                 <div className="flex items-center gap-3 mb-4">
+src/pages/Landing.tsx:                   <h3 className="text-3xl font-black tracking-tight text-zinc-900 group-hover:text-indigo-600 transition-colors">Thumbnail Maker</h3>
+src/pages/Landing.tsx:                   <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-bold tracking-widest uppercase shadow-sm">Vision AI</span>
+src/pages/Landing.tsx:                 <p className="text-zinc-500 text-lg leading-relaxed max-w-[85%] font-medium">Generate CTR-optimized YouTube assets utilizing deep style-transfer and reference image uploading to exactly map your existing channel aesthetics.</p>
+src/pages/Landing.tsx:        <section className="py-32">
+src/pages/Landing.tsx:          <div className="mb-24 text-center md:text-left">
+src/pages/Landing.tsx:            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/20 mx-auto md:mx-0">
+src/pages/Landing.tsx:              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+src/pages/Landing.tsx:            <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-[1.1]">
+src/pages/Landing.tsx:              The<br className="hidden md:block"/>
+src/pages/Landing.tsx:              <span className="text-zinc-400">Pipeline.</span>
+src/pages/Landing.tsx:            <p className="text-zinc-500 text-lg font-medium max-w-2xl mt-8 leading-relaxed mx-auto md:mx-0">Automate your content lifecycles from ideation to omnichannel distribution in three deterministic steps.</p>
+src/pages/Landing.tsx:          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 relative">
+src/pages/Landing.tsx:            <div className="hidden md:block absolute top-[4.5rem] left-[15%] right-[15%] h-[2px] bg-gradient-to-r from-zinc-200 via-primary/50 to-zinc-200 z-0"></div>
+src/pages/Landing.tsx:            <div className="flex flex-col relative z-10 group">
+src/pages/Landing.tsx:              <div className="w-36 h-36 bg-zinc-50 rounded-[2rem] border-2 border-zinc-200 flex items-center justify-center mb-8 shadow-sm group-hover:border-primary/50 transition-colors mx-auto md:mx-0 relative overflow-hidden backdrop-blur-xl">
+src/pages/Landing.tsx:                 <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent"></div>
+src/pages/Landing.tsx:                 <div className="text-6xl font-black text-zinc-200 font-mono tracking-tighter group-hover:text-primary/20 transition-colors relative z-10">01</div>
+src/pages/Landing.tsx:              <h3 className="text-2xl font-black text-zinc-900 mb-4 text-center md:text-left tracking-tight">Sync & Ingest</h3>
+src/pages/Landing.tsx:              <p className="text-zinc-500 font-medium leading-relaxed text-center md:text-left text-lg">Connect your existing accounts or drop in raw assets. We process the telemetry and extract the underlying narrative structures.</p>
+src/pages/Landing.tsx:            <div className="flex flex-col relative z-10 group">
+src/pages/Landing.tsx:              <div className="w-36 h-36 bg-white rounded-[2rem] border-2 border-primary flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(var(--color-primary),0.15)] group-hover:scale-105 transition-transform mx-auto md:mx-0 relative overflow-hidden">
+src/pages/Landing.tsx:                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+src/pages/Landing.tsx:                 <div className="text-6xl font-black text-primary/30 font-mono tracking-tighter group-hover:text-primary transition-colors relative z-10">02</div>
+src/pages/Landing.tsx:              <h3 className="text-2xl font-black text-primary mb-4 text-center md:text-left tracking-tight">Neural Transmutation</h3>
+src/pages/Landing.tsx:              <p className="text-zinc-500 font-medium leading-relaxed text-center md:text-left text-lg">Our models apply style-transfer algorithms to align the new assets perfectly with your established historical tone and brand voice.</p>
+src/pages/Landing.tsx:            <div className="flex flex-col relative z-10 group">
+src/pages/Landing.tsx:              <div className="w-36 h-36 bg-zinc-50 rounded-[2rem] border-2 border-zinc-200 flex items-center justify-center mb-8 shadow-sm group-hover:border-primary/50 transition-colors mx-auto md:mx-0 relative overflow-hidden">
+src/pages/Landing.tsx:                 <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent"></div>
+src/pages/Landing.tsx:                 <div className="text-6xl font-black text-zinc-200 font-mono tracking-tighter group-hover:text-primary/20 transition-colors relative z-10">03</div>
+src/pages/Landing.tsx:              <h3 className="text-2xl font-black text-zinc-900 mb-4 text-center md:text-left tracking-tight">Omnichannel Export</h3>
+src/pages/Landing.tsx:              <p className="text-zinc-500 font-medium leading-relaxed text-center md:text-left text-lg">Deploy tailored variations to YouTube, LinkedIn, X, and TikTok simultaneously with format-specific optimizations.</p>
+src/pages/Landing.tsx:        <section id="pricing" className="py-24 border-t border-zinc-200">
+src/pages/Landing.tsx:          <div className="mb-16 text-center md:text-left">
+src/pages/Landing.tsx:            <div className="text-xs uppercase tracking-widest text-primary mb-3 font-bold">Module 03</div>
+src/pages/Landing.tsx:            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900">Pricing Structure.</h2>
+src/pages/Landing.tsx:          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+src/pages/Landing.tsx:            <div className="bg-white rounded-3xl p-10 border border-zinc-200 shadow-sm flex flex-col hover:shadow-lg transition-shadow">
+src/pages/Landing.tsx:               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-600 text-xs font-bold tracking-wide mb-6 border border-zinc-200">Basic</div>
+src/pages/Landing.tsx:               <div className="flex items-baseline gap-2 mb-10">
+src/pages/Landing.tsx:                 <span className="text-6xl font-black tracking-tighter text-zinc-900">$0</span>
+src/pages/Landing.tsx:                 <span className="text-sm text-zinc-500 font-semibold">/mo</span>
+src/pages/Landing.tsx:               <ul className="space-y-4 flex-1 mb-10 text-sm text-zinc-600 font-medium">
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:               <Link to="/auth" className="w-full border border-zinc-200 py-3.5 rounded-xl font-bold bg-white text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-colors flex items-center justify-center">Get Started Free</Link>
+src/pages/Landing.tsx:            <div className="bg-zinc-950 text-white rounded-3xl p-10 border border-zinc-800 shadow-xl flex flex-col relative scale-[1.02] z-10">
+src/pages/Landing.tsx:               <div className="absolute -top-4 inset-x-0 flex justify-center">
+src/pages/Landing.tsx:                 <div className="bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg border border-primary-dim">Most Popular</div>
+src/pages/Landing.tsx:               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 text-xs font-bold tracking-wide mb-6 border border-zinc-700 self-start">Professional</div>
+src/pages/Landing.tsx:               <div className="flex items-baseline gap-2 mb-10">
+src/pages/Landing.tsx:                 <span className="text-6xl font-black tracking-tighter">$19</span>
+src/pages/Landing.tsx:                 <span className="text-sm text-zinc-400 font-semibold">/mo</span>
+src/pages/Landing.tsx:               <ul className="space-y-4 flex-1 mb-10 text-sm text-zinc-300 font-medium">
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-primary">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-primary">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-primary">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-primary">check</span>
+src/pages/Landing.tsx:               <Link to="/auth" className="w-full bg-primary text-white py-3.5 rounded-xl font-bold hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center">Upgrade to Pro</Link>
+src/pages/Landing.tsx:            <div id="enterprise" className="bg-white rounded-3xl p-10 border border-zinc-200 shadow-sm flex flex-col hover:shadow-lg transition-shadow">
+src/pages/Landing.tsx:               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-600 text-xs font-bold tracking-wide mb-6 border border-zinc-200 self-start">Infinity</div>
+src/pages/Landing.tsx:               <div className="flex items-baseline gap-2 mb-10">
+src/pages/Landing.tsx:                 <span className="text-6xl font-black tracking-tighter text-zinc-900">$50</span>
+src/pages/Landing.tsx:                 <span className="text-sm text-zinc-500 font-semibold">/mo</span>
+src/pages/Landing.tsx:               <ul className="space-y-4 flex-1 mb-10 text-sm text-zinc-600 font-medium">
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                   <span className="font-bold text-zinc-900">Infinite Generations</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:                 <li className="flex items-start gap-3">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[20px] text-zinc-400">check</span>
+src/pages/Landing.tsx:               <Link to="/auth" className="w-full border border-zinc-200 py-3.5 rounded-xl font-bold bg-white text-zinc-700 hover:bg-zinc-50 hover:border-zinc-300 transition-colors flex items-center justify-center">Go Infinite</Link>
+src/pages/Landing.tsx:        <section className="py-32">
+src/pages/Landing.tsx:          <div className="max-w-[1000px] mx-auto">
+src/pages/Landing.tsx:            <div className="text-center mb-20">
+src/pages/Landing.tsx:              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-widest uppercase mb-6 border border-primary/20">
+src/pages/Landing.tsx:                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+src/pages/Landing.tsx:              <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-zinc-900 leading-[1.1]">
+src/pages/Landing.tsx:                <span className="text-zinc-400">Logistics.</span>
+src/pages/Landing.tsx:            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+src/pages/Landing.tsx:              <div className="md:col-span-5 bg-zinc-950 rounded-[2rem] p-8 text-white sticky top-32 shadow-2xl overflow-hidden relative">
+src/pages/Landing.tsx:                 <div className="absolute top-0 right-0 p-8 opacity-5">
+src/pages/Landing.tsx:                   <span className="material-symbols-outlined text-[150px]">support_agent</span>
+src/pages/Landing.tsx:                 <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20 mb-8 relative z-10 backdrop-blur-md">
+src/pages/Landing.tsx:                    <span className="material-symbols-outlined text-[32px] text-white">menu_book</span>
+src/pages/Landing.tsx:                 <h3 className="text-3xl font-black mb-4 tracking-tight relative z-10">Help Center &amp;<br/>Support Matrix</h3>
+src/pages/Landing.tsx:                 <p className="text-zinc-400 font-medium leading-relaxed mb-8 relative z-10">
+src/pages/Landing.tsx:                 <Link to="/auth" className="w-full bg-white text-zinc-900 py-3.5 rounded-xl font-bold hover:bg-zinc-100 transition-colors flex items-center justify-center border border-zinc-200 relative z-10">
+src/pages/Landing.tsx:              <div className="md:col-span-7 flex flex-col gap-6">
+src/pages/Landing.tsx:                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+src/pages/Landing.tsx:                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+src/pages/Landing.tsx:                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+src/pages/Landing.tsx:                     <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary shrink-0">
+src/pages/Landing.tsx:                       <span className="material-symbols-outlined text-[20px]">psychology</span>
+src/pages/Landing.tsx:                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Yes. Klipora analyzes your connected profiles (YouTube, LinkedIn) to extract structural data about your phrasing, pacing, and vocabulary. It doesn't use generic AI templates; it clones your blueprint.</p>
+src/pages/Landing.tsx:                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-blue-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+src/pages/Landing.tsx:                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 focus:outline rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+src/pages/Landing.tsx:                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+src/pages/Landing.tsx:                     <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300 text-blue-600 shrink-0">
+src/pages/Landing.tsx:                       <span className="material-symbols-outlined text-[20px]">movie</span>
+src/pages/Landing.tsx:                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Upload your horizontal video. Our AI face-tracking automatically crops perfectly to 9:16, extracts peak-retention moments, and burns-in Alex Hormozi-style dynamic captions.</p>
+src/pages/Landing.tsx:                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-amber-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+src/pages/Landing.tsx:                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+src/pages/Landing.tsx:                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+src/pages/Landing.tsx:                     <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300 text-amber-600 shrink-0">
+src/pages/Landing.tsx:                       <span className="material-symbols-outlined text-[20px]">database</span>
+src/pages/Landing.tsx:                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Credits map directly to compute cost. Heavy visual operations like <i>Video to Reels</i> cost 30 credits due to transcription and frame analysis. Text-based generations like Posts cost 10 credits.</p>
+src/pages/Landing.tsx:                <div className="bg-white rounded-3xl p-8 border border-zinc-200/60 shadow-sm hover:shadow-lg hover:border-rose-500/30 transition-all duration-300 group cursor-default relative overflow-hidden">
+src/pages/Landing.tsx:                  <div className="absolute top-0 right-0 w-32 h-32 bg-rose-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-125"></div>
+src/pages/Landing.tsx:                  <h3 className="text-xl font-bold text-zinc-900 mb-3 flex items-center gap-3 relative z-10">
+src/pages/Landing.tsx:                     <div className="w-10 h-10 bg-rose-50 rounded-full flex items-center justify-center group-hover:bg-rose-500 group-hover:text-white transition-colors duration-300 text-rose-600 shrink-0">
+src/pages/Landing.tsx:                       <span className="material-symbols-outlined text-[20px]">cancel</span>
+src/pages/Landing.tsx:                  <p className="text-zinc-500 font-medium leading-relaxed pl-12 ml-1 relative z-10">Absolutely. The subscriptions are entirely self-managed. You can downgrade, pause, or terminate your license immediately from your dashboard settings panel.</p>
+src/pages/Landing.tsx:        <section className="py-32 border-t border-zinc-200 text-center relative overflow-hidden -mx-6 px-6 bg-zinc-950 text-white">
+src/pages/Landing.tsx:            <div className="absolute inset-0 bg-primary/10 mix-blend-overlay pointer-events-none"></div>
+src/pages/Landing.tsx:            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
+src/pages/Landing.tsx:            <div className="relative z-10">
+src/pages/Landing.tsx:              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8 max-w-2xl mx-auto leading-[1.1]">
+src/pages/Landing.tsx:                Ready to scale your <span className="text-primary">architectural output?</span>
+src/pages/Landing.tsx:              <p className="text-zinc-400 font-medium mb-12 max-w-xl mx-auto text-lg">Stop doing manual distribution. Start building systems.</p>
+src/pages/Landing.tsx:              <Link to="/auth" className="inline-flex bg-primary text-white px-10 py-5 rounded-2xl text-base font-bold tracking-wide hover:bg-primary-dim transition-all shadow-[0_0_40px_rgba(var(--color-primary),0.3)] items-center justify-center gap-3 hover:scale-105 active:scale-95 duration-200">
+src/pages/Landing.tsx:                <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
+src/pages/Landing.tsx:      <footer className="bg-zinc-100 pt-20 pb-12 mt-12 w-full border-t border-zinc-200">
+src/pages/Landing.tsx:        <div className="max-w-[1200px] mx-auto px-6">
+src/pages/Landing.tsx:           <div className="flex flex-col md:flex-row justify-between gap-12 mb-20 text-zinc-900">
+src/pages/Landing.tsx:              <div className="flex-1">
+src/pages/Landing.tsx:                <div className="text-lg font-black tracking-tight flex items-center gap-2 mb-6">
+src/pages/Landing.tsx:                  <div className="w-6 h-6 bg-primary rounded bg-opacity-10 flex items-center justify-center">
+src/pages/Landing.tsx:                    <span className="material-symbols-outlined text-primary text-[14px]">bolt</span>
+src/pages/Landing.tsx:                <div className="mt-8 mb-8">
+src/pages/Landing.tsx:                  <div className="flex items-center flex-wrap gap-4">
+src/pages/Landing.tsx:                      className="text-5xl md:text-6xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-600 to-indigo-600 bg-[length:200%_auto] animate-gradient"
+src/pages/Landing.tsx:                    <span className="text-xs font-black tracking-widest text-primary uppercase border-2 border-primary/20 bg-primary/10 px-3 py-1 rounded-full shadow-sm">Founder (Solo)</span>
+src/pages/Landing.tsx:                <div className="text-sm text-zinc-500 leading-relaxed font-medium">
+src/pages/Landing.tsx:              <div className="md:w-64 flex md:justify-end">
+src/pages/Landing.tsx:                  <div className="text-xs font-bold mb-6 text-zinc-900 uppercase tracking-wider">Socials</div>
+src/pages/Landing.tsx:                  <div className="flex flex-col gap-4 text-sm text-zinc-500 font-bold">
+src/pages/Landing.tsx:                     <a href="https://x.com/samarth2489" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors group">
+src/pages/Landing.tsx:                       <span className="material-symbols-outlined text-[18px] group-hover:-translate-y-1 transition-transform">arrow_outward</span>
+src/pages/ProductPhotoStudio.tsx:    <div className="px-6 lg:px-12 transition-all h-full flex flex-col items-center justify-center min-h-[60vh]">
+src/pages/ProductPhotoStudio.tsx:      <div className="bg-surface-container-lowest rounded-[2rem] p-12 border border-outline-variant/15 flex flex-col items-center text-center max-w-2xl w-full relative overflow-hidden">
+src/pages/ProductPhotoStudio.tsx:        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"></div>
+src/pages/ProductPhotoStudio.tsx:        <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-8 relative z-10">
+src/pages/ProductPhotoStudio.tsx:          <span className="material-symbols-outlined text-primary text-5xl">photo_camera</span>
+src/pages/ProductPhotoStudio.tsx:        <h1 className="text-4xl font-extrabold tracking-tight text-on-surface mb-4 relative z-10">Product Photo Studio</h1>
+src/pages/ProductPhotoStudio.tsx:        <p className="text-on-surface-variant text-lg leading-relaxed mb-8 relative z-10">
+src/pages/ProductPhotoStudio.tsx:        <div className="inline-flex items-center gap-2 bg-zinc-100 text-zinc-600 px-4 py-2 rounded-full font-bold text-sm relative z-10">
+src/pages/ProductPhotoStudio.tsx:          <span className="material-symbols-outlined text-sm">schedule</span>
+src/pages/VideoToReels.tsx:      className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${enabled ? 'bg-blue-600' : 'bg-gray-600'}`}
+src/pages/VideoToReels.tsx:      <span className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${enabled ? 'translate-x-5' : 'translate-x-0'}`} />
+src/pages/VideoToReels.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12 min-h-screen bg-[#f8f9fa] relative overflow-hidden">
+src/pages/VideoToReels.tsx:      <div className="absolute inset-0 z-50 bg-white/40 backdrop-blur-[4px] flex items-center justify-center p-4">
+src/pages/VideoToReels.tsx:        <div className="bg-white p-8 rounded-[2rem] shadow-2xl border border-blue-100 max-w-lg text-center drop-shadow-xl">
+src/pages/VideoToReels.tsx:          <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-600">
+src/pages/VideoToReels.tsx:             <span className="material-symbols-outlined text-4xl">construction</span>
+src/pages/VideoToReels.tsx:          <h2 className="text-3xl font-extrabold text-gray-900 mb-3 tracking-tight">Feature Coming Soon!</h2>
+src/pages/VideoToReels.tsx:          <p className="text-gray-600 text-lg leading-relaxed">
+src/pages/VideoToReels.tsx:      <div className="mb-10">
+src/pages/VideoToReels.tsx:        <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-2">Content Lab</p>
+src/pages/VideoToReels.tsx:        <h1 className="text-5xl font-extrabold tracking-tighter text-gray-900 mb-4">Video to Reels</h1>
+src/pages/VideoToReels.tsx:        <p className="text-gray-500 text-lg max-w-2xl">Transform your long-form horizontal content into viral vertical shorts with AI-powered framing and captioning.</p>
+src/pages/VideoToReels.tsx:      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+src/pages/VideoToReels.tsx:        <div className="lg:col-span-2 bg-white rounded-[2rem] shadow-sm border border-gray-100 p-12 flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden">
+src/pages/VideoToReels.tsx:            <div className="flex flex-col items-center z-10 w-full max-w-md text-center">
+src/pages/VideoToReels.tsx:              <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 text-blue-600">
+src/pages/VideoToReels.tsx:                <span className="material-symbols-outlined text-4xl">cloud_upload</span>
+src/pages/VideoToReels.tsx:              <h2 className="text-2xl font-bold text-gray-900 mb-2">Drop your long-form video here</h2>
+src/pages/VideoToReels.tsx:              <p className="text-gray-500 mb-8">Support for MP4, MOV, and AVI up to 2GB</p>
+src/pages/VideoToReels.tsx:              <div className="flex gap-4 w-full justify-center">
+src/pages/VideoToReels.tsx:                <button className="px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm">Browse Files</button>
+src/pages/VideoToReels.tsx:                <button onClick={() => setInputMode('url')} className="px-6 py-3 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-colors shadow-sm">Import from URL</button>
+src/pages/VideoToReels.tsx:            <div className="w-full max-w-xl flex flex-col items-center z-10">
+src/pages/VideoToReels.tsx:              <button onClick={() => setInputMode('drop')} className="self-start mb-6 text-sm text-gray-500 hover:text-gray-900 flex items-center gap-1 transition-colors">
+src/pages/VideoToReels.tsx:                <span className="material-symbols-outlined text-sm">arrow_back</span> Back to upload
+src/pages/VideoToReels.tsx:              <div className="w-full space-y-4 bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+src/pages/VideoToReels.tsx:                <h3 className="text-2xl font-bold text-gray-900 mb-2">Import from URL</h3>
+src/pages/VideoToReels.tsx:                <p className="text-gray-500 text-sm mb-6">Paste a YouTube link to generate viral reel concepts.</p>
+src/pages/VideoToReels.tsx:                  className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none"
+src/pages/VideoToReels.tsx:                  <div className="p-3 bg-green-50 text-green-800 rounded-lg text-xs font-medium flex items-start gap-2 text-left">
+src/pages/VideoToReels.tsx:                    <span className="material-symbols-outlined text-sm">check_circle</span>
+src/pages/VideoToReels.tsx:                  className="w-full bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2"
+src/pages/VideoToReels.tsx:                    <><span className="material-symbols-outlined animate-spin">progress_activity</span> {progressText || 'Analyzing Video...'}</>
+src/pages/VideoToReels.tsx:                    <><span className="material-symbols-outlined">auto_awesome</span> Generate Concepts</>
+src/pages/VideoToReels.tsx:          <div className="absolute bottom-8 right-8 text-blue-100 opacity-50 pointer-events-none">
+src/pages/VideoToReels.tsx:            <span className="material-symbols-outlined text-[120px]">movie</span>
+src/pages/VideoToReels.tsx:        <div className="lg:col-span-1 space-y-6">
+src/pages/VideoToReels.tsx:          <div className="bg-[#f1f3f5] rounded-[2rem] p-8 border border-gray-200/50">
+src/pages/VideoToReels.tsx:            <div className="flex items-center gap-2 mb-8">
+src/pages/VideoToReels.tsx:              <span className="material-symbols-outlined text-blue-600">auto_awesome</span>
+src/pages/VideoToReels.tsx:              <h3 className="font-bold text-gray-900 text-lg">AI Enhancement Settings</h3>
+src/pages/VideoToReels.tsx:            <div className="mb-8">
+src/pages/VideoToReels.tsx:              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Face Tracking</label>
+src/pages/VideoToReels.tsx:              <div className="flex bg-gray-200/50 p-1 rounded-xl gap-1">
+src/pages/VideoToReels.tsx:                <button onClick={() => setFaceTracking('Active Speaker')} className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${faceTracking === 'Active Speaker' ? 'bg-white text-blue-600 shadow-sm border border-blue-100' : 'text-gray-600 hover:text-gray-900'}`}>Active Speaker</button>
+src/pages/VideoToReels.tsx:                <button onClick={() => setFaceTracking('Center Crop')} className={`flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${faceTracking === 'Center Crop' ? 'bg-white text-blue-600 shadow-sm border border-blue-100' : 'text-gray-600 hover:text-gray-900'}`}>Center Crop</button>
+src/pages/VideoToReels.tsx:              <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Captions Style</label>
+src/pages/VideoToReels.tsx:              <div className="grid grid-cols-3 gap-3">
+src/pages/VideoToReels.tsx:                <button onClick={() => setCaptionStyle('single')} className={`h-16 bg-white rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${captionStyle === 'single' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
+src/pages/VideoToReels.tsx:                  <div className="w-8 h-1.5 bg-blue-600 rounded-full"></div>
+src/pages/VideoToReels.tsx:                <button onClick={() => setCaptionStyle('double')} className={`h-16 bg-white rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${captionStyle === 'double' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
+src/pages/VideoToReels.tsx:                  <div className="w-8 h-1.5 bg-blue-600 rounded-full"></div>
+src/pages/VideoToReels.tsx:                  <div className="w-8 h-1.5 bg-blue-600 rounded-full"></div>
+src/pages/VideoToReels.tsx:                <button onClick={() => setCaptionStyle('none')} className={`h-16 bg-white rounded-xl flex flex-col items-center justify-center transition-all ${captionStyle === 'none' ? 'ring-2 ring-blue-600 shadow-sm' : 'border border-gray-200 hover:border-gray-300'}`}>
+src/pages/VideoToReels.tsx:                  <span className="material-symbols-outlined text-gray-300 text-2xl">block</span>
+src/pages/VideoToReels.tsx:          <div className="bg-[#1a1d20] rounded-[2rem] p-8 text-white shadow-xl">
+src/pages/VideoToReels.tsx:            <h3 className="font-bold text-lg mb-6">Omnichannel Export</h3>
+src/pages/VideoToReels.tsx:            <div className="space-y-4">
+src/pages/VideoToReels.tsx:              <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+src/pages/VideoToReels.tsx:                <div className="flex items-center gap-3">
+src/pages/VideoToReels.tsx:                  <span className="material-symbols-outlined text-pink-500">music_note</span>
+src/pages/VideoToReels.tsx:                  <span className="font-medium text-sm">TikTok Native</span>
+src/pages/VideoToReels.tsx:              <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+src/pages/VideoToReels.tsx:                <div className="flex items-center gap-3">
+src/pages/VideoToReels.tsx:                  <span className="material-symbols-outlined text-red-500">play_arrow</span>
+src/pages/VideoToReels.tsx:                  <span className="font-medium text-sm">YouTube Shorts</span>
+src/pages/VideoToReels.tsx:              <div className="flex items-center justify-between bg-white/5 p-4 rounded-xl border border-white/10">
+src/pages/VideoToReels.tsx:                <div className="flex items-center gap-3">
+src/pages/VideoToReels.tsx:                  <span className="material-symbols-outlined text-orange-500">movie</span>
+src/pages/VideoToReels.tsx:                  <span className="font-medium text-sm">Instagram Reels</span>
+src/pages/VideoToReels.tsx:        <div className="mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
+src/pages/VideoToReels.tsx:          <div className="flex items-center justify-between mb-8">
+src/pages/VideoToReels.tsx:            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">Extracted Viral Concepts</h2>
+src/pages/VideoToReels.tsx:            <span className="bg-blue-100 text-blue-600 font-bold px-4 py-2 rounded-full text-sm">
+src/pages/VideoToReels.tsx:          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+src/pages/VideoToReels.tsx:              <div key={index} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+src/pages/VideoToReels.tsx:                <div className="flex items-center gap-3 mb-4">
+src/pages/VideoToReels.tsx:                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-black">
+src/pages/VideoToReels.tsx:                  <h3 className="font-bold text-lg leading-tight line-clamp-2 text-gray-900">{reel.title}</h3>
+src/pages/VideoToReels.tsx:                <div className="space-y-4 flex-1">
+src/pages/VideoToReels.tsx:                  <div className="bg-gray-50 p-4 rounded-xl border-l-4 border-blue-600">
+src/pages/VideoToReels.tsx:                    <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">The Hook</p>
+src/pages/VideoToReels.tsx:                    <p className="font-medium text-gray-900 italic">"{reel.hook}"</p>
+src/pages/VideoToReels.tsx:                    <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Why it works</p>
+src/pages/VideoToReels.tsx:                    <p className="text-sm text-gray-600 leading-relaxed">{reel.reasoning}</p>
+src/pages/VideoToReels.tsx:                    <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Visual Direction</p>
+src/pages/VideoToReels.tsx:                    <p className="text-sm text-gray-600 leading-relaxed flex items-start gap-2">
+src/pages/VideoToReels.tsx:                      <span className="material-symbols-outlined text-[16px] text-blue-600 mt-0.5">movie_edit</span>
+src/pages/VideoToReels.tsx:                <div className="mt-6 pt-4 border-t border-gray-100 flex gap-2">
+src/pages/VideoToReels.tsx:                  <button className="flex-1 bg-blue-600 text-white py-2.5 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors">
+src/pages/VideoToReels.tsx:                  <button onClick={() => handleSaveReel(reel)} className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+src/pages/VideoToReels.tsx:                    <span className="material-symbols-outlined text-[20px]">bookmark</span>
+src/pages/VideoToReels.tsx:        <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">Live Engine</p>
+src/pages/VideoToReels.tsx:        <div className="flex items-center justify-between mb-6">
+src/pages/VideoToReels.tsx:          <h2 className="text-3xl font-bold text-gray-900">Recent Generations</h2>
+src/pages/VideoToReels.tsx:          <button className="text-blue-600 font-bold flex items-center gap-1 hover:underline">View All Exports <span className="material-symbols-outlined text-sm">arrow_forward</span></button>
+src/pages/VideoToReels.tsx:        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+src/pages/VideoToReels.tsx:            <div key={exp.id} className="relative aspect-[9/16] rounded-3xl overflow-hidden shadow-sm group cursor-pointer">
+src/pages/VideoToReels.tsx:              <img src={exp.image} alt={exp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+src/pages/VideoToReels.tsx:              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+src/pages/VideoToReels.tsx:              <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 border border-white/10">
+src/pages/VideoToReels.tsx:                <span className="material-symbols-outlined text-[12px]">
+src/pages/VideoToReels.tsx:              <div className="absolute bottom-4 left-4 right-4">
+src/pages/VideoToReels.tsx:                <h4 className="text-white font-bold text-sm truncate mb-1">{exp.title}</h4>
+src/pages/VideoToReels.tsx:                <p className="text-white/70 text-[10px] font-medium">{exp.duration}</p>
+src/pages/VideoToReels.tsx:            <div key={`new-${i}`} className="aspect-[9/16] rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-3 cursor-pointer hover:bg-gray-50 hover:border-gray-300 transition-all">
+src/pages/VideoToReels.tsx:              <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
+src/pages/VideoToReels.tsx:                <span className="material-symbols-outlined">add</span>
+src/pages/VideoToReels.tsx:              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">New Project</span>
+src/pages/SavedCarousels.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/SavedCarousels.tsx:      <header className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+src/pages/SavedCarousels.tsx:        <div className="flex items-center gap-4">
+src/pages/SavedCarousels.tsx:          <Link to="/content-lab/linkedin-carousels" className="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center hover:bg-surface-container transition-colors">
+src/pages/SavedCarousels.tsx:            <span className="material-symbols-outlined">arrow_back</span>
+src/pages/SavedCarousels.tsx:            <h1 className="text-4xl font-extrabold tracking-tighter text-on-surface">Saved Carousels</h1>
+src/pages/SavedCarousels.tsx:            <p className="text-on-surface-variant mt-2">All your generated LinkedIn Carousels.</p>
+src/pages/SavedCarousels.tsx:            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors"
+src/pages/SavedCarousels.tsx:            <span className="material-symbols-outlined text-sm">delete_sweep</span>
+src/pages/SavedCarousels.tsx:        <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[300px]">
+src/pages/SavedCarousels.tsx:          <span className="material-symbols-outlined text-4xl text-outline mb-4">view_carousel</span>
+src/pages/SavedCarousels.tsx:          <p className="text-on-surface-variant font-medium">No saved carousels yet.</p>
+src/pages/SavedCarousels.tsx:        <div className="space-y-8">
+src/pages/SavedCarousels.tsx:            <div key={carousel.id} onClick={() => setSelectedCarousel(carousel)} className="bg-surface-container-lowest rounded-3xl p-8 border border-outline-variant/20 relative group shadow-sm hover:shadow-md transition-all cursor-pointer">
+src/pages/SavedCarousels.tsx:              <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+src/pages/SavedCarousels.tsx:                  className="p-2 bg-surface-container-high text-on-surface rounded-lg hover:bg-surface-container-highest transition-colors"
+src/pages/SavedCarousels.tsx:                  <span className="material-symbols-outlined text-sm">
+src/pages/SavedCarousels.tsx:                  className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+src/pages/SavedCarousels.tsx:                  <span className="material-symbols-outlined text-sm">delete</span>
+src/pages/SavedCarousels.tsx:              <div className="mb-8 flex items-end justify-between">
+src/pages/SavedCarousels.tsx:                  <h3 className="text-2xl font-black tracking-tight mb-2">{carousel.topic}</h3>
+src/pages/SavedCarousels.tsx:                  <p className="text-sm font-medium text-on-surface-variant">{carousel.date} • {carousel.slides.length} slides</p>
+src/pages/SavedCarousels.tsx:                  className="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+src/pages/SavedCarousels.tsx:                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+src/pages/SavedCarousels.tsx:              <div className="flex gap-6 overflow-x-auto pb-6 snap-x custom-scrollbar">
+src/pages/SavedCarousels.tsx:                      className={`min-w-[320px] w-[320px] aspect-[4/5] shrink-0 shadow-2xl rounded-xl relative overflow-hidden snap-center hover:shadow-lg transition-all ${theme.background} ${theme.font} border border-outline-variant/10`}
+src/pages/SavedCarousels.tsx:                      <div className={`absolute top-4 right-4 text-5xl font-black select-none pointer-events-none opacity-10 z-0 ${theme.text}`}>
+src/pages/SavedCarousels.tsx:                      <div className="relative h-full px-6 pt-10 pb-20 flex flex-col z-10 overflow-hidden">
+src/pages/SavedCarousels.tsx:                        <div className="my-auto flex flex-col w-full h-fit">
+src/pages/SavedCarousels.tsx:                          {slide.type === 'hook' && <div className={`w-10 h-1 mb-4 ${theme.accentBg} shrink-0`}></div>}
+src/pages/SavedCarousels.tsx:                          {slide.type !== 'hook' && <p className={`${theme.accent} text-[10px] font-bold uppercase tracking-[0.2em] mb-3 shrink-0`}>{slide.type}</p>}
+src/pages/SavedCarousels.tsx:                          <h4 className={`text-xl font-black tracking-tighter leading-[1.2] mb-3 shrink-0 ${theme.text}`}>{slide.title}</h4>
+src/pages/SavedCarousels.tsx:                            <div className="mb-3 rounded-xl overflow-hidden flex-shrink-0 w-full h-[100px] relative mt-1 group">
+src/pages/SavedCarousels.tsx:                              <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
+src/pages/SavedCarousels.tsx:                              <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 shadow-xl ring-1 ring-black/10" />
+src/pages/SavedCarousels.tsx:                          {slide.content && !slide.imageUrl && <p className={`text-sm leading-relaxed shrink-0 ${theme.subtext}`}>{slide.content}</p>}
+src/pages/SavedCarousels.tsx:                          {slide.content && slide.imageUrl && <p className={`text-xs leading-snug shrink-0 line-clamp-3 ${theme.subtext}`}>{slide.content}</p>}
+src/pages/SavedCarousels.tsx:                            <ul className={`mt-2 space-y-2 shrink-0 ${slide.imageUrl ? 'text-[10px]' : ''}`}>
+src/pages/SavedCarousels.tsx:                                <li key={i} className={`text-xs flex items-start gap-2 ${theme.subtext}`}>
+src/pages/SavedCarousels.tsx:                                  <span className={`material-symbols-outlined text-xs mt-0.5 ${theme.accent}`}>check_circle</span>
+src/pages/SavedCarousels.tsx:                                  <span className="text-left line-clamp-2">{point}</span>
+src/pages/SavedCarousels.tsx:                        <div className="absolute bottom-6 left-6 flex items-center gap-3 z-20">
+src/pages/SavedCarousels.tsx:                          <div className="w-8 h-8 rounded-full bg-black/10 overflow-hidden border border-white/20 shadow-sm flex items-center justify-center shrink-0">
+src/pages/SavedCarousels.tsx:                            <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-full h-full object-cover" />
+src/pages/SavedCarousels.tsx:                          <div className="max-w-[150px]">
+src/pages/SavedCarousels.tsx:                            <p className={`font-bold text-xs truncate ${theme.text}`}>{creatorName}</p>
+src/pages/SavedCarousels.tsx:                            <p className={`text-[10px] truncate ${theme.subtext}`}>{creatorHandle}</p>
+src/pages/SavedCarousels.tsx:                        <div className="absolute bottom-5 left-6 flex items-center gap-2 opacity-90 z-20 backdrop-blur-sm px-2 py-1 -ml-2 rounded-lg">
+src/pages/SavedCarousels.tsx:                          <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-5 h-5 rounded-full object-cover shrink-0" />
+src/pages/SavedCarousels.tsx:                          <p className={`text-[10px] font-bold truncate max-w-[200px] ${theme.subtext}`}>{creatorHandle}</p>
+src/pages/SavedCarousels.tsx:        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[100] p-4" onClick={() => setSelectedCarousel(null)}>
+src/pages/SavedCarousels.tsx:          <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-6xl w-full max-h-[95vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+src/pages/SavedCarousels.tsx:            <div className="flex justify-between items-start mb-8">
+src/pages/SavedCarousels.tsx:                <h2 className="text-3xl font-black tracking-tight mb-2">{selectedCarousel.topic}</h2>
+src/pages/SavedCarousels.tsx:                <p className="text-on-surface-variant">{selectedCarousel.date} • {selectedCarousel.slides.length} slides</p>
+src/pages/SavedCarousels.tsx:              <button onClick={() => setSelectedCarousel(null)} className="p-2 hover:bg-surface-container rounded-full transition-colors">
+src/pages/SavedCarousels.tsx:                <span className="material-symbols-outlined">close</span>
+src/pages/SavedCarousels.tsx:            <div className="flex gap-6 overflow-x-auto pb-8 snap-x custom-scrollbar">
+src/pages/SavedCarousels.tsx:                    className={`min-w-[450px] w-[450px] aspect-[4/5] shrink-0 shadow-2xl rounded-xl relative overflow-hidden snap-center ${theme.background} ${theme.font} border border-outline-variant/10`}
+src/pages/SavedCarousels.tsx:                    <div className={`absolute top-6 right-6 text-7xl font-black select-none pointer-events-none opacity-10 z-0 ${theme.text}`}>
+src/pages/SavedCarousels.tsx:                    <div className="relative h-full px-10 pt-12 pb-24 flex flex-col z-10 overflow-hidden">
+src/pages/SavedCarousels.tsx:                      <div className="my-auto flex flex-col w-full h-fit">
+src/pages/SavedCarousels.tsx:                        {slide.type === 'hook' && <div className={`w-12 h-1 mb-6 ${theme.accentBg} shrink-0`}></div>}
+src/pages/SavedCarousels.tsx:                        {slide.type !== 'hook' && <p className={`${theme.accent} text-xs font-bold uppercase tracking-[0.2em] mb-4 shrink-0`}>{slide.type}</p>}
+src/pages/SavedCarousels.tsx:                        <h2 className={`text-2xl lg:text-3xl font-black tracking-tighter leading-[1.2] mb-4 shrink-0 ${theme.text}`}>
+src/pages/SavedCarousels.tsx:                          <div className="mb-4 rounded-xl overflow-hidden flex-shrink-0 w-full h-[160px] relative mt-2 group">
+src/pages/SavedCarousels.tsx:                            <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
+src/pages/SavedCarousels.tsx:                            <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover shadow-2xl ring-1 ring-black/10" />
+src/pages/SavedCarousels.tsx:                          <p className={`text-lg leading-relaxed shrink-0 ${theme.subtext}`}>
+src/pages/SavedCarousels.tsx:                          <p className={`text-sm md:text-base leading-snug shrink-0 ${theme.subtext}`}>
+src/pages/SavedCarousels.tsx:                          <div className={`space-y-3 mt-3 shrink-0 ${slide.imageUrl ? 'text-xs' : ''}`}>
+src/pages/SavedCarousels.tsx:                              <div key={i} className={`flex items-start gap-2 ${theme.subtext}`}>
+src/pages/SavedCarousels.tsx:                                <span className={`material-symbols-outlined ${theme.accent} ${slide.imageUrl ? 'text-sm mt-0' : 'mt-0.5'}`} style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+src/pages/SavedCarousels.tsx:                                <span className={slide.imageUrl ? 'text-xs leading-tight' : 'text-sm md:text-base line-clamp-2'}>{point}</span>
+src/pages/SavedCarousels.tsx:                      <div className="absolute bottom-8 left-10 flex items-center gap-4 z-20">
+src/pages/SavedCarousels.tsx:                        <div className="w-12 h-12 rounded-full bg-black/10 overflow-hidden border-2 border-white/20 shadow-sm flex items-center justify-center shrink-0">
+src/pages/SavedCarousels.tsx:                          <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-full h-full object-cover" />
+src/pages/SavedCarousels.tsx:                        <div className="max-w-[200px]">
+src/pages/SavedCarousels.tsx:                          <p className={`font-bold text-sm truncate ${theme.text}`}>{creatorName}</p>
+src/pages/SavedCarousels.tsx:                          <p className={`text-xs truncate ${theme.subtext}`}>{creatorHandle}</p>
+src/pages/SavedCarousels.tsx:                      <div className="absolute bottom-6 left-10 flex items-center gap-3 opacity-90 z-20 backdrop-blur-sm px-2 py-1 -ml-2 rounded-lg">
+src/pages/SavedCarousels.tsx:                        <img src={user?.user_metadata?.avatar_url || "https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-"} alt="Avatar" className="w-6 h-6 rounded-full object-cover shrink-0" />
+src/pages/SavedCarousels.tsx:                        <p className={`text-xs font-bold truncate max-w-[250px] ${theme.subtext}`}>{creatorHandle}</p>
+src/pages/SavedCarousels.tsx:            <div className="flex gap-4 mt-4">
+src/pages/SavedCarousels.tsx:              <button onClick={() => handleCopy(selectedCarousel.id, selectedCarousel.slides)} className="flex-1 py-4 bg-surface-container-high text-on-surface rounded-xl font-bold hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2 text-lg">
+src/pages/SavedCarousels.tsx:                <span className="material-symbols-outlined">{copiedId === selectedCarousel.id ? 'check' : 'content_copy'}</span>
+src/pages/SavedCarousels.tsx:              <button onClick={() => handlePostToLinkedIn(selectedCarousel.slides)} className="flex-1 py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-lg">
+src/pages/SavedCarousels.tsx:                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+src/pages/Help.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/Help.tsx:      <header className="mb-12">
+src/pages/Help.tsx:        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-3">
+src/pages/Help.tsx:          <span className="material-symbols-outlined text-sm">menu_book</span>
+src/pages/Help.tsx:        <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-4">Help Center</h1>
+src/pages/Help.tsx:        <p className="text-on-surface-variant text-lg max-w-2xl">Learn how to use Klipora to 10x your content output and streamline your workflow.</p>
+src/pages/Help.tsx:      <div className="flex flex-col md:flex-row gap-12 items-start">
+src/pages/Help.tsx:        <aside className="w-full md:w-64 shrink-0 sticky top-24">
+src/pages/Help.tsx:          <nav className="space-y-1">
+src/pages/Help.tsx:                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-left ${
+src/pages/Help.tsx:                <span className="material-symbols-outlined text-[20px]">{section.icon}</span>
+src/pages/Help.tsx:          <div className="mt-8 p-6 bg-surface-container-low rounded-2xl border border-outline-variant/20">
+src/pages/Help.tsx:            <h4 className="font-bold mb-2">Need more help?</h4>
+src/pages/Help.tsx:            <p className="text-sm text-on-surface-variant mb-4">Our support team is available 24/7 to assist you.</p>
+src/pages/Help.tsx:              className="w-full bg-white border border-outline-variant/30 text-on-surface px-4 py-2 rounded-lg font-bold hover:bg-zinc-50 transition-colors text-sm"
+src/pages/Help.tsx:        <div className="flex-1 max-w-4xl bg-surface-container-lowest rounded-3xl p-8 md:p-12 border border-outline-variant/15 shadow-sm min-h-[600px]">
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">Welcome to Klipora</h2>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+src/pages/Help.tsx:                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10">
+src/pages/Help.tsx:                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-4">
+src/pages/Help.tsx:                    <span className="material-symbols-outlined">science</span>
+src/pages/Help.tsx:                  <h3 className="text-xl font-bold mb-2">Content Lab</h3>
+src/pages/Help.tsx:                  <p className="text-on-surface-variant text-sm">Transform long-form videos into shorts, generate carousels, and write viral posts.</p>
+src/pages/Help.tsx:                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10">
+src/pages/Help.tsx:                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-4">
+src/pages/Help.tsx:                    <span className="material-symbols-outlined">shopping_cart</span>
+src/pages/Help.tsx:                  <h3 className="text-xl font-bold mb-2">Shopify Tools</h3>
+src/pages/Help.tsx:                  <p className="text-on-surface-variant text-sm">Generate professional product photos and SEO-optimized copy for your store.</p>
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">Analytics Dashboard</h2>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="bg-zinc-900 rounded-2xl p-6 text-white shadow-xl overflow-hidden relative">
+src/pages/Help.tsx:                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[80px] rounded-full"></div>
+src/pages/Help.tsx:                <h3 className="font-bold text-zinc-400 mb-6 uppercase tracking-widest text-xs">Visual Guide</h3>
+src/pages/Help.tsx:                <div className="flex flex-col gap-4 relative z-10">
+src/pages/Help.tsx:                  <div className="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 flex items-center gap-4">
+src/pages/Help.tsx:                    <div className="w-10 h-10 bg-green-500/20 text-green-400 rounded-lg flex items-center justify-center">
+src/pages/Help.tsx:                      <span className="material-symbols-outlined">trending_up</span>
+src/pages/Help.tsx:                      <h4 className="font-bold">Growth Metrics</h4>
+src/pages/Help.tsx:                      <p className="text-xs text-zinc-400">See your follower growth and engagement rates at a glance.</p>
+src/pages/Help.tsx:                  <div className="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 flex items-center gap-4">
+src/pages/Help.tsx:                    <div className="w-10 h-10 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center">
+src/pages/Help.tsx:                      <span className="material-symbols-outlined">bar_chart</span>
+src/pages/Help.tsx:                      <h4 className="font-bold">Performance Charts</h4>
+src/pages/Help.tsx:                      <p className="text-xs text-zinc-400">Interactive charts showing views, likes, and shares over time.</p>
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">Video to Reels</h2>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="space-y-6">
+src/pages/Help.tsx:                <h3 className="text-xl font-bold">How it works</h3>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">1</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">Upload or Link</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">Upload an MP4 file or paste a YouTube link. Our AI will download and process the video.</p>
+src/pages/Help.tsx:                    <div className="mt-3 bg-surface-container p-4 rounded-xl border border-outline-variant/20 flex items-center justify-center gap-4">
+src/pages/Help.tsx:                      <span className="material-symbols-outlined text-3xl text-primary">cloud_upload</span>
+src/pages/Help.tsx:                      <span className="material-symbols-outlined text-3xl text-zinc-300">arrow_forward</span>
+src/pages/Help.tsx:                      <span className="material-symbols-outlined text-3xl text-red-500">smart_display</span>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">2</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">AI Face Tracking</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">The AI automatically detects the active speaker and crops the video to 9:16, keeping them perfectly centered.</p>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">3</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">Dynamic Captions</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">Alex Hormozi-style captions are generated and synced perfectly with the audio to maximize retention.</p>
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">LinkedIn Carousels</h2>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
+src/pages/Help.tsx:                <h3 className="text-xl font-bold text-blue-900 mb-6">The Carousel Formula</h3>
+src/pages/Help.tsx:                <div className="flex overflow-x-auto pb-4 gap-4 snap-x">
+src/pages/Help.tsx:                  <div className="shrink-0 w-48 h-48 bg-white rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
+src/pages/Help.tsx:                    <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">Slide 1</span>
+src/pages/Help.tsx:                    <h4 className="font-black text-lg text-zinc-900">The Hook</h4>
+src/pages/Help.tsx:                    <p className="text-xs text-zinc-500 mt-2">A bold statement to stop the scroll.</p>
+src/pages/Help.tsx:                  <div className="shrink-0 w-48 h-48 bg-white rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
+src/pages/Help.tsx:                    <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">Slides 2-4</span>
+src/pages/Help.tsx:                    <h4 className="font-black text-lg text-zinc-900">The Value</h4>
+src/pages/Help.tsx:                    <p className="text-xs text-zinc-500 mt-2">Actionable steps and frameworks.</p>
+src/pages/Help.tsx:                  <div className="shrink-0 w-48 h-48 bg-white rounded-xl shadow-sm border border-blue-100 p-4 flex flex-col justify-center items-center text-center snap-center">
+src/pages/Help.tsx:                    <span className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">Last Slide</span>
+src/pages/Help.tsx:                    <h4 className="font-black text-lg text-zinc-900">The CTA</h4>
+src/pages/Help.tsx:                    <p className="text-xs text-zinc-500 mt-2">"Follow for more tips."</p>
+src/pages/Help.tsx:              <div className="space-y-4">
+src/pages/Help.tsx:                <h3 className="text-xl font-bold">Pro Tips</h3>
+src/pages/Help.tsx:                <ul className="list-disc list-inside space-y-2 text-on-surface-variant">
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">YT & Insta Posts</h2>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+src/pages/Help.tsx:                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10">
+src/pages/Help.tsx:                  <div className="flex items-center gap-3 mb-4">
+src/pages/Help.tsx:                    <span className="material-symbols-outlined text-red-500 text-3xl">smart_display</span>
+src/pages/Help.tsx:                    <h3 className="text-xl font-bold">YouTube Community</h3>
+src/pages/Help.tsx:                  <p className="text-sm text-on-surface-variant mb-4">Optimized for driving engagement, asking questions, and teasing upcoming videos.</p>
+src/pages/Help.tsx:                  <div className="bg-white p-4 rounded-xl text-xs border border-outline-variant/20 shadow-sm">
+src/pages/Help.tsx:                    <p className="font-bold mb-2">Example Output:</p>
+src/pages/Help.tsx:                    <p className="text-zinc-600">"Just wrapped up editing the new video on AI workflows... 🤯 What's the biggest bottleneck in your creation process right now? Let me know below! 👇"</p>
+src/pages/Help.tsx:                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10">
+src/pages/Help.tsx:                  <div className="flex items-center gap-3 mb-4">
+src/pages/Help.tsx:                    <span className="material-symbols-outlined text-pink-500 text-3xl">camera_roll</span>
+src/pages/Help.tsx:                    <h3 className="text-xl font-bold">Instagram Captions</h3>
+src/pages/Help.tsx:                  <p className="text-sm text-on-surface-variant mb-4">Optimized for storytelling, visual descriptions, and encouraging saves/shares.</p>
+src/pages/Help.tsx:                  <div className="bg-white p-4 rounded-xl text-xs border border-outline-variant/20 shadow-sm">
+src/pages/Help.tsx:                    <p className="font-bold mb-2">Example Output:</p>
+src/pages/Help.tsx:                    <p className="text-zinc-600">"The reality of building a creator business isn't always aesthetic desk setups. ☕️ Swipe to see the 3 frameworks that actually moved the needle for me this month. ➡️ Save this for your next planning session!"</p>
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">Thumbnail Creator</h2>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="space-y-6">
+src/pages/Help.tsx:                <h3 className="text-xl font-bold">How it works</h3>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">1</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">Enter Your Topic</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">Type in exactly what your video is about. Be specific to get more tailored visual metaphors.</p>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">2</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">Select A Style</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">Choose from proven styles like "MrBeast / High Energy" or select "Custom" to type out your exact desired visual aesthetic (e.g. Cyberpunk, Minimalist vector).</p>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">3</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">Channel Inspiration Tool</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">Want to mimic your favorite creator? Type in their YouTube channel name. The AI connects to Google Search live to analyze their recent thumbnails' lighting, grading, and composition to replicate their aesthetic!</p>
+src/pages/Help.tsx:                <div className="flex gap-6 items-start">
+src/pages/Help.tsx:                  <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0 mt-1">4</div>
+src/pages/Help.tsx:                    <h4 className="font-bold text-lg mb-1">Save & Download</h4>
+src/pages/Help.tsx:                    <p className="text-on-surface-variant">You'll receive 3 text-free backgrounds. You can download them directly or save them to your library to use later with Photoshop or Canva.</p>
+src/pages/Help.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Help.tsx:                <h2 className="text-3xl font-black tracking-tight mb-4">Product Photo Studio</h2>
+src/pages/Help.tsx:                <div className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4">Coming Soon</div>
+src/pages/Help.tsx:                <p className="text-lg text-on-surface-variant leading-relaxed">
+src/pages/Help.tsx:              <div className="bg-zinc-900 rounded-3xl p-8 text-white text-center">
+src/pages/Help.tsx:                <div className="flex justify-center items-center gap-8 mb-8">
+src/pages/Help.tsx:                  <div className="w-32 h-32 bg-zinc-800 rounded-xl border-2 border-dashed border-zinc-600 flex items-center justify-center">
+src/pages/Help.tsx:                    <span className="material-symbols-outlined text-4xl text-zinc-500">inventory_2</span>
+src/pages/Help.tsx:                  <span className="material-symbols-outlined text-4xl text-primary">arrow_forward</span>
+src/pages/Help.tsx:                  <div className="w-32 h-32 bg-gradient-to-br from-primary/40 to-purple-500/40 rounded-xl border border-primary/50 flex items-center justify-center shadow-[0_0_30px_rgba(var(--color-primary),0.3)]">
+src/pages/Help.tsx:                    <span className="material-symbols-outlined text-4xl text-white">auto_awesome</span>
+src/pages/Help.tsx:                <h3 className="text-xl font-bold mb-2">Studio Quality, Zero Equipment</h3>
+src/pages/Help.tsx:                <p className="text-zinc-400 max-w-md mx-auto">Upload a photo of your product on a plain background, and our AI will place it in stunning, realistic lifestyle scenes perfect for Shopify and Instagram.</p>
+src/pages/Help.tsx:        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in">
+src/pages/Help.tsx:          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+src/pages/Help.tsx:            <div className="p-6 border-b border-zinc-100 flex justify-between items-center">
+src/pages/Help.tsx:              <h3 className="text-xl font-black text-zinc-900">Contact Support</h3>
+src/pages/Help.tsx:              <button onClick={() => setIsContactModalOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-600 transition-colors">
+src/pages/Help.tsx:                <span className="material-symbols-outlined text-sm font-bold">close</span>
+src/pages/Help.tsx:            <form onSubmit={handleContactSubmit} className="p-6">
+src/pages/Help.tsx:              <div className="mb-4">
+src/pages/Help.tsx:                <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">How can we help?</label>
+src/pages/Help.tsx:                  className="w-full h-32 bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
+src/pages/Help.tsx:                <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm font-bold flex items-center gap-2 animate-in fade-in">
+src/pages/Help.tsx:                  <span className="material-symbols-outlined">check_circle</span>
+src/pages/Help.tsx:                <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm font-bold flex items-center gap-2 animate-in fade-in">
+src/pages/Help.tsx:                  <span className="material-symbols-outlined">error</span>
+src/pages/Help.tsx:              <div className="flex justify-end gap-3 mt-6">
+src/pages/Help.tsx:                  className="px-4 py-2 font-bold text-zinc-500 hover:text-zinc-700 transition-colors"
+src/pages/Help.tsx:                  className="px-6 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary-dim transition-all disabled:opacity-70 flex items-center gap-2"
+src/pages/Help.tsx:                  {isSubmitting ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : 'Send Message'}
+src/pages/SavedThumbnails.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/SavedThumbnails.tsx:      <header className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+src/pages/SavedThumbnails.tsx:        <div className="flex items-center gap-4">
+src/pages/SavedThumbnails.tsx:          <Link to="/content-lab/thumbnail-creator" className="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center hover:bg-surface-container transition-colors">
+src/pages/SavedThumbnails.tsx:            <span className="material-symbols-outlined">arrow_back</span>
+src/pages/SavedThumbnails.tsx:            <h1 className="text-4xl font-extrabold tracking-tighter text-on-surface">Saved Thumbnails</h1>
+src/pages/SavedThumbnails.tsx:            <p className="text-on-surface-variant mt-2">All your generated and saved YouTube thumbnail concepts.</p>
+src/pages/SavedThumbnails.tsx:            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors"
+src/pages/SavedThumbnails.tsx:            <span className="material-symbols-outlined text-sm">delete_sweep</span>
+src/pages/SavedThumbnails.tsx:        <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[300px]">
+src/pages/SavedThumbnails.tsx:          <span className="material-symbols-outlined text-4xl text-outline mb-4">photo_library</span>
+src/pages/SavedThumbnails.tsx:          <p className="text-on-surface-variant font-medium">No saved thumbnails yet.</p>
+src/pages/SavedThumbnails.tsx:          <Link to="/content-lab/thumbnail-creator" className="text-primary font-bold mt-4 hover:underline">
+src/pages/SavedThumbnails.tsx:        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+src/pages/SavedThumbnails.tsx:            <div key={thumbnail.id} className="bg-surface-container-lowest rounded-[2rem] p-4 border border-outline-variant/20 hover:border-primary/30 transition-all shadow-sm group">
+src/pages/SavedThumbnails.tsx:              <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
+src/pages/SavedThumbnails.tsx:                <img src={thumbnail.url} alt="Saved thumbnail" className="w-full h-full object-cover" />
+src/pages/SavedThumbnails.tsx:                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+src/pages/SavedThumbnails.tsx:                  <a href={thumbnail.url} download={`saved-thumbnail-${thumbnail.id}.jpg`} className="bg-white text-gray-900 w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+src/pages/SavedThumbnails.tsx:                    <span className="material-symbols-outlined font-bold text-sm">download</span>
+src/pages/SavedThumbnails.tsx:                    className="bg-red-50 text-red-600 w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 hover:bg-red-100 transition-transform"
+src/pages/SavedThumbnails.tsx:                    <span className="material-symbols-outlined font-bold text-sm">delete</span>
+src/pages/SavedThumbnails.tsx:              <div className="px-2 pb-2">
+src/pages/SavedThumbnails.tsx:                <h3 className="font-bold text-gray-900 line-clamp-1" title={thumbnail.topic}>{thumbnail.topic}</h3>
+src/pages/SavedThumbnails.tsx:                <div className="flex flex-wrap gap-2 mt-2">
+src/pages/SavedThumbnails.tsx:                    <span className="bg-purple-50 text-purple-700 px-2 py-1 flex items-center gap-1 rounded-md text-[10px] font-bold uppercase tracking-widest">
+src/pages/SavedThumbnails.tsx:                      <span className="material-symbols-outlined text-[12px]">title</span>
+src/pages/SavedThumbnails.tsx:                  <span className="bg-blue-50 text-blue-700 px-2 py-1 flex items-center gap-1 rounded-md text-[10px] font-bold uppercase tracking-widest">
+src/pages/SavedThumbnails.tsx:                    <span className="material-symbols-outlined text-[12px]">palette</span>
+src/pages/SavedThumbnails.tsx:                    <span className="bg-red-50 text-red-700 px-2 py-1 flex items-center gap-1 rounded-md text-[10px] font-bold uppercase tracking-widest">
+src/pages/SavedThumbnails.tsx:                      <span className="material-symbols-outlined text-[12px]">youtube_activity</span>
+src/pages/SavedThumbnails.tsx:                <div className="text-xs text-gray-400 mt-3 font-medium">Saved on {thumbnail.date}</div>
+src/pages/ThumbnailCreator.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12 min-h-screen bg-[#f8f9fa]">
+src/pages/ThumbnailCreator.tsx:      <div className="mb-10">
+src/pages/ThumbnailCreator.tsx:        <p className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-2">Creator Lab</p>
+src/pages/ThumbnailCreator.tsx:        <h1 className="text-5xl font-extrabold tracking-tighter text-gray-900 mb-4">AI Thumbnail Creator</h1>
+src/pages/ThumbnailCreator.tsx:        <p className="text-gray-500 text-lg max-w-2xl">Generate high-CTR, click-worthy YouTube thumbnails instantly using Google's Imagen technology.</p>
+src/pages/ThumbnailCreator.tsx:      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+src/pages/ThumbnailCreator.tsx:        <div className="lg:col-span-2 bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8 md:p-12">
+src/pages/ThumbnailCreator.tsx:          <div className="space-y-8">
+src/pages/ThumbnailCreator.tsx:              <label className="block text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">
+src/pages/ThumbnailCreator.tsx:                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none resize-none h-32"
+src/pages/ThumbnailCreator.tsx:              <label className="block text-sm font-bold text-gray-900 uppercase tracking-widest mb-3 flex items-center justify-between">
+src/pages/ThumbnailCreator.tsx:                <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">New</span>
+src/pages/ThumbnailCreator.tsx:                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none"
+src/pages/ThumbnailCreator.tsx:              <p className="text-xs text-gray-500 mt-2 font-medium">Keep it to 2-4 words for the best visual impact. Leave blank for AI to auto-generate catchy text.</p>
+src/pages/ThumbnailCreator.tsx:              <label className="block text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">
+src/pages/ThumbnailCreator.tsx:              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 mb-4">
+src/pages/ThumbnailCreator.tsx:                    className={`p-4 rounded-xl flex flex-col items-center justify-center gap-2 text-center transition-all border-2 ${style === s.name ? 'border-blue-600 bg-blue-50 text-blue-700 font-bold' : 'border-transparent bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
+src/pages/ThumbnailCreator.tsx:                    <span className="material-symbols-outlined text-2xl">{s.icon}</span>
+src/pages/ThumbnailCreator.tsx:                    <span className="text-xs">{s.name}</span>
+src/pages/ThumbnailCreator.tsx:                <div className="animate-in fade-in slide-in-from-top-2">
+src/pages/ThumbnailCreator.tsx:                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none"
+src/pages/ThumbnailCreator.tsx:              className="w-full bg-blue-600 text-white px-8 py-5 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2 text-lg active:scale-[0.98]"
+src/pages/ThumbnailCreator.tsx:                <><span className="material-symbols-outlined animate-spin">progress_activity</span> Generating Thumbnails...</>
+src/pages/ThumbnailCreator.tsx:                <><span className="material-symbols-outlined">auto_awesome</span> Generate Thumbnails ✨</>
+src/pages/ThumbnailCreator.tsx:            {error && <p className="text-red-500 text-sm font-medium mt-2">{error}</p>}
+src/pages/ThumbnailCreator.tsx:        <div className="lg:col-span-1 space-y-6">
+src/pages/ThumbnailCreator.tsx:          <div className="bg-[#f1f3f5] rounded-[2rem] p-8 border border-gray-200/50">
+src/pages/ThumbnailCreator.tsx:            <div className="flex items-center gap-2 mb-6">
+src/pages/ThumbnailCreator.tsx:              <span className="material-symbols-outlined text-red-600">youtube_activity</span>
+src/pages/ThumbnailCreator.tsx:              <h3 className="font-bold text-gray-900 text-lg">Channel Inspiration</h3>
+src/pages/ThumbnailCreator.tsx:            <div className="space-y-4">
+src/pages/ThumbnailCreator.tsx:              <p className="text-sm text-gray-600 font-medium">
+src/pages/ThumbnailCreator.tsx:                className="w-full bg-white border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-medium"
+src/pages/ThumbnailCreator.tsx:                <div className="bg-blue-100 text-blue-800 text-xs p-4 rounded-xl flex items-start gap-2 font-bold animate-in fade-in slide-in-from-top-1">
+src/pages/ThumbnailCreator.tsx:                  <span className="material-symbols-outlined text-base">saved_search</span>
+src/pages/ThumbnailCreator.tsx:              <div className="relative mt-6 pt-6 border-t border-gray-200">
+src/pages/ThumbnailCreator.tsx:                <p className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">Upload Reference</p>
+src/pages/ThumbnailCreator.tsx:                <p className="text-sm text-gray-600 font-medium mb-4">Have an exact thumbnail image you want to copy? Upload it here to strictly guide the aesthetic.</p>
+src/pages/ThumbnailCreator.tsx:                  <div className="relative aspect-video rounded-xl overflow-hidden border-2 border-blue-200 bg-gray-100 mb-2">
+src/pages/ThumbnailCreator.tsx:                    <img src={referenceImage} alt="Reference" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+src/pages/ThumbnailCreator.tsx:                      className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors"
+src/pages/ThumbnailCreator.tsx:                      <span className="material-symbols-outlined text-sm">close</span>
+src/pages/ThumbnailCreator.tsx:                    <div className="absolute bottom-0 left-0 w-full bg-black/60 text-white text-[10px] font-bold py-1 px-3 uppercase tracking-widest text-center truncate">
+src/pages/ThumbnailCreator.tsx:                  <label className="flex flex-col items-center justify-center w-full aspect-[21/9] border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all rounded-xl cursor-pointer">
+src/pages/ThumbnailCreator.tsx:                    <span className="material-symbols-outlined text-gray-400 text-3xl mb-2">add_photo_alternate</span>
+src/pages/ThumbnailCreator.tsx:                    <span className="text-sm font-bold text-gray-500">Upload Reference Image</span>
+src/pages/ThumbnailCreator.tsx:                      className="hidden" 
+src/pages/ThumbnailCreator.tsx:          <div className="bg-blue-50 rounded-[2rem] p-8 border border-blue-100">
+src/pages/ThumbnailCreator.tsx:            <h3 className="font-bold text-blue-900 text-lg mb-4 flex items-center gap-2">
+src/pages/ThumbnailCreator.tsx:              <span className="material-symbols-outlined">lightbulb</span> Pro Tips
+src/pages/ThumbnailCreator.tsx:            <ul className="text-blue-800 text-sm space-y-3 font-medium">
+src/pages/ThumbnailCreator.tsx:        <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+src/pages/ThumbnailCreator.tsx:          <div className="flex items-center justify-between mb-8">
+src/pages/ThumbnailCreator.tsx:            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">Generated Concepts</h2>
+src/pages/ThumbnailCreator.tsx:            <Link to="/content-lab/saved-thumbnails" className="text-blue-600 font-bold hover:underline flex items-center gap-1">
+src/pages/ThumbnailCreator.tsx:              View Saved Thumbnails <span className="material-symbols-outlined text-sm">arrow_forward</span>
+src/pages/ThumbnailCreator.tsx:          <div className="flex justify-center">
+src/pages/ThumbnailCreator.tsx:              <div key={index} className="bg-white rounded-[2rem] p-4 shadow-sm border border-gray-100 group w-full max-w-3xl">
+src/pages/ThumbnailCreator.tsx:                <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
+src/pages/ThumbnailCreator.tsx:                  <img src={thumbnail} alt={`Generated thumbnail ${index + 1}`} className="w-full h-full object-cover" />
+src/pages/ThumbnailCreator.tsx:                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+src/pages/ThumbnailCreator.tsx:                    <a href={thumbnail} download={`thumbnail-concept-${index + 1}.jpg`} className="bg-white text-gray-900 w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg z-10" title="Download">
+src/pages/ThumbnailCreator.tsx:                      <span className="material-symbols-outlined font-bold">download</span>
+src/pages/ThumbnailCreator.tsx:                      className={`w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg z-10 ${savedStatus[index] ? 'bg-blue-600 text-white' : 'bg-white text-gray-900'}`}
+src/pages/ThumbnailCreator.tsx:                      <span className="material-symbols-outlined font-bold">{savedStatus[index] ? 'check' : 'favorite'}</span>
+src/pages/ThumbnailCreator.tsx:                <div className="px-2 pb-2 text-center">
+src/pages/ThumbnailCreator.tsx:                  <h3 className="font-bold text-gray-900 text-2xl">Final Concept</h3>
+src/pages/ThumbnailCreator.tsx:                  <p className="text-sm text-gray-500 uppercase tracking-widest font-bold mt-1 max-w-full truncate">
+src/pages/ThumbnailCreator.tsx:                    <div className="mt-4 p-4 bg-gray-50 rounded-xl text-left border border-gray-100">
+src/pages/ThumbnailCreator.tsx:                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nano Banana 2 Prompt Used:</p>
+src/pages/ThumbnailCreator.tsx:                      <p className="text-sm text-gray-800 font-mono italic break-words">{generatedPrompt}</p>
+src/pages/ThumbnailCreator.tsx:        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+src/pages/ThumbnailCreator.tsx:          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+src/pages/ThumbnailCreator.tsx:            <div className="p-6">
+src/pages/ThumbnailCreator.tsx:              <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
+src/pages/ThumbnailCreator.tsx:                <span className="material-symbols-outlined">warning</span>
+src/pages/ThumbnailCreator.tsx:              <h3 className="text-xl font-bold text-gray-900 mb-2">No Reference Image Provided</h3>
+src/pages/ThumbnailCreator.tsx:              <p className="text-gray-600 text-sm mb-6">
+src/pages/ThumbnailCreator.tsx:              <label className="flex items-center gap-2 mb-6 cursor-pointer group">
+src/pages/ThumbnailCreator.tsx:                <div className="relative flex items-center">
+src/pages/ThumbnailCreator.tsx:                    className="peer w-5 h-5 appearance-none border-2 border-gray-300 rounded cursor-pointer checked:bg-blue-600 checked:border-blue-600 transition-all"
+src/pages/ThumbnailCreator.tsx:                  <span className="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">check</span>
+src/pages/ThumbnailCreator.tsx:                <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">Don't show this tip again</span>
+src/pages/ThumbnailCreator.tsx:              <div className="flex flex-col sm:flex-row gap-3">
+src/pages/ThumbnailCreator.tsx:                  className="flex-1 px-4 py-2.5 rounded-lg font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
+src/pages/ThumbnailCreator.tsx:                  className="flex-1 px-4 py-2.5 rounded-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+src/pages/Auth.tsx:    <div className="relative w-80 h-80 mx-auto mb-8 flex items-center justify-center">
+src/pages/Auth.tsx:              className="absolute top-16 right-20 text-white/60 font-black text-xl"
+src/pages/Auth.tsx:              className="absolute top-12 right-12 text-white/50 font-black text-2xl"
+src/pages/Auth.tsx:            className="absolute top-10 right-14 bg-white text-rose-500 rounded-full px-3 py-1 font-bold text-sm shadow-lg"
+src/pages/Auth.tsx:      <svg width="260" height="260" viewBox="0 0 200 200" className="drop-shadow-2xl z-10 relative">
+src/pages/Auth.tsx:    <div className="min-h-screen bg-white flex font-sans selection:bg-blue-500/30 selection:text-blue-900">
+src/pages/Auth.tsx:      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col items-center justify-center p-12 bg-slate-900">
+src/pages/Auth.tsx:        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(30,58,138,0.2)_0%,_rgba(15,23,42,1)_100%)] z-10 pointer-events-none"></div>
+src/pages/Auth.tsx:        <div className="absolute top-20 left-20 w-1 h-1 bg-white rounded-full opacity-50 animate-ping shadow-[0_0_10px_white]"></div>
+src/pages/Auth.tsx:        <div className="absolute top-40 right-32 w-1.5 h-1.5 bg-blue-200 rounded-full opacity-30 animate-pulse shadow-[0_0_10px_blue]"></div>
+src/pages/Auth.tsx:        <div className="absolute bottom-32 left-1/3 w-1 h-1 bg-white rounded-full opacity-20 animate-pulse"></div>
+src/pages/Auth.tsx:        <div className="relative z-20 w-full max-w-lg flex flex-col items-center">
+src/pages/Auth.tsx:            className="text-center mt-6"
+src/pages/Auth.tsx:            <h2 className="text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
+src/pages/Auth.tsx:              Rest easy, we've got the <span className="text-blue-400">heavy lifting.</span>
+src/pages/Auth.tsx:            <p className="text-lg text-slate-400 font-medium max-w-sm mx-auto leading-relaxed">
+src/pages/Auth.tsx:      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 relative overflow-hidden bg-white">
+src/pages/Auth.tsx:        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none text-transparent">glow</div>
+src/pages/Auth.tsx:        <div className="max-w-md w-full relative z-10">
+src/pages/Auth.tsx:            className="text-left mb-10"
+src/pages/Auth.tsx:            <div className="lg:hidden mb-12">
+src/pages/Auth.tsx:               <div className="w-10 h-10 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-[0_4px_20px_rgba(59,130,246,0.3)]">
+src/pages/Auth.tsx:                  <span className="material-symbols-outlined text-white text-xl">stream</span>
+src/pages/Auth.tsx:            <div className="hidden lg:flex items-center gap-2 text-xl font-black text-slate-900 tracking-tighter mb-12">
+src/pages/Auth.tsx:              <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+src/pages/Auth.tsx:                <span className="material-symbols-outlined text-[18px]">stream</span>
+src/pages/Auth.tsx:            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
+src/pages/Auth.tsx:            <p className="text-slate-500 text-lg font-medium">
+src/pages/Auth.tsx:                className="overflow-hidden"
+src/pages/Auth.tsx:                <div className="p-4 bg-rose-50 text-rose-600 rounded-2xl text-sm font-medium border border-rose-100 flex items-start gap-3">
+src/pages/Auth.tsx:                  <span className="material-symbols-outlined text-rose-500">error</span>
+src/pages/Auth.tsx:                  <p className="mt-0.5 leading-relaxed">{error}</p>
+src/pages/Auth.tsx:          <form onSubmit={handleAuth} className="space-y-5">
+src/pages/Auth.tsx:            <div className="space-y-2 relative group">
+src/pages/Auth.tsx:              <label className="text-xs font-bold uppercase tracking-widest text-slate-500 group-focus-within:text-blue-600 transition-colors ml-1">Email Address</label>
+src/pages/Auth.tsx:              <div className="relative">
+src/pages/Auth.tsx:                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+src/pages/Auth.tsx:                  <span className="material-symbols-outlined text-slate-400 group-focus-within:text-blue-500 transition-colors">mail</span>
+src/pages/Auth.tsx:                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-900 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm outline-none font-medium placeholder:text-slate-400"
+src/pages/Auth.tsx:            <div className="space-y-2 relative group">
+src/pages/Auth.tsx:              <div className="flex justify-between items-center ml-1">
+src/pages/Auth.tsx:                <label className="text-xs font-bold uppercase tracking-widest text-slate-500 group-focus-within:text-blue-600 transition-colors">Password</label>
+src/pages/Auth.tsx:                  <button type="button" className="text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors">Forgot?</button>
+src/pages/Auth.tsx:              <div className="relative">
+src/pages/Auth.tsx:                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+src/pages/Auth.tsx:                  <span className="material-symbols-outlined text-slate-400 group-focus-within:text-blue-500 transition-colors">key</span>
+src/pages/Auth.tsx:                  className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-900 focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all shadow-sm outline-none font-medium placeholder:text-slate-400 tracking-widest"
+src/pages/Auth.tsx:              className="w-full py-4 bg-primary text-white rounded-2xl font-black text-lg shadow-[0_4px_14px_0_rgba(59,130,246,0.39)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.23)] hover:bg-primary-dim disabled:opacity-70 flex items-center justify-center gap-2 mt-8 transition-all"
+src/pages/Auth.tsx:                <span className="material-symbols-outlined animate-spin text-white">refresh</span>
+src/pages/Auth.tsx:                  <span className="material-symbols-outlined text-lg">arrow_forward</span>
+src/pages/Auth.tsx:          <div className="mt-10 pt-8 border-t border-slate-100 text-center text-sm">
+src/pages/Auth.tsx:            <p className="text-slate-500 font-medium">
+src/pages/Auth.tsx:                className="text-blue-600 hover:text-blue-700 font-bold transition-colors ml-1"
+src/pages/Settings.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/Settings.tsx:      <header className="mb-12">
+src/pages/Settings.tsx:        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+src/pages/Settings.tsx:            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-on-surface mb-4">Settings</h1>
+src/pages/Settings.tsx:            <p className="text-on-surface-variant text-lg">Manage your account and preferences.</p>
+src/pages/Settings.tsx:      <div className="flex flex-col md:flex-row gap-12 items-start">
+src/pages/Settings.tsx:        <aside className="w-full md:w-64 shrink-0 space-y-2">
+src/pages/Settings.tsx:              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${
+src/pages/Settings.tsx:              <span className="material-symbols-outlined text-[20px]">{tab.icon}</span>
+src/pages/Settings.tsx:        <div className="flex-1 max-w-3xl">
+src/pages/Settings.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Settings.tsx:              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
+src/pages/Settings.tsx:                <h2 className="text-xl font-bold mb-6">Personal Information</h2>
+src/pages/Settings.tsx:                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+src/pages/Settings.tsx:                  <div className="space-y-2">
+src/pages/Settings.tsx:                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">First Name</label>
+src/pages/Settings.tsx:                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
+src/pages/Settings.tsx:                  <div className="space-y-2">
+src/pages/Settings.tsx:                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Last Name</label>
+src/pages/Settings.tsx:                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all" 
+src/pages/Settings.tsx:                  <div className="space-y-2 md:col-span-2">
+src/pages/Settings.tsx:                    <label className="text-xs font-bold uppercase tracking-widest text-on-surface-variant font-medium">Email Address</label>
+src/pages/Settings.tsx:                      className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface opacity-70 cursor-not-allowed" 
+src/pages/Settings.tsx:                    <p className="text-[10px] text-on-surface-variant mt-1">Email is managed via your authentication provider.</p>
+src/pages/Settings.tsx:                <div className="mt-8 flex items-center justify-end gap-4">
+src/pages/Settings.tsx:                  {saveMessage && <span className="text-sm font-bold text-green-600 animate-in fade-in">{saveMessage}</span>}
+src/pages/Settings.tsx:                    className="bg-primary hover:bg-primary-dim text-white px-6 py-2.5 rounded-lg font-bold transition-all disabled:opacity-70 flex items-center gap-2"
+src/pages/Settings.tsx:                    {isSaving ? <span className="material-symbols-outlined animate-spin text-sm">progress_activity</span> : null}
+src/pages/Settings.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Settings.tsx:              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
+src/pages/Settings.tsx:                <h2 className="text-xl font-bold mb-6">App Preferences</h2>
+src/pages/Settings.tsx:                <div className="space-y-6">
+src/pages/Settings.tsx:                  <div className="flex items-center justify-between">
+src/pages/Settings.tsx:                      <h3 className="font-bold text-on-surface">Dark Mode</h3>
+src/pages/Settings.tsx:                      <p className="text-sm text-on-surface-variant">Toggle dark mode appearance.</p>
+src/pages/Settings.tsx:                    <label className="relative inline-flex items-center cursor-pointer">
+src/pages/Settings.tsx:                      <input type="checkbox" checked={darkMode} onChange={() => handleTogglePreference('darkMode')} className="sr-only peer" />
+src/pages/Settings.tsx:                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+src/pages/Settings.tsx:                  <hr className="border-outline-variant/20" />
+src/pages/Settings.tsx:                  <div className="flex items-center justify-between">
+src/pages/Settings.tsx:                      <h3 className="font-bold text-on-surface">Auto-Save Drafts</h3>
+src/pages/Settings.tsx:                      <p className="text-sm text-on-surface-variant">Automatically save your work in Content Lab.</p>
+src/pages/Settings.tsx:                    <label className="relative inline-flex items-center cursor-pointer">
+src/pages/Settings.tsx:                      <input type="checkbox" checked={autoSave} onChange={() => handleTogglePreference('autoSave')} className="sr-only peer" />
+src/pages/Settings.tsx:                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+src/pages/Settings.tsx:                  <hr className="border-outline-variant/20" />
+src/pages/Settings.tsx:                  <div className="flex items-center justify-between">
+src/pages/Settings.tsx:                      <h3 className="font-bold text-on-surface">Thumbnail Assistant</h3>
+src/pages/Settings.tsx:                      <p className="text-sm text-on-surface-variant">Show tips when generating thumbnails without a reference image.</p>
+src/pages/Settings.tsx:                    <label className="relative inline-flex items-center cursor-pointer">
+src/pages/Settings.tsx:                      <input type="checkbox" checked={showRefImageWarning} onChange={() => handleTogglePreference('showRefImageWarning')} className="sr-only peer" />
+src/pages/Settings.tsx:                      <div className="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+src/pages/Settings.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Settings.tsx:              <section className="bg-surface-container-lowest rounded-2xl p-8 border border-outline-variant/20 shadow-sm">
+src/pages/Settings.tsx:                <h2 className="text-xl font-bold mb-6">Subscription Plan</h2>
+src/pages/Settings.tsx:                <div className="flex items-center justify-between p-6 bg-surface-container-low rounded-xl border border-outline-variant/20 mb-8">
+src/pages/Settings.tsx:                    <h3 className="text-lg font-bold text-on-surface capitalize">
+src/pages/Settings.tsx:                    <p className="text-sm text-on-surface-variant font-medium mt-1">
+src/pages/Settings.tsx:                  <div className="text-right">
+src/pages/Settings.tsx:                    <div className="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">Remaining Credits</div>
+src/pages/Settings.tsx:                    <div className="text-3xl font-black text-primary">
+src/pages/Settings.tsx:            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+src/pages/Settings.tsx:              <section className="bg-surface-container-lowest rounded-2xl p-12 border border-outline-variant/20 shadow-sm text-center">
+src/pages/Settings.tsx:                <span className="material-symbols-outlined text-4xl text-primary/40 mb-4">construction</span>
+src/pages/Settings.tsx:                <h2 className="text-xl font-bold mb-2">Coming Soon</h2>
+src/pages/Settings.tsx:                <p className="text-on-surface-variant">This section is currently under development.</p>
+src/pages/SavedPosts.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/SavedPosts.tsx:      <header className="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+src/pages/SavedPosts.tsx:        <div className="flex items-center gap-4">
+src/pages/SavedPosts.tsx:          <Link to="/content-lab/yt-insta-posts" className="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center hover:bg-surface-container transition-colors">
+src/pages/SavedPosts.tsx:            <span className="material-symbols-outlined">arrow_back</span>
+src/pages/SavedPosts.tsx:            <h1 className="text-4xl font-extrabold tracking-tighter text-on-surface">Saved Posts</h1>
+src/pages/SavedPosts.tsx:            <p className="text-on-surface-variant mt-2">All your generated YouTube and Instagram posts.</p>
+src/pages/SavedPosts.tsx:            className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 font-bold rounded-xl hover:bg-red-100 transition-colors"
+src/pages/SavedPosts.tsx:            <span className="material-symbols-outlined text-sm">delete_sweep</span>
+src/pages/SavedPosts.tsx:        <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[300px]">
+src/pages/SavedPosts.tsx:          <span className="material-symbols-outlined text-4xl text-outline mb-4">edit_document</span>
+src/pages/SavedPosts.tsx:          <p className="text-on-surface-variant font-medium">No saved posts yet.</p>
+src/pages/SavedPosts.tsx:        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+src/pages/SavedPosts.tsx:            <div key={post.id} onClick={() => setSelectedPost(post)} className="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-outline-variant/20 relative group flex flex-col hover:shadow-md transition-all cursor-pointer">
+src/pages/SavedPosts.tsx:              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+src/pages/SavedPosts.tsx:                  className="p-2 bg-surface-container-high text-on-surface rounded-lg hover:bg-surface-container-highest transition-colors"
+src/pages/SavedPosts.tsx:                  <span className="material-symbols-outlined text-sm">
+src/pages/SavedPosts.tsx:                  className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+src/pages/SavedPosts.tsx:                  <span className="material-symbols-outlined text-sm">delete</span>
+src/pages/SavedPosts.tsx:              <div className="flex items-center gap-3 mb-4">
+src/pages/SavedPosts.tsx:                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${post.platform === 'youtube' ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600'}`}>
+src/pages/SavedPosts.tsx:                  <span className="material-symbols-outlined">{post.platform === 'youtube' ? 'smart_display' : 'camera_roll'}</span>
+src/pages/SavedPosts.tsx:                  <p className="font-bold text-sm">{post.platform === 'youtube' ? 'YouTube Community Post' : 'Instagram Caption'}</p>
+src/pages/SavedPosts.tsx:                  <p className="text-xs text-on-surface-variant">{post.date}</p>
+src/pages/SavedPosts.tsx:              <div className="bg-surface-container-low/50 p-4 rounded-xl mb-4 flex-1 overflow-hidden">
+src/pages/SavedPosts.tsx:                <p className="text-on-surface whitespace-pre-line leading-relaxed text-sm line-clamp-6">
+src/pages/SavedPosts.tsx:              <div className="flex flex-wrap gap-2 mb-4">
+src/pages/SavedPosts.tsx:                  <span key={i} className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-md">#{tag}</span>
+src/pages/SavedPosts.tsx:        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4" onClick={() => setSelectedPost(null)}>
+src/pages/SavedPosts.tsx:          <div className="bg-surface-container-lowest rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+src/pages/SavedPosts.tsx:            <div className="flex justify-between items-start mb-6">
+src/pages/SavedPosts.tsx:              <div className="flex items-center gap-3">
+src/pages/SavedPosts.tsx:                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${selectedPost.platform === 'youtube' ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600'}`}>
+src/pages/SavedPosts.tsx:                  <span className="material-symbols-outlined">{selectedPost.platform === 'youtube' ? 'smart_display' : 'camera_roll'}</span>
+src/pages/SavedPosts.tsx:                  <h2 className="text-2xl font-bold">{selectedPost.platform === 'youtube' ? 'YouTube Community Post' : 'Instagram Caption'}</h2>
+src/pages/SavedPosts.tsx:                  <p className="text-sm text-on-surface-variant">{selectedPost.date}</p>
+src/pages/SavedPosts.tsx:              <button onClick={() => setSelectedPost(null)} className="p-2 hover:bg-surface-container rounded-full transition-colors">
+src/pages/SavedPosts.tsx:                <span className="material-symbols-outlined">close</span>
+src/pages/SavedPosts.tsx:            <div className="bg-surface-container-low/50 p-6 rounded-2xl mb-6">
+src/pages/SavedPosts.tsx:              <p className="text-on-surface whitespace-pre-line leading-relaxed text-lg">
+src/pages/SavedPosts.tsx:            <div className="flex flex-wrap gap-2 mb-8">
+src/pages/SavedPosts.tsx:                <span key={i} className="text-sm font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-lg">#{tag}</span>
+src/pages/SavedPosts.tsx:            <div className="flex gap-4">
+src/pages/SavedPosts.tsx:              <button onClick={() => handleCopy(selectedPost.id, selectedPost.content)} className="w-full py-3 bg-surface-container-high text-on-surface rounded-xl font-bold hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2">
+src/pages/SavedPosts.tsx:                <span className="material-symbols-outlined text-sm">{copiedId === selectedPost.id ? 'check' : 'content_copy'}</span>
+src/pages/RecentActivity.tsx:    <div className="max-w-4xl mx-auto p-8 lg:p-12">
+src/pages/RecentActivity.tsx:      <header className="mb-12 flex items-center gap-4">
+src/pages/RecentActivity.tsx:        <Link to="/analytics" className="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center hover:bg-surface-container transition-colors">
+src/pages/RecentActivity.tsx:          <span className="material-symbols-outlined">arrow_back</span>
+src/pages/RecentActivity.tsx:        <h1 className="text-4xl font-extrabold tracking-tighter text-on-surface">All Recent Activity</h1>
+src/pages/RecentActivity.tsx:      <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 overflow-hidden">
+src/pages/RecentActivity.tsx:          <div className="p-8 text-center text-on-surface-variant">No recent activity found.</div>
+src/pages/RecentActivity.tsx:          <table className="w-full text-left border-collapse">
+src/pages/RecentActivity.tsx:              <tr className="border-b border-outline-variant/10 bg-surface-container-lowest">
+src/pages/RecentActivity.tsx:                <th className="p-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Action</th>
+src/pages/RecentActivity.tsx:                <th className="p-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Time</th>
+src/pages/RecentActivity.tsx:                <tr key={i} className="border-b border-outline-variant/5 hover:bg-surface-container-lowest/50 transition-colors">
+src/pages/RecentActivity.tsx:                  <td className="p-4 font-medium text-on-surface">{activity.action}</td>
+src/pages/RecentActivity.tsx:                  <td className="p-4 text-on-surface-variant">{activity.time}</td>
+src/pages/YTAndInstaPostsCreator.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/YTAndInstaPostsCreator.tsx:      <header className="mb-12">
+src/pages/YTAndInstaPostsCreator.tsx:        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">
+src/pages/YTAndInstaPostsCreator.tsx:          <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+src/pages/YTAndInstaPostsCreator.tsx:          <span className="text-primary">YT & Insta Posts Creator</span>
+src/pages/YTAndInstaPostsCreator.tsx:        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface">Social Post Studio</h1>
+src/pages/YTAndInstaPostsCreator.tsx:        <p className="text-on-surface-variant max-w-2xl text-lg leading-relaxed mt-4">
+src/pages/YTAndInstaPostsCreator.tsx:      <div className="grid grid-cols-12 gap-8 items-start mb-16">
+src/pages/YTAndInstaPostsCreator.tsx:        <section className="col-span-12 lg:col-span-5 xl:col-span-4 space-y-6">
+src/pages/YTAndInstaPostsCreator.tsx:          <div className="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-outline-variant/10">
+src/pages/YTAndInstaPostsCreator.tsx:            <div className="flex items-center justify-between mb-4">
+src/pages/YTAndInstaPostsCreator.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Source Material (Text, Link, or Doc)</label>
+src/pages/YTAndInstaPostsCreator.tsx:              <label className="cursor-pointer text-primary hover:text-primary-dim flex items-center gap-1 text-xs font-bold transition-colors">
+src/pages/YTAndInstaPostsCreator.tsx:                <span className="material-symbols-outlined text-sm">upload_file</span>
+src/pages/YTAndInstaPostsCreator.tsx:                  className="hidden" 
+src/pages/YTAndInstaPostsCreator.tsx:              className="w-full h-32 bg-surface-container-low border-0 rounded-lg p-5 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary transition-all resize-none font-body leading-relaxed mb-4" 
+src/pages/YTAndInstaPostsCreator.tsx:            <div className="space-y-4">
+src/pages/YTAndInstaPostsCreator.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Target Platform</label>
+src/pages/YTAndInstaPostsCreator.tsx:              <div className="grid grid-cols-2 gap-3">
+src/pages/YTAndInstaPostsCreator.tsx:                  className={`flex items-center justify-center gap-2 p-3 rounded-lg font-bold transition-all ${targetPlatform === 'youtube' ? 'border-2 border-primary bg-primary/5 text-primary' : 'border border-outline-variant/20 text-on-surface-variant hover:bg-surface-container'}`}
+src/pages/YTAndInstaPostsCreator.tsx:                  <span className="material-symbols-outlined">smart_display</span>
+src/pages/YTAndInstaPostsCreator.tsx:                  className={`flex items-center justify-center gap-2 p-3 rounded-lg font-bold transition-all ${targetPlatform === 'instagram' ? 'border-2 border-primary bg-primary/5 text-primary' : 'border border-outline-variant/20 text-on-surface-variant hover:bg-surface-container'}`}
+src/pages/YTAndInstaPostsCreator.tsx:                  <span className="material-symbols-outlined">camera_roll</span>
+src/pages/YTAndInstaPostsCreator.tsx:                <div className="mt-2 p-3 bg-green-50 text-green-800 rounded-lg text-xs font-medium flex items-start gap-2">
+src/pages/YTAndInstaPostsCreator.tsx:                  <span className="material-symbols-outlined text-sm">check_circle</span>
+src/pages/YTAndInstaPostsCreator.tsx:            <div className="mt-8 space-y-4">
+src/pages/YTAndInstaPostsCreator.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Tone of Voice</label>
+src/pages/YTAndInstaPostsCreator.tsx:                className="w-full bg-surface-container-low border-0 rounded-lg p-4 text-on-surface focus:ring-2 focus:ring-primary transition-all font-medium"
+src/pages/YTAndInstaPostsCreator.tsx:                  className="w-full bg-surface-container-low border-0 rounded-lg p-4 text-on-surface focus:ring-2 focus:ring-primary transition-all font-medium mt-2"
+src/pages/YTAndInstaPostsCreator.tsx:            <div className="mt-10">
+src/pages/YTAndInstaPostsCreator.tsx:                className="w-full py-5 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-lg font-bold text-lg hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:scale-100"
+src/pages/YTAndInstaPostsCreator.tsx:                    <span className="material-symbols-outlined animate-spin">progress_activity</span>
+src/pages/YTAndInstaPostsCreator.tsx:                    <span className="material-symbols-outlined">auto_awesome</span>
+src/pages/YTAndInstaPostsCreator.tsx:        <section className="col-span-12 lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+src/pages/YTAndInstaPostsCreator.tsx:          <div className="flex items-center justify-between px-2">
+src/pages/YTAndInstaPostsCreator.tsx:            <h3 className="text-xl font-bold">Generated Variations</h3>
+src/pages/YTAndInstaPostsCreator.tsx:              <div className="flex gap-3">
+src/pages/YTAndInstaPostsCreator.tsx:                  className="px-4 py-2 rounded-full bg-surface-container-lowest border border-outline-variant/10 text-on-surface font-bold text-sm flex items-center gap-2 hover:bg-surface-container-low transition-colors"
+src/pages/YTAndInstaPostsCreator.tsx:                  <span className="material-symbols-outlined text-sm">{copiedAll ? 'check' : 'content_copy'}</span>
+src/pages/YTAndInstaPostsCreator.tsx:            <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[300px]">
+src/pages/YTAndInstaPostsCreator.tsx:              <span className="material-symbols-outlined text-4xl text-outline mb-4">edit_document</span>
+src/pages/YTAndInstaPostsCreator.tsx:              <p className="text-on-surface-variant font-medium">Enter your source material and click generate to create posts.</p>
+src/pages/YTAndInstaPostsCreator.tsx:            <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group">
+src/pages/YTAndInstaPostsCreator.tsx:              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+src/pages/YTAndInstaPostsCreator.tsx:                  className="p-2 bg-surface-container-low rounded-lg text-on-surface-variant hover:text-primary transition-colors"
+src/pages/YTAndInstaPostsCreator.tsx:                  <span className="material-symbols-outlined text-sm">{copiedIndex === index ? 'check' : 'content_copy'}</span>
+src/pages/YTAndInstaPostsCreator.tsx:              <div className="flex items-center gap-3 mb-4">
+src/pages/YTAndInstaPostsCreator.tsx:                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${targetPlatform === 'youtube' ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600'}`}>
+src/pages/YTAndInstaPostsCreator.tsx:                  <span className="material-symbols-outlined">{targetPlatform === 'youtube' ? 'smart_display' : 'camera_roll'}</span>
+src/pages/YTAndInstaPostsCreator.tsx:                  <p className="font-bold text-sm">{targetPlatform === 'youtube' ? 'YouTube Community Post' : 'Instagram Caption'}</p>
+src/pages/YTAndInstaPostsCreator.tsx:                  <p className="text-xs text-on-surface-variant">{post.title}</p>
+src/pages/YTAndInstaPostsCreator.tsx:              <p className="text-on-surface whitespace-pre-line leading-relaxed">
+src/pages/YTAndInstaPostsCreator.tsx:              <div className="mt-4 flex flex-wrap gap-2">
+src/pages/YTAndInstaPostsCreator.tsx:                  <span key={i} className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-md">#{tag}</span>
+src/pages/YTAndInstaPostsCreator.tsx:      <div className="mt-16 border-t border-outline-variant/10 pt-12">
+src/pages/YTAndInstaPostsCreator.tsx:        <div className="flex items-center justify-between mb-8">
+src/pages/YTAndInstaPostsCreator.tsx:          <h2 className="text-2xl font-bold">Recent Saved Posts</h2>
+src/pages/YTAndInstaPostsCreator.tsx:          <Link to="/saved-posts" className="text-sm font-bold text-primary hover:underline">See All Saved</Link>
+src/pages/YTAndInstaPostsCreator.tsx:          <div className="text-center text-on-surface-variant py-8">No saved posts yet.</div>
+src/pages/YTAndInstaPostsCreator.tsx:          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+src/pages/YTAndInstaPostsCreator.tsx:              <div key={post.id} className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group flex flex-col">
+src/pages/YTAndInstaPostsCreator.tsx:                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+src/pages/YTAndInstaPostsCreator.tsx:                    className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+src/pages/YTAndInstaPostsCreator.tsx:                    <span className="material-symbols-outlined text-sm">delete</span>
+src/pages/YTAndInstaPostsCreator.tsx:                <div className="flex items-center gap-3 mb-4">
+src/pages/YTAndInstaPostsCreator.tsx:                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${post.platform === 'youtube' ? 'bg-red-100 text-red-600' : 'bg-pink-100 text-pink-600'}`}>
+src/pages/YTAndInstaPostsCreator.tsx:                    <span className="material-symbols-outlined">{post.platform === 'youtube' ? 'smart_display' : 'camera_roll'}</span>
+src/pages/YTAndInstaPostsCreator.tsx:                    <p className="font-bold text-sm">{post.platform === 'youtube' ? 'YouTube Community Post' : 'Instagram Caption'}</p>
+src/pages/YTAndInstaPostsCreator.tsx:                    <p className="text-xs text-on-surface-variant">{post.date}</p>
+src/pages/YTAndInstaPostsCreator.tsx:                <p className="text-on-surface whitespace-pre-line leading-relaxed flex-1 line-clamp-4">
+src/pages/YTAndInstaPostsCreator.tsx:                <div className="mt-4 flex flex-wrap gap-2">
+src/pages/YTAndInstaPostsCreator.tsx:                    <span key={i} className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-md">#{tag}</span>
+src/pages/YTAndInstaPostsCreator.tsx:                  {post.tags.length > 3 && <span className="text-xs font-medium text-on-surface-variant bg-surface-container px-2 py-1 rounded-md">+{post.tags.length - 3}</span>}
+src/pages/LinkedInCarousels.tsx:        className={`snap-center shrink-0 w-[450px] aspect-[4/5] shadow-2xl rounded-xl relative overflow-hidden ${background} ${font}`}
+src/pages/LinkedInCarousels.tsx:        <div className={`absolute top-6 right-6 text-7xl font-black select-none pointer-events-none opacity-10 z-0 ${text}`}>
+src/pages/LinkedInCarousels.tsx:        <div className="relative h-full px-10 pt-12 pb-24 flex flex-col z-10 overflow-hidden">
+src/pages/LinkedInCarousels.tsx:          <div className="my-auto flex flex-col w-full h-fit">
+src/pages/LinkedInCarousels.tsx:            {slide.type === 'hook' && <div className={`w-12 h-1 mb-6 ${accentBg} shrink-0`}></div>}
+src/pages/LinkedInCarousels.tsx:            {slide.type !== 'hook' && <p className={`${accent} text-xs font-bold uppercase tracking-[0.2em] mb-4 shrink-0`}>{slide.type}</p>}
+src/pages/LinkedInCarousels.tsx:            <h2 className={`text-2xl lg:text-3xl font-black tracking-tighter leading-[1.2] mb-4 shrink-0 ${text}`}>
+src/pages/LinkedInCarousels.tsx:              <div className="mb-4 rounded-xl overflow-hidden flex-shrink-0 w-full h-[160px] relative mt-2 group">
+src/pages/LinkedInCarousels.tsx:                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10 pointer-events-none mix-blend-overlay"></div>
+src/pages/LinkedInCarousels.tsx:                <img src={slide.imageUrl} alt="Slide Visual" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 shadow-2xl ring-1 ring-black/10" />
+src/pages/LinkedInCarousels.tsx:              <p className={`text-lg leading-relaxed shrink-0 ${subtext}`}>
+src/pages/LinkedInCarousels.tsx:              <p className={`text-sm md:text-base leading-snug shrink-0 ${subtext}`}>
+src/pages/LinkedInCarousels.tsx:              <div className={`space-y-3 mt-3 shrink-0 ${slide.imageUrl ? 'text-xs' : ''}`}>
+src/pages/LinkedInCarousels.tsx:                  <div key={i} className={`flex items-start gap-2 ${subtext}`}>
+src/pages/LinkedInCarousels.tsx:                    <span className={`material-symbols-outlined ${accent} ${slide.imageUrl ? 'text-sm mt-0' : 'mt-0.5'}`} style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+src/pages/LinkedInCarousels.tsx:                    <span className={slide.imageUrl ? 'text-xs leading-tight' : 'text-sm md:text-base line-clamp-2'}>{point}</span>
+src/pages/LinkedInCarousels.tsx:          <div className="absolute bottom-8 left-10 flex items-center gap-4 z-20">
+src/pages/LinkedInCarousels.tsx:            <div className="w-12 h-12 rounded-full bg-black/10 overflow-hidden border-2 border-white/20 shadow-sm flex items-center justify-center shrink-0">
+src/pages/LinkedInCarousels.tsx:              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" alt="Avatar" className="w-full h-full object-cover" />
+src/pages/LinkedInCarousels.tsx:            <div className="max-w-[200px]">
+src/pages/LinkedInCarousels.tsx:              <p className={`font-bold text-sm truncate ${text}`}>{creatorName}</p>
+src/pages/LinkedInCarousels.tsx:              <p className={`text-xs truncate ${subtext}`}>{creatorHandle}</p>
+src/pages/LinkedInCarousels.tsx:          <div className="absolute bottom-6 left-10 flex items-center gap-3 opacity-90 z-20 backdrop-blur-sm px-2 py-1 -ml-2 rounded-lg">
+src/pages/LinkedInCarousels.tsx:            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnD-eDeaQtm5TCuJeN5MI4wp-WNoGEWVe4JWtVgNdNgr6CnDqzr9w9r4Ar6AQnGo1dww_u5_Ih0BQh8WkawS9fxAUpNRUdkCyaK5oHTBaGh2rMeqIaxwVZtru9r5LXIecLV-Qi5fJVemZnYOK0k2U-GfRURfH2iMBI5as6vBdfCnx_Z_mrFYaO8tfWaoG8vuuusOyaAl9InIaktHOybgkC-EN_VAj5v14Y4miWHkbfBzdfx6pDx-LzbNvaUCDmdjNL1-sUY27hdXm-" alt="Avatar" className="w-6 h-6 rounded-full object-cover shrink-0" />
+src/pages/LinkedInCarousels.tsx:            <p className={`text-xs font-bold truncate max-w-[250px] ${subtext}`}>{creatorHandle}</p>
+src/pages/LinkedInCarousels.tsx:    <div className="max-w-[1600px] mx-auto p-8 lg:p-12">
+src/pages/LinkedInCarousels.tsx:      <header className="mb-12">
+src/pages/LinkedInCarousels.tsx:        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">
+src/pages/LinkedInCarousels.tsx:          <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+src/pages/LinkedInCarousels.tsx:          <span className="text-primary">LinkedIn Carousel Creator</span>
+src/pages/LinkedInCarousels.tsx:        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface mb-4">New Carousel Studio</h1>
+src/pages/LinkedInCarousels.tsx:        <p className="text-on-surface-variant text-lg max-w-2xl">Powered by the Nano Banana Dynamic Engine. Every generation analyzes the full video context and creates a completely unique visual theme.</p>
+src/pages/LinkedInCarousels.tsx:      <div className="grid grid-cols-12 gap-8 items-start">
+src/pages/LinkedInCarousels.tsx:        <section className="col-span-12 lg:col-span-5 xl:col-span-4 space-y-6">
+src/pages/LinkedInCarousels.tsx:          <div className="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-outline-variant/10">
+src/pages/LinkedInCarousels.tsx:            <div className="flex items-center justify-between mb-4">
+src/pages/LinkedInCarousels.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Topic & Narrative (Text, Link, or Doc)</label>
+src/pages/LinkedInCarousels.tsx:              <label className="cursor-pointer text-primary hover:text-primary-dim flex items-center gap-1 text-xs font-bold transition-colors">
+src/pages/LinkedInCarousels.tsx:                <span className="material-symbols-outlined text-sm">upload_file</span>
+src/pages/LinkedInCarousels.tsx:                  className="hidden" 
+src/pages/LinkedInCarousels.tsx:              className="w-full h-40 bg-surface-container-low border-0 rounded-lg p-5 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary transition-all resize-none font-body leading-relaxed" 
+src/pages/LinkedInCarousels.tsx:              <div className="mt-4 p-3 bg-green-50 text-green-800 rounded-lg text-xs font-medium flex items-start gap-2">
+src/pages/LinkedInCarousels.tsx:                <span className="material-symbols-outlined text-sm">check_circle</span>
+src/pages/LinkedInCarousels.tsx:            <div className="mt-6 space-y-4">
+src/pages/LinkedInCarousels.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Custom Instructions</label>
+src/pages/LinkedInCarousels.tsx:                className="w-full bg-surface-container-low border-0 rounded-lg p-4 text-on-surface focus:ring-2 focus:ring-primary transition-all font-medium"
+src/pages/LinkedInCarousels.tsx:            <div className="mt-6 space-y-4">
+src/pages/LinkedInCarousels.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Number of Slides: {slideCount}</label>
+src/pages/LinkedInCarousels.tsx:                className="w-full accent-primary"
+src/pages/LinkedInCarousels.tsx:              <div className="flex justify-between text-xs text-on-surface-variant font-medium">
+src/pages/LinkedInCarousels.tsx:            <div className="mt-8 space-y-4">
+src/pages/LinkedInCarousels.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Personal Branding</label>
+src/pages/LinkedInCarousels.tsx:              <div className="grid grid-cols-2 gap-3">
+src/pages/LinkedInCarousels.tsx:                  className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all text-sm"
+src/pages/LinkedInCarousels.tsx:                  className="w-full bg-surface-container-low border-0 rounded-lg p-3 text-on-surface focus:ring-2 focus:ring-primary transition-all text-sm"
+src/pages/LinkedInCarousels.tsx:            <div className="mt-8 space-y-4">
+src/pages/LinkedInCarousels.tsx:              <label className="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Visual Theme</label>
+src/pages/LinkedInCarousels.tsx:              <div className="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/20">
+src/pages/LinkedInCarousels.tsx:                <span className="material-symbols-outlined text-primary">shuffle</span>
+src/pages/LinkedInCarousels.tsx:                <span className="text-sm font-bold text-on-surface">Auto-Randomized (Nano Banana Engine)</span>
+src/pages/LinkedInCarousels.tsx:              <p className="text-xs text-on-surface-variant">A unique, high-converting design is generated every time.</p>
+src/pages/LinkedInCarousels.tsx:            <div className="mt-10">
+src/pages/LinkedInCarousels.tsx:                className="w-full py-5 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-lg font-bold text-lg hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-3 disabled:opacity-70 disabled:hover:scale-100"
+src/pages/LinkedInCarousels.tsx:                    <span className="material-symbols-outlined animate-spin">progress_activity</span>
+src/pages/LinkedInCarousels.tsx:                    <span className="material-symbols-outlined">auto_awesome</span>
+src/pages/LinkedInCarousels.tsx:          <div className="bg-surface-container-high/50 rounded-xl p-6 border border-outline-variant/10">
+src/pages/LinkedInCarousels.tsx:            <div className="flex items-center gap-3 mb-4">
+src/pages/LinkedInCarousels.tsx:              <span className="material-symbols-outlined text-primary">tips_and_updates</span>
+src/pages/LinkedInCarousels.tsx:              <h4 className="font-bold text-on-surface">Pro Tip</h4>
+src/pages/LinkedInCarousels.tsx:            <p className="text-sm text-on-surface-variant leading-relaxed">
+src/pages/LinkedInCarousels.tsx:        <section className="col-span-12 lg:col-span-7 xl:col-span-8 flex flex-col gap-8">
+src/pages/LinkedInCarousels.tsx:          <div className="flex items-center justify-between px-4">
+src/pages/LinkedInCarousels.tsx:            <div className="flex gap-4">
+src/pages/LinkedInCarousels.tsx:                className="w-10 h-10 rounded-full border border-outline-variant/20 flex items-center justify-center hover:bg-surface-container-lowest transition-all disabled:opacity-50"
+src/pages/LinkedInCarousels.tsx:                <span className="material-symbols-outlined">west</span>
+src/pages/LinkedInCarousels.tsx:                className="w-10 h-10 rounded-full border border-outline-variant/20 flex items-center justify-center hover:bg-surface-container-lowest transition-all disabled:opacity-50"
+src/pages/LinkedInCarousels.tsx:                <span className="material-symbols-outlined">east</span>
+src/pages/LinkedInCarousels.tsx:            <div className="flex gap-3">
+src/pages/LinkedInCarousels.tsx:                className="px-6 py-2 rounded-full bg-surface-container-lowest border border-outline-variant/10 text-on-surface font-bold text-sm flex items-center gap-2 hover:bg-surface-container-low transition-colors disabled:opacity-70"
+src/pages/LinkedInCarousels.tsx:                {isExporting ? <span className="material-symbols-outlined text-sm animate-spin">progress_activity</span> : <span className="material-symbols-outlined text-sm">imagesmode</span>}
+src/pages/LinkedInCarousels.tsx:                className="px-6 py-2 rounded-full bg-primary text-on-primary font-bold text-sm flex items-center gap-2 hover:bg-primary-dim transition-colors disabled:opacity-70"
+src/pages/LinkedInCarousels.tsx:                {isPosting ? <span className="material-symbols-outlined text-sm animate-spin">progress_activity</span> : <span className="material-symbols-outlined text-sm">send</span>}
+src/pages/LinkedInCarousels.tsx:            <div className="bg-surface-container-lowest rounded-xl p-12 border border-outline-variant/10 text-center flex flex-col items-center justify-center min-h-[450px]">
+src/pages/LinkedInCarousels.tsx:              <span className="material-symbols-outlined text-4xl text-outline mb-4">view_carousel</span>
+src/pages/LinkedInCarousels.tsx:              <p className="text-on-surface-variant font-medium">Enter your topic or paste a YouTube link and click generate to create a carousel.</p>
+src/pages/LinkedInCarousels.tsx:              <div className="slide-preview-container flex gap-8 overflow-x-auto pb-8 snap-x px-4 scroll-smooth">
+src/pages/LinkedInCarousels.tsx:              <div className="bg-surface-container-lowest rounded-xl p-4 flex items-center gap-4 shadow-sm">
+src/pages/LinkedInCarousels.tsx:                <div className="flex gap-2 p-1 overflow-x-auto">
+src/pages/LinkedInCarousels.tsx:                      className={`w-12 h-16 rounded flex-shrink-0 cursor-pointer transition-all ${activeSlide === index ? 'border-2 border-primary scale-110' : 'border border-outline-variant/20 opacity-50 hover:opacity-100'} ${currentTheme.background}`}
+src/pages/LinkedInCarousels.tsx:                <div className="h-8 w-[1px] bg-outline-variant/20 mx-2"></div>
+src/pages/LinkedInCarousels.tsx:                <div className="flex-1 flex items-center justify-between">
+src/pages/LinkedInCarousels.tsx:                  <span className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">{activeSlide + 1} / {slides.length} slides</span>
+src/pages/LinkedInCarousels.tsx:                  <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full">Theme: {currentTheme.id}</span>
+src/pages/LinkedInCarousels.tsx:      <div className="mt-16 border-t border-outline-variant/10 pt-12">
+src/pages/LinkedInCarousels.tsx:        <div className="flex items-center justify-between mb-8">
+src/pages/LinkedInCarousels.tsx:          <h2 className="text-2xl font-bold">Recent Saved Carousels</h2>
+src/pages/LinkedInCarousels.tsx:          <Link to="/saved-carousels" className="text-sm font-bold text-primary hover:underline">See All Saved</Link>
+src/pages/LinkedInCarousels.tsx:          <div className="text-center text-on-surface-variant py-8">No saved carousels yet.</div>
+src/pages/LinkedInCarousels.tsx:          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+src/pages/LinkedInCarousels.tsx:              <div key={carousel.id} className="bg-white rounded-xl p-6 shadow-sm border border-outline-variant/10 relative group flex flex-col">
+src/pages/LinkedInCarousels.tsx:                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+src/pages/LinkedInCarousels.tsx:                    className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors"
+src/pages/LinkedInCarousels.tsx:                    <span className="material-symbols-outlined text-sm">delete</span>
+src/pages/LinkedInCarousels.tsx:                <div className="flex items-center gap-3 mb-4">
+src/pages/LinkedInCarousels.tsx:                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-blue-100 text-blue-600">
+src/pages/LinkedInCarousels.tsx:                    <span className="material-symbols-outlined">view_carousel</span>
+src/pages/LinkedInCarousels.tsx:                    <p className="font-bold text-sm">LinkedIn Carousel</p>
+src/pages/LinkedInCarousels.tsx:                    <p className="text-xs text-on-surface-variant">{carousel.date}</p>
+src/pages/LinkedInCarousels.tsx:                <h3 className="font-bold text-lg mb-2 line-clamp-2">{carousel.topic}</h3>
+src/pages/LinkedInCarousels.tsx:                <p className="text-on-surface-variant text-sm mb-4">{carousel.slides.length} slides</p>
+src/pages/LinkedInCarousels.tsx:                <div className="flex gap-2 mt-auto overflow-hidden">
+src/pages/LinkedInCarousels.tsx:                    <div key={i} className={`w-8 h-10 rounded border border-outline-variant/20 flex-shrink-0 flex items-center justify-center ${carousel.theme?.background || 'bg-surface-container-low'}`} style={{ backgroundImage: carousel.theme?.pattern }}>
+src/pages/LinkedInCarousels.tsx:                      <span className={`text-[8px] font-bold ${carousel.theme?.text || 'text-on-surface'}`}>{i+1}</span>
+src/pages/LinkedInCarousels.tsx:                    <div className="w-8 h-10 bg-surface-container rounded border border-outline-variant/20 flex items-center justify-center text-[10px] font-bold text-on-surface-variant flex-shrink-0">
+src/pages/Upgrade.tsx:    <div className="max-w-6xl mx-auto p-8 lg:p-12 relative">
+src/pages/Upgrade.tsx:        <div className="mb-8 p-4 bg-green-500/20 border border-green-500/50 rounded-xl text-green-700 dark:text-green-400 font-bold text-center flex items-center justify-center gap-2 animate-in fade-in slide-in-from-top-4">
+src/pages/Upgrade.tsx:          <span className="material-symbols-outlined">check_circle</span>
+src/pages/Upgrade.tsx:      <header className="text-center mb-16">
+src/pages/Upgrade.tsx:        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface mb-4">Upgrade Your Flow</h1>
+src/pages/Upgrade.tsx:        <p className="text-on-surface-variant text-xl max-w-2xl mx-auto">Choose the perfect plan to scale your content creation.</p>
+src/pages/Upgrade.tsx:      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+src/pages/Upgrade.tsx:        <div className="bg-surface-container-lowest rounded-[2rem] p-8 border border-outline-variant/20 flex flex-col">
+src/pages/Upgrade.tsx:          <h2 className="text-2xl font-bold mb-2">Starter Plan</h2>
+src/pages/Upgrade.tsx:          <p className="text-on-surface-variant mb-6">Perfect for getting started.</p>
+src/pages/Upgrade.tsx:          <div className="text-5xl font-black mb-8">$0<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
+src/pages/Upgrade.tsx:          <div className="bg-surface-container-low p-4 rounded-xl mb-8 flex items-center justify-between border border-outline-variant/20">
+src/pages/Upgrade.tsx:            <span className="text-sm font-bold text-on-surface-variant">Credits:</span>
+src/pages/Upgrade.tsx:            <span className="text-sm font-black text-on-surface">
+src/pages/Upgrade.tsx:          <ul className="space-y-4 mb-8 flex-1">
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 80 Free Credits</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 30 Credits per Video to Reel</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 10 Credits per other features</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Access to ALL Features</li>
+src/pages/Upgrade.tsx:            <button className="w-full py-4 rounded-xl font-bold bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors">Current Plan</button>
+src/pages/Upgrade.tsx:            <button disabled className="w-full py-4 rounded-xl font-bold bg-surface-container-lowest text-on-surface-variant border border-outline-variant/20 transition-colors opacity-50 cursor-not-allowed">Included</button>
+src/pages/Upgrade.tsx:        <div className="bg-zinc-900 text-white rounded-[2rem] p-8 border border-zinc-800 flex flex-col relative transform md:-translate-y-4 shadow-2xl">
+src/pages/Upgrade.tsx:          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Most Popular</div>
+src/pages/Upgrade.tsx:          <h2 className="text-2xl font-bold mb-2">Pro Plan</h2>
+src/pages/Upgrade.tsx:          <p className="text-zinc-400 mb-6">Unlock full access to AI social media generation.</p>
+src/pages/Upgrade.tsx:          <div className="text-5xl font-black mb-8">$19<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
+src/pages/Upgrade.tsx:          <ul className="space-y-4 mb-8 flex-1">
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white">500 Credits</strong> per month</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> High-fidelity Video to Reels</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
+src/pages/Upgrade.tsx:            <button className="w-full py-4 rounded-xl font-bold bg-surface-container text-on-surface transition-colors cursor-default text-center flex items-center justify-center gap-2">
+src/pages/Upgrade.tsx:              <span className="material-symbols-outlined text-[20px] text-green-400">check_circle</span>
+src/pages/Upgrade.tsx:              className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+src/pages/Upgrade.tsx:              <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
+src/pages/Upgrade.tsx:        <div className="bg-gradient-to-br from-primary/10 to-transparent rounded-[2rem] p-8 border border-primary/20 flex flex-col relative overflow-hidden">
+src/pages/Upgrade.tsx:          <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+src/pages/Upgrade.tsx:            <span className="material-symbols-outlined text-9xl text-primary">all_inclusive</span>
+src/pages/Upgrade.tsx:          <h2 className="text-2xl font-bold mb-2 relative z-10">Infinity</h2>
+src/pages/Upgrade.tsx:          <p className="text-on-surface-variant mb-6 relative z-10">For agencies and power users.</p>
+src/pages/Upgrade.tsx:          <div className="text-5xl font-black mb-8 relative z-10">$50<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
+src/pages/Upgrade.tsx:          <ul className="space-y-4 mb-8 flex-1 relative z-10">
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> <strong className="text-primary">Infinite Generations</strong></li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Premium AI Models</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Unlimited Profiles</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> API Access</li>
+src/pages/Upgrade.tsx:            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Dedicated Account Manager</li>
+src/pages/Upgrade.tsx:            <button className="w-full py-4 rounded-xl font-bold bg-surface-container text-on-surface transition-colors cursor-default text-center flex items-center justify-center gap-2 relative z-10">
+src/pages/Upgrade.tsx:              <span className="material-symbols-outlined text-[20px] text-primary">check_circle</span>
+src/pages/Upgrade.tsx:              className="w-full py-4 rounded-xl font-bold bg-zinc-900 text-white hover:bg-black transition-colors relative z-10 text-center block"
+src/pages/Analytics.tsx:    <div className="max-w-7xl mx-auto px-6 lg:px-10 relative">
+src/pages/Analytics.tsx:      <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+src/pages/Analytics.tsx:          <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2 block">Performance Overview</span>
+src/pages/Analytics.tsx:          <h1 className="text-4xl md:text-5xl font-extrabold text-zinc-900 tracking-tighter">Analytics Lab</h1>
+src/pages/Analytics.tsx:      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+src/pages/Analytics.tsx:        <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_rgba(0,0,0,0.02)] border border-zinc-100 flex flex-col justify-between min-h-[200px] group hover:border-primary/20 transition-all">
+src/pages/Analytics.tsx:            <div className="flex justify-between items-start mb-4">
+src/pages/Analytics.tsx:              <span className="text-zinc-500 font-medium">Total Generations</span>
+src/pages/Analytics.tsx:              <div className="p-2 bg-primary/5 rounded-lg">
+src/pages/Analytics.tsx:                <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>trending_up</span>
+src/pages/Analytics.tsx:            <div className="text-5xl font-black tracking-tighter text-zinc-900">{analytics.totalGenerations}</div>
+src/pages/Analytics.tsx:          <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-emerald-600">
+src/pages/Analytics.tsx:            <span className="material-symbols-outlined text-sm">north</span>
+src/pages/Analytics.tsx:        <div className="bg-zinc-900 p-8 rounded-xl shadow-xl flex flex-col justify-between min-h-[200px] text-white">
+src/pages/Analytics.tsx:            <div className="flex justify-between items-start mb-4">
+src/pages/Analytics.tsx:              <span className="text-zinc-400 font-medium">Videos Processed</span>
+src/pages/Analytics.tsx:              <div className="p-2 bg-white/10 rounded-lg">
+src/pages/Analytics.tsx:                <span className="material-symbols-outlined text-white" style={{ fontVariationSettings: "'FILL' 1" }}>movie</span>
+src/pages/Analytics.tsx:            <div className="text-5xl font-black tracking-tighter">{analytics.videosProcessed}</div>
+src/pages/Analytics.tsx:          <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-zinc-400">
+src/pages/Analytics.tsx:            <span className="material-symbols-outlined text-sm">remove</span>
+src/pages/Analytics.tsx:        <div className="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_24px_48px_rgba(0,0,0,0.02)] border border-zinc-100 flex flex-col justify-between min-h-[200px] group hover:border-primary/20 transition-all">
+src/pages/Analytics.tsx:            <div className="flex justify-between items-start mb-4">
+src/pages/Analytics.tsx:              <span className="text-zinc-500 font-medium">Platforms Connected</span>
+src/pages/Analytics.tsx:              <div className="p-2 bg-primary/5 rounded-lg">
+src/pages/Analytics.tsx:                <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>hub</span>
+src/pages/Analytics.tsx:            <div className="text-5xl font-black tracking-tighter text-zinc-900">{analytics.platformsConnected}</div>
+src/pages/Analytics.tsx:          <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-emerald-600">
+src/pages/Analytics.tsx:            <span className="material-symbols-outlined text-sm">north</span>
+src/pages/Analytics.tsx:      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+src/pages/Analytics.tsx:        <div className="lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 border border-zinc-100 shadow-[0px_24px_48px_rgba(0,0,0,0.02)]">
+src/pages/Analytics.tsx:          <div className="flex justify-between items-center mb-8">
+src/pages/Analytics.tsx:            <h3 className="text-xl font-extrabold tracking-tight">Activity Over Time</h3>
+src/pages/Analytics.tsx:          <div className="h-[300px] w-full">
+src/pages/Analytics.tsx:                      className="transition-all duration-300"
+src/pages/Analytics.tsx:        <div className="lg:col-span-4 bg-white rounded-xl p-8 border border-zinc-100 shadow-sm flex flex-col">
+src/pages/Analytics.tsx:          <h3 className="text-xl font-extrabold tracking-tight mb-8">Content Generation</h3>
+src/pages/Analytics.tsx:          <div className="space-y-6 flex-1 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+src/pages/Analytics.tsx:                <div key={idx} className="flex items-center gap-4">
+src/pages/Analytics.tsx:                  <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center shrink-0`}>
+src/pages/Analytics.tsx:                    <span className="material-symbols-outlined text-white">{item.icon}</span>
+src/pages/Analytics.tsx:                  <div className="flex-1 overflow-hidden">
+src/pages/Analytics.tsx:                    <div className="flex justify-between items-center mb-1">
+src/pages/Analytics.tsx:                      <span className="text-sm font-bold text-zinc-900 truncate pr-2">{item.type}</span>
+src/pages/Analytics.tsx:                      <span className="text-sm font-black text-zinc-900">{item.generations}</span>
+src/pages/Analytics.tsx:                    <div className="flex justify-between items-center text-xs">
+src/pages/Analytics.tsx:                      <span className="text-zinc-500 font-medium">Items Generated</span>
+src/pages/Analytics.tsx:                      <span className="font-bold text-zinc-400">
+src/pages/Analytics.tsx:              <div className="flex flex-col items-center justify-center p-6 text-center h-full opacity-50">
+src/pages/Analytics.tsx:                <span className="material-symbols-outlined text-4xl mb-2 text-zinc-400">query_stats</span>
+src/pages/Analytics.tsx:                <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">No data yet</p>
+src/pages/Analytics.tsx:                <p className="text-xs text-zinc-400 mt-2">Generate content to track your activity.</p>
+src/pages/Analytics.tsx:      <div className="bg-surface-container-lowest rounded-xl border border-zinc-100 shadow-[0px_24px_48px_rgba(0,0,0,0.02)] overflow-hidden">
+src/pages/Analytics.tsx:        <div className="px-8 py-6 border-b border-zinc-100 flex justify-between items-center">
+src/pages/Analytics.tsx:          <h3 className="text-xl font-extrabold tracking-tight">Recent Activity</h3>
+src/pages/Analytics.tsx:          <Link to="/recent-activity" className="text-sm font-bold text-primary hover:underline">See All</Link>
+src/pages/Analytics.tsx:        <div className="overflow-x-auto">
+src/pages/Analytics.tsx:          <table className="w-full text-left">
+src/pages/Analytics.tsx:              <tr className="bg-zinc-50 text-zinc-500 text-xs font-bold uppercase tracking-widest">
+src/pages/Analytics.tsx:                <th className="px-8 py-4">Action</th>
+src/pages/Analytics.tsx:                <th className="px-6 py-4">Time</th>
+src/pages/Analytics.tsx:                <th className="px-8 py-4 text-right">Details</th>
+src/pages/Analytics.tsx:            <tbody className="divide-y divide-zinc-100">
+src/pages/Analytics.tsx:                  <td colSpan={3} className="px-8 py-8 text-center text-zinc-500 font-medium">
+src/pages/Analytics.tsx:                  <tr key={activity.id} className="hover:bg-zinc-50 transition-colors group">
+src/pages/Analytics.tsx:                    <td className="px-8 py-5">
+src/pages/Analytics.tsx:                      <div className="flex items-center gap-4">
+src/pages/Analytics.tsx:                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+src/pages/Analytics.tsx:                          <span className="material-symbols-outlined text-sm">bolt</span>
+src/pages/Analytics.tsx:                          <p className="font-bold text-zinc-900">{activity.action}</p>
+src/pages/Analytics.tsx:                    <td className="px-6 py-5">
+src/pages/Analytics.tsx:                      <span className="text-sm font-medium text-zinc-500">{activity.time}</span>
+src/pages/Analytics.tsx:                    <td className="px-8 py-5 text-right">
+src/pages/Analytics.tsx:                        className="text-sm font-bold text-primary hover:underline"
+src/pages/Integrations.tsx:    <div className="max-w-[1400px] mx-auto p-8 lg:p-12 relative">
+src/pages/Integrations.tsx:      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+src/pages/Integrations.tsx:      <header className="mb-16 text-center max-w-3xl mx-auto">
+src/pages/Integrations.tsx:        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-lowest border border-outline-variant/20 mb-6 shadow-sm">
+src/pages/Integrations.tsx:          <span className="material-symbols-outlined text-primary text-sm">hub</span>
+src/pages/Integrations.tsx:          <span className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Ecosystem</span>
+src/pages/Integrations.tsx:        <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-on-surface mb-6">Integrations</h1>
+src/pages/Integrations.tsx:        <p className="text-on-surface-variant text-xl leading-relaxed">
+src/pages/Integrations.tsx:      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+src/pages/Integrations.tsx:          <div key={integration.id} className="group relative bg-surface-container-lowest rounded-[2rem] p-8 border border-outline-variant/10 shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col h-full overflow-hidden">
+src/pages/Integrations.tsx:            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+src/pages/Integrations.tsx:            <div className="flex items-start justify-between mb-8">
+src/pages/Integrations.tsx:              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${integration.bgColor} shadow-inner`}>
+src/pages/Integrations.tsx:                <span className={`material-symbols-outlined text-3xl ${integration.color}`}>
+src/pages/Integrations.tsx:                <span className="px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase text-zinc-500 bg-zinc-100 border border-zinc-200">
+src/pages/Integrations.tsx:                  className={`px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 ${integration.connected ? 'text-green-600 bg-green-50 border border-green-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 group/btn' : 'text-primary bg-primary/10 border border-primary/20 hover:bg-primary hover:text-white cursor-pointer shadow-sm'}`}
+src/pages/Integrations.tsx:                  <span className="group-hover/btn:hidden">{integration.connected ? 'Connected' : 'Connect'}</span>
+src/pages/Integrations.tsx:                  <span className="hidden group-hover/btn:inline">Disconnect</span>
+src/pages/Integrations.tsx:            <h3 className="text-2xl font-bold mb-3 tracking-tight">{integration.name}</h3>
+src/pages/Integrations.tsx:            <p className="text-on-surface-variant leading-relaxed flex-grow">
+src/pages/Integrations.tsx:              <div className="mt-8 pt-6 border-t border-outline-variant/10 relative">
+src/pages/Integrations.tsx:                <div className="flex items-center gap-2 mb-3">
+src/pages/Integrations.tsx:                  <span className="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+src/pages/Integrations.tsx:                  <p className="text-xs text-on-surface-variant font-bold uppercase tracking-widest">AI Analysis Active</p>
+src/pages/Integrations.tsx:                <p className="text-sm text-zinc-600 line-clamp-3 leading-relaxed bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">{profiles[integration.id].analysis}</p>
+src/pages/Integrations.tsx:        <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+src/pages/Integrations.tsx:          <div className="bg-surface-container-lowest rounded-[2rem] p-10 max-w-lg w-full shadow-2xl border border-outline-variant/20 animate-in zoom-in-95 duration-200">
+src/pages/Integrations.tsx:            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+src/pages/Integrations.tsx:              <span className="material-symbols-outlined text-3xl text-primary">link</span>
+src/pages/Integrations.tsx:            <h3 className="text-3xl font-black tracking-tighter mb-3 capitalize">Connect {activeModal}</h3>
+src/pages/Integrations.tsx:            <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">Enter your profile URL. Our AI will analyze your recent content to match your style and tone perfectly.</p>
+src/pages/Integrations.tsx:              className="w-full bg-surface-container-low border-2 border-transparent rounded-xl p-5 mb-8 focus:border-primary focus:bg-surface-container-lowest outline-none transition-all text-lg font-medium placeholder:text-outline"
+src/pages/Integrations.tsx:            <div className="flex gap-4 justify-end">
+src/pages/Integrations.tsx:                className="px-6 py-3 rounded-xl font-bold text-on-surface-variant hover:bg-surface-container-low transition-colors"
+src/pages/Integrations.tsx:                className="px-8 py-3 rounded-xl font-bold bg-primary text-white hover:bg-primary-dim transition-all disabled:opacity-50 flex items-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98]"
+src/pages/Integrations.tsx:                    <span className="material-symbols-outlined animate-spin">progress_activity</span>
+src/pages/Integrations.tsx:                    <span className="material-symbols-outlined">auto_awesome</span>
+src/components/Layout.tsx:    <div className="min-h-screen bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container relative">
+src/components/Layout.tsx:      <nav className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)] flex justify-between items-center px-6 py-3 transition-all duration-300">
+src/components/Layout.tsx:        <div className="flex items-center gap-8">
+src/components/Layout.tsx:          <span className="text-xl font-black text-zinc-900 tracking-tight flex items-center gap-2">
+src/components/Layout.tsx:            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
+src/components/Layout.tsx:              <span className="material-symbols-outlined text-primary text-[18px]">bolt</span>
+src/components/Layout.tsx:          <div className="hidden md:flex items-center gap-1 bg-zinc-100/50 p-1 rounded-lg border border-zinc-200/50">
+src/components/Layout.tsx:            <div className="bg-white text-zinc-900 font-semibold px-4 py-1.5 rounded-md shadow-sm border border-zinc-200/50 text-sm">Workspaces</div>
+src/components/Layout.tsx:            <div className="text-zinc-500 hover:text-zinc-900 hover:bg-white/50 cursor-pointer font-medium px-4 py-1.5 rounded-md transition-colors text-sm">Recent</div>
+src/components/Layout.tsx:        <div className="flex items-center gap-3">
+src/components/Layout.tsx:          <Link to="/help" className="hidden sm:flex items-center gap-2 px-3 py-2 text-zinc-500 font-medium hover:bg-zinc-100/80 hover:text-zinc-900 transition-colors rounded-lg text-sm">
+src/components/Layout.tsx:            <span className="material-symbols-outlined text-[18px]">help</span>
+src/components/Layout.tsx:          <div className="h-5 w-[1px] bg-zinc-200 mx-1"></div>
+src/components/Layout.tsx:          <button className="w-9 h-9 rounded-full flex items-center justify-center text-zinc-500 hover:bg-zinc-100/80 hover:text-zinc-900 transition-colors">
+src/components/Layout.tsx:            <span className="material-symbols-outlined text-[20px]">notifications</span>
+src/components/Layout.tsx:          <div className="flex items-center pl-1 relative">
+src/components/Layout.tsx:              className="bg-zinc-900 hover:bg-zinc-800 text-white px-4 py-2 rounded-full font-semibold text-sm transition-all active:scale-[0.98] duration-200 flex items-center gap-2 shadow-md hover:shadow-lg border border-zinc-700"
+src/components/Layout.tsx:              <span className="material-symbols-outlined text-[16px]">add</span>
+src/components/Layout.tsx:                <div className="fixed inset-0 z-40" onClick={() => setIsCreateMenuOpen(false)}></div>
+src/components/Layout.tsx:                <div className="absolute top-12 right-0 w-64 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/40 p-2 z-50 animate-in slide-in-from-top-2 fade-in duration-200 ring-1 ring-black/5">
+src/components/Layout.tsx:                  <div className="px-3 py-2 text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">Content Lab</div>
+src/components/Layout.tsx:                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/video-to-reels" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+src/components/Layout.tsx:                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">movie</span>
+src/components/Layout.tsx:                    <span className="font-semibold text-sm">Video to Reels</span>
+src/components/Layout.tsx:                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/thumbnail-creator" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+src/components/Layout.tsx:                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">wallpaper</span>
+src/components/Layout.tsx:                    <span className="font-semibold text-sm">Thumbnail Creator</span>
+src/components/Layout.tsx:                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/linkedin-carousels" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+src/components/Layout.tsx:                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">view_carousel</span>
+src/components/Layout.tsx:                    <span className="font-semibold text-sm">LinkedIn Carousel</span>
+src/components/Layout.tsx:                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/content-lab/yt-insta-posts" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+src/components/Layout.tsx:                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">dynamic_feed</span>
+src/components/Layout.tsx:                    <span className="font-semibold text-sm">YT & Insta Post</span>
+src/components/Layout.tsx:                  <div className="h-[1px] bg-zinc-100 my-2 mx-2"></div>
+src/components/Layout.tsx:                  <div className="px-3 py-2 text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1">Shopify Tools</div>
+src/components/Layout.tsx:                  <Link onClick={() => setIsCreateMenuOpen(false)} to="/shopify-tools/product-photo-studio" className="flex items-center gap-3 px-3 py-2.5 hover:bg-zinc-50 rounded-xl transition-colors text-zinc-700 hover:text-primary group">
+src/components/Layout.tsx:                    <span className="material-symbols-outlined text-[20px] text-zinc-400 group-hover:text-primary transition-colors">shopping_cart</span>
+src/components/Layout.tsx:                    <span className="font-semibold text-sm">Product Photo Studio</span>
+src/components/Layout.tsx:      <aside className="fixed left-0 top-0 h-full w-64 border-r border-zinc-200/50 bg-white/80 backdrop-blur-md shadow-[4px_0_24px_rgba(0,0,0,0.01)] flex-col pt-20 pb-6 px-4 z-40 hidden md:flex">
+src/components/Layout.tsx:        <div className="mb-8 px-2">
+src/components/Layout.tsx:          <div className="flex items-center gap-3 mb-1">
+src/components/Layout.tsx:            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
+src/components/Layout.tsx:              <span className="material-symbols-outlined text-sm">rocket_launch</span>
+src/components/Layout.tsx:            <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Pro Studio</h2>
+src/components/Layout.tsx:          <p className="text-xs text-zinc-500 ml-11 uppercase tracking-widest font-bold">Enterprise Plan</p>
+src/components/Layout.tsx:        <nav className="flex-1 space-y-1">
+src/components/Layout.tsx:          <Link to="/analytics" className={cn("flex items-center gap-3 px-3 py-2.5 transition-all rounded-xl", location.pathname === '/analytics' ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}>
+src/components/Layout.tsx:            <span className="material-symbols-outlined">insert_chart</span>
+src/components/Layout.tsx:          <div className="py-1">
+src/components/Layout.tsx:              className={cn("w-full flex items-center justify-between px-3 py-2.5 transition-all rounded-xl group", location.pathname.includes('/content-lab') ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}
+src/components/Layout.tsx:              <div className="flex items-center gap-3">
+src/components/Layout.tsx:                <span className="material-symbols-outlined">science</span>
+src/components/Layout.tsx:              <span className="material-symbols-outlined text-sm transition-transform group-hover:rotate-90">
+src/components/Layout.tsx:              <div className="ml-9 mt-2 space-y-1 border-l-2 border-primary/10 pl-3">
+src/components/Layout.tsx:                <Link to="/content-lab/video-to-reels" className={cn("flex items-center justify-between px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/video-to-reels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>
+src/components/Layout.tsx:                <Link to="/content-lab/thumbnail-creator" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/thumbnail-creator' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Thumbnail Creator</Link>
+src/components/Layout.tsx:                <Link to="/content-lab/linkedin-carousels" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/linkedin-carousels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>LinkedIn Carousels</Link>
+src/components/Layout.tsx:                <Link to="/content-lab/yt-insta-posts" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/yt-insta-posts' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>YT & Insta Posts</Link>
+src/components/Layout.tsx:          <div className="py-1">
+src/components/Layout.tsx:              className={cn("w-full flex items-center justify-between px-3 py-2.5 transition-all rounded-xl group", (location.pathname.includes('/saved-') || location.pathname.includes('/content-lab/saved-thumbnails')) ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}
+src/components/Layout.tsx:              <div className="flex items-center gap-3">
+src/components/Layout.tsx:                <span className="material-symbols-outlined">collections_bookmark</span>
+src/components/Layout.tsx:              <span className="material-symbols-outlined text-sm transition-transform group-hover:rotate-90">
+src/components/Layout.tsx:              <div className="ml-9 mt-2 space-y-1 border-l-2 border-primary/10 pl-3">
+src/components/Layout.tsx:                <Link to="/content-lab/saved-thumbnails" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/content-lab/saved-thumbnails' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Saved Thumbnails</Link>
+src/components/Layout.tsx:                <Link to="/saved-posts" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/saved-posts' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Saved Posts</Link>
+src/components/Layout.tsx:                <Link to="/saved-carousels" className={cn("block px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/saved-carousels' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>Saved Carousels</Link>
+src/components/Layout.tsx:          <div className="py-1">
+src/components/Layout.tsx:              className={cn("w-full flex items-center justify-between px-3 py-2.5 transition-all rounded-xl group", location.pathname.includes('/shopify-tools') ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}
+src/components/Layout.tsx:              <div className="flex items-center gap-3">
+src/components/Layout.tsx:                <span className="material-symbols-outlined">shopping_cart</span>
+src/components/Layout.tsx:              <span className="material-symbols-outlined text-sm transition-transform group-hover:rotate-90">
+src/components/Layout.tsx:              <div className="ml-9 mt-2 space-y-1 border-l-2 border-primary/10 pl-3">
+src/components/Layout.tsx:                <Link to="/shopify-tools/product-photo-studio" className={cn("flex items-center justify-between px-3 py-2 text-sm transition-all rounded-lg", location.pathname === '/shopify-tools/product-photo-studio' ? "text-primary font-bold bg-primary/5" : "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50")}>
+src/components/Layout.tsx:                  <span className="text-[10px] font-bold bg-zinc-200 text-zinc-600 px-1.5 py-0.5 rounded-full">Soon</span>
+src/components/Layout.tsx:                <a href="#" className="flex items-center justify-between px-3 py-2 text-sm text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 transition-all rounded-lg">
+src/components/Layout.tsx:                  <span className="text-[10px] font-bold bg-zinc-200 text-zinc-600 px-1.5 py-0.5 rounded-full">Soon</span>
+src/components/Layout.tsx:          <Link to="/settings" className={cn("flex items-center gap-3 px-3 py-2.5 transition-all rounded-xl", location.pathname === '/settings' ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}>
+src/components/Layout.tsx:            <span className="material-symbols-outlined">settings</span>
+src/components/Layout.tsx:          <Link to="/integrations" className={cn("flex items-center gap-3 px-3 py-2.5 transition-all rounded-xl", location.pathname === '/integrations' ? "text-primary font-bold bg-primary/5 shadow-sm border border-primary/10" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900")}>
+src/components/Layout.tsx:            <span className="material-symbols-outlined">link</span>
+src/components/Layout.tsx:        <div className="mt-auto space-y-4 pt-6 border-t border-zinc-100">
+src/components/Layout.tsx:          <div className="bg-primary/5 rounded-xl p-4">
+src/components/Layout.tsx:            <div className="flex justify-between items-center mb-2">
+src/components/Layout.tsx:              <p className="text-xs font-bold text-primary uppercase tracking-widest">
+src/components/Layout.tsx:              <span className="text-[10px] font-black bg-white px-2 py-0.5 rounded text-primary border border-primary/10 shadow-sm">
+src/components/Layout.tsx:            <div className="w-full bg-zinc-200 rounded-full h-1.5 mb-3 overflow-hidden">
+src/components/Layout.tsx:                className="bg-primary h-1.5 rounded-full transition-all duration-500" 
+src/components/Layout.tsx:            <Link to="/upgrade" className={cn("w-full flex items-center justify-center py-2 text-white text-xs font-bold rounded-lg transition-colors shadow-sm", subscriptionPlan === 'infinity' ? 'bg-primary hover:bg-primary-dim cursor-default' : 'bg-zinc-900 hover:bg-zinc-800')}>
+src/components/Layout.tsx:          <button onClick={signOut} className="w-full flex items-center gap-3 px-3 py-2.5 text-zinc-500 hover:text-error transition-colors">
+src/components/Layout.tsx:            <span className="material-symbols-outlined">logout</span>
+src/components/Layout.tsx:      <main className="md:ml-64 pt-24 pb-12 min-h-screen relative z-10 bg-white/40">
+src/components/FloatingSpaceBackground.tsx:    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none opacity-40">
+src/components/FloatingSpaceBackground.tsx:      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-slate-50/50 to-slate-50 lg:via-transparent z-10"></div>
+src/components/FloatingSpaceBackground.tsx:            className={`absolute ${el.color}`}
+src/components/FloatingSpaceBackground.tsx:            <el.Icon size={el.size} strokeWidth={1.5} className="drop-shadow-lg" />

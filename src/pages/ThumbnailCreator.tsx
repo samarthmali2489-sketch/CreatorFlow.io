@@ -221,7 +221,7 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         
         {/* Left Column - Builder */}
-        <div className="lg:col-span-2 bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8 md:p-12">
+        <div className="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-[2rem] shadow-sm border border-gray-100 p-8 md:p-12">
           <div className="space-y-8">
             <div>
               <label className="block text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">
@@ -286,7 +286,7 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
             <button
               onClick={() => handleGenerate(false)}
               disabled={isProcessing || !topic.trim() || (style === 'Custom' && !customStyle.trim())}
-              className="w-full bg-blue-600 text-white px-8 py-5 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2 text-lg active:scale-[0.98]"
+              className="w-full bg-blue-600 text-white dark:text-zinc-900 px-8 py-5 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all disabled:opacity-70 flex items-center justify-center gap-2 text-lg active:scale-[0.98]"
             >
               {isProcessing ? (
                 <><span className="material-symbols-outlined animate-spin">progress_activity</span> Generating Thumbnails...</>
@@ -315,7 +315,7 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
                 value={channelName}
                 onChange={(e) => setChannelName(e.target.value)}
                 placeholder="e.g. Ali Abdaal, Vox, MrBeast"
-                className="w-full bg-white border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-medium"
+                className="w-full bg-white dark:bg-zinc-900 border border-gray-200 rounded-xl p-4 text-gray-900 focus:ring-2 focus:ring-blue-600 transition-all outline-none font-medium"
                 disabled={isProcessing}
               />
               {channelName.trim() && (
@@ -334,11 +334,11 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
                     <img src={referenceImage} alt="Reference" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     <button 
                       onClick={() => setReferenceImage(null)}
-                      className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black text-white rounded-full flex items-center justify-center transition-colors"
+                      className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black text-white dark:text-zinc-900 rounded-full flex items-center justify-center transition-colors"
                     >
                       <span className="material-symbols-outlined text-sm">close</span>
                     </button>
-                    <div className="absolute bottom-0 left-0 w-full bg-black/60 text-white text-[10px] font-bold py-1 px-3 uppercase tracking-widest text-center truncate">
+                    <div className="absolute bottom-0 left-0 w-full bg-black/60 text-white dark:text-zinc-900 text-[10px] font-bold py-1 px-3 uppercase tracking-widest text-center truncate">
                       Image attached to prompt
                     </div>
                   </div>
@@ -393,17 +393,17 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
           
           <div className="flex justify-center">
             {generatedThumbnails.map((thumbnail, index) => (
-              <div key={index} className="bg-white rounded-[2rem] p-4 shadow-sm border border-gray-100 group w-full max-w-3xl">
+              <div key={index} className="bg-white dark:bg-zinc-900 rounded-[2rem] p-4 shadow-sm border border-gray-100 group w-full max-w-3xl">
                 <div className="relative aspect-video rounded-2xl overflow-hidden mb-4">
                   <img src={thumbnail} alt={`Generated thumbnail ${index + 1}`} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                    <a href={thumbnail} download={`thumbnail-concept-${index + 1}.jpg`} className="bg-white text-gray-900 w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg z-10" title="Download">
+                    <a href={thumbnail} download={`thumbnail-concept-${index + 1}.jpg`} className="bg-white dark:bg-zinc-900 text-gray-900 w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg z-10" title="Download">
                       <span className="material-symbols-outlined font-bold">download</span>
                     </a>
                     <button 
                       onClick={() => handleSave(thumbnail, index)}
                       disabled={savedStatus[index]}
-                      className={`w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg z-10 ${savedStatus[index] ? 'bg-blue-600 text-white' : 'bg-white text-gray-900'}`}
+                      className={`w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 transition-transform cursor-pointer shadow-lg z-10 ${savedStatus[index] ? 'bg-blue-600 text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-900 text-gray-900'}`}
                       title={savedStatus[index] ? "Saved" : "Save to Libary"}
                     >
                       <span className="material-symbols-outlined font-bold">{savedStatus[index] ? 'check' : 'favorite'}</span>
@@ -433,7 +433,7 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
       {/* Warning Modal */}
       {showWarningModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-md overflow-hidden shadow-lg animate-in zoom-in-95 duration-200">
             <div className="p-6">
               <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
                 <span className="material-symbols-outlined">warning</span>
@@ -451,7 +451,7 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
                     onChange={(e) => setDontShowAgain(e.target.checked)}
                     className="peer w-5 h-5 appearance-none border-2 border-gray-300 rounded cursor-pointer checked:bg-blue-600 checked:border-blue-600 transition-all"
                   />
-                  <span className="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">check</span>
+                  <span className="material-symbols-outlined absolute text-white dark:text-zinc-900 text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">check</span>
                 </div>
                 <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">Don't show this tip again</span>
               </label>
@@ -471,7 +471,7 @@ RETURN ONLY THE COMPLETED TEXT PROMPT STRING. NOTHING ELSE.`;
                     setShowWarningModal(false);
                     handleGenerate(true);
                   }}
-                  className="flex-1 px-4 py-2.5 rounded-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                  className="flex-1 px-4 py-2.5 rounded-lg font-bold text-white dark:text-zinc-900 bg-blue-600 hover:bg-blue-700 transition-colors"
                 >
                   Continue Anyway
                 </button>
