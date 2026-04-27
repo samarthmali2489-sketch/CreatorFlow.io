@@ -13,17 +13,7 @@ export default function Settings() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   
-  // Lemon Squeezy State
-  const [lsCheckoutUrl, setLsCheckoutUrl] = useState('');
-  const [lsApiKey, setLsApiKey] = useState('');
-  const [lsWebhookSecret, setLsWebhookSecret] = useState('');
-  const [isLSSaving, setIsLSSaving] = useState(false);
-  const [lsSaveMessage, setLsSaveMessage] = useState('');
-
-  // Default Lemon Squeezy URL from user
-  const DEFAULT_LS_URL = "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
-
-  // Check for successful redirect from LemonSqueezy hosted checkout
+  // Check for successful redirect from hosted checkout
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
@@ -36,33 +26,12 @@ export default function Settings() {
   }, [setSubscriptionPlan]);
 
   useEffect(() => {
-    // Re-initialize lemonsqueezy buttons on mount just in case
-    if (typeof window !== 'undefined' && (window as any).createLemonSqueezy) {
-      (window as any).createLemonSqueezy();
-      
-      // Setup event listener to catch successful checkouts in Settings
-      if ((window as any).LemonSqueezy && (window as any).LemonSqueezy.Setup) {
-        (window as any).LemonSqueezy.Setup({
-          eventHandler: (event: any) => {
-            if (event.event === 'Checkout.Success') {
-              setSubscriptionPlan('pro');
-            }
-          }
-        });
-      }
-    }
-  }, [activeTab, setSubscriptionPlan]); // Re-run when tab changes to billing
-
-  useEffect(() => {
     // Load saved settings
     const savedSettings = localStorage.getItem('creatorflow_settings');
     if (savedSettings) {
       const parsed = JSON.parse(savedSettings);
       setFirstName(parsed.firstName || '');
       setLastName(parsed.lastName || '');
-      setLsCheckoutUrl(parsed.lsCheckoutUrl || '');
-      setLsApiKey(parsed.lsApiKey || '');
-      setLsWebhookSecret(parsed.lsWebhookSecret || '');
     }
   }, []);
 
@@ -84,32 +53,6 @@ export default function Settings() {
   const handleTogglePreference = (key: 'autoSave' | 'showRefImageWarning') => {
     if (key === 'autoSave') setAutoSave(!autoSave);
     if (key === 'showRefImageWarning') setShowRefImageWarning(!showRefImageWarning);
-  };
-
-  const handleUpgradeClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const finalUrl = lsCheckoutUrl || DEFAULT_LS_URL;
-    if (typeof window !== 'undefined' && (window as any).LemonSqueezy && (window as any).LemonSqueezy.Url) {
-      (window as any).LemonSqueezy.Url.Open(finalUrl);
-    } else {
-      window.open(finalUrl, '_blank');
-    }
-  };
-
-  const handleSaveLemonSqueezy = () => {
-    setIsLSSaving(true);
-    // Simulate saving connection locally for demo/MVP
-    setTimeout(() => {
-      const savedSettings = localStorage.getItem('creatorflow_settings');
-      let parsed = savedSettings ? JSON.parse(savedSettings) : {};
-      parsed.lsCheckoutUrl = lsCheckoutUrl;
-      parsed.lsApiKey = lsApiKey;
-      parsed.lsWebhookSecret = lsWebhookSecret;
-      localStorage.setItem('creatorflow_settings', JSON.stringify(parsed));
-      setIsLSSaving(false);
-      setLsSaveMessage('Lemon Squeezy connected!');
-      setTimeout(() => setLsSaveMessage(''), 3000);
-    }, 800);
   };
 
   return (

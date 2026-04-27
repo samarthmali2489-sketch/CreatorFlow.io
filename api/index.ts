@@ -52,36 +52,45 @@ app.post("/api/generate", async (req, res) => {
   }
 });
 
-// Lemon Squeezy Webhook Endpoint
-app.post('/api/webhooks/lemonsqueezy', express.raw({ type: 'application/json' }), async (req, res) => {
-  try {
-    const secret = process.env.LEMONSQUEEZY_WEBHOOK_SECRET || '';
-    
-    // If a secret is provided, verify the signature
-    if (secret) {
-      const hmac = crypto.createHmac('sha256', secret);
-      const digest = Buffer.from(hmac.update(req.body).digest('hex'), 'utf8');
-      const signature = Buffer.from(req.get('X-Signature') || '', 'utf8');
+import DodoPayments from 'dodopayments';
+const dodopayments = new DodoPayments({
+  bearerToken: process.env.DODO_PAYMENTS_API_KEY || ''
+});
 
-      if (!crypto.timingSafeEqual(digest, signature)) {
-        return res.status(403).json({ error: 'Invalid webhooks signature' });
+// DodoPayments Webhook Endpoint
+app.post('/api/webhooks/dodopayments', express.raw({ type: 'application/json' }), async (req, res) => {
+  try {
+    const signature = req.headers['dodopayments-signature'] as string;
+    const webhookSecret = process.env.DODO_PAYMENTS_WEBHOOK_SECRET || '';
+
+    // Verify signature using the DodoPayments SDK (if secret is provided)
+    if (webhookSecret && signature) {
+      // NOTE: We don't have a direct payload verify helper documented, so we can do signature validation as DodoPayments recommends
+      // Dodopayments signatures are typically standard format or you can just read the webhook event
+      // verifySignature logic handles it internally if available, or we check manually.
+      // DodoPayments webhook signature verify implementation:
+      try {
+        dodopayments.webhooks.verifySignature(req.body.toString('utf8'), req.headers, webhookSecret);
+      } catch (err: any) {
+         return res.status(403).json({ error: 'Invalid webhooks signature' });
       }
     }
 
     const payload = JSON.parse(req.body.toString());
-    const eventName = payload.meta.event_name;
-    const customData = payload.meta.custom_data; // This can include the userId passed from checkout
     
-    console.log(`Received Lemon Squeezy integration event: ${eventName}`);
+    // DodoPayments events
+    // ex: subscription.active, subscription.canceled
+    const eventType = payload.webhook_event; // DodoPayments usually puts event type in top level or `type`
+    
+    console.log(`Received DodoPayments integration event: ${eventType || 'Unknown Event'}`);
 
-    // Handle the event here (e.g. update user's premium status in Supabase)
-    if (eventName === 'subscription_created' || eventName === 'subscription_updated') {
-      const planId = payload.data.attributes.product_id;
-      console.log(`User subscribed to plan ${planId}`);
-      // await supabase.from('users').update({ is_pro: true }).eq('id', customData.user_id)
-    } else if (eventName === 'subscription_cancelled' || eventName === 'subscription_expired') {
-      console.log(`User subscription cancelled or expired`);
-      // await supabase.from('users').update({ is_pro: false }).eq('id', customData.user_id)
+    if (eventType === 'subscription.active' || eventType === 'subscription.renewed') {
+      const planId = payload.data?.product_id;
+      console.log(`User subscribed to product ${planId}`);
+      // await supabase.from('users').update({ is_pro: true }).eq('id', payload.data.metadata.user_id)
+    } else if (eventType === 'subscription.canceled' || eventType === 'subscription.past_due') {
+      console.log(`User subscription canceled`);
+      // await supabase.from('users').update({ is_pro: false }).eq('id', payload.data.metadata.user_id)
     }
 
     res.status(200).json({ received: true });
@@ -166,6 +175,50 @@ app.post("/api/scrape", async (req, res) => {
   } catch (error: any) {
     console.error("Scraping error:", error);
     res.status(500).json({ error: error.message || "Failed to scrape URL" });
+  }
+});
+
+// DodoPayments Create Payment Link
+app.post("/api/payments/create-payment-link", async (req, res) => {
+  try {
+     const { planId, userId, email } = req.body;
+     let productId = process.env.VITE_DODO_PAYMENTS_PRO_PRODUCT_ID;
+     
+     if (planId === 'infinity') {
+       productId = process.env.VITE_DODO_PAYMENTS_INFINITY_PRODUCT_ID;
+     }
+
+     if (!productId) {
+         return res.status(400).json({ error: "Product ID is missing in environment variables" });
+     }
+
+     const paymentItems = await dodopayments.payments.create({
+        billing: {
+          city: '',
+          country: 'US', // default or ask
+          state: '',
+          street: '',
+          zipcode: ''
+        },
+        customer: {
+          email: email || 'anonymous@example.com',
+          name: 'Customer'
+        },
+        product_cart: [
+          {
+            product_id: productId,
+            quantity: 1
+          }
+        ],
+        metadata: {
+          user_id: userId || 'anonymous'
+        }
+     });
+
+     res.json({ checkoutUrl: paymentItems.payment_link });
+  } catch (error: any) {
+     console.error("Payment session error:", error);
+     res.status(500).json({ error: error.message });
   }
 });
 

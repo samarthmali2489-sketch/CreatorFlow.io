@@ -24,6 +24,14 @@ import Auth from './pages/Auth';
 import { AppProvider, useAppContext } from './context/AppContext';
 import { ThemeProvider } from './context/ThemeContext';
 
+// Suppress benign Supabase token refresh errors from bubbling up to the UI
+window.addEventListener('unhandledrejection', (event) => {
+  const msg = typeof event.reason === 'string' ? event.reason : event.reason?.message || '';
+  if (msg.toLowerCase().includes('refresh token') || msg.toLowerCase().includes('refresh_token_not_found')) {
+    event.preventDefault();
+  }
+});
+
 function AppRoutes() {
   const { user, authLoading } = useAppContext();
 

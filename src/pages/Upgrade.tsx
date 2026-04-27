@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 export default function Upgrade() {
-  const { credits, subscriptionPlan, setSubscriptionPlan } = useAppContext();
+  const { credits, subscriptionPlan, setSubscriptionPlan, user } = useAppContext();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
-  // Use the env var checkout URL, fall back to a default demo Lemon Squeezy URL
-  const [lsCheckoutUrl] = useState(() => {
-    return import.meta.env.VITE_LEMON_SQUEEZY_CHECKOUT_URL || "https://creator-flow-io.lemonsqueezy.com/checkout/buy/2af2c0ff-2dbe-4309-a6c6-b15853ae6e8b";
+  // Use the env var checkout URL, fall back to a default demo Dodopayments URL
+  const [checkoutUrlDummy] = useState(() => {
+    return import.meta.env.VITE_DODO_PAYMENTS_PRO_PRODUCT_ID || "prdt_123456789";
   });
 
   // Check for successful redirect from LemonSqueezy hosted checkout
@@ -23,47 +24,28 @@ export default function Upgrade() {
     }
   }, [setSubscriptionPlan]);
 
-  useEffect(() => {
-    // Dynamically load the Lemon.js script for the overlay
-    if (typeof window !== 'undefined') {
-      const script = document.createElement('script');
-      script.src = 'https://app.lemonsqueezy.com/js/lemon.js';
-      script.async = true;
-      document.body.appendChild(script);
-
-      script.onload = () => {
-        if ((window as any).createLemonSqueezy) {
-          (window as any).createLemonSqueezy();
-          
-          if ((window as any).LemonSqueezy && (window as any).LemonSqueezy.Setup) {
-            (window as any).LemonSqueezy.Setup({
-              eventHandler: (event: any) => {
-                if (event.event === 'Checkout.Success') {
-                  const plan = (window as any).__pendingPlan || 'pro';
-                  setSubscriptionPlan(plan);
-                  setShowSuccessMessage(true);
-                }
-              }
-            });
-          }
-        }
-      };
-
-      return () => {
-        document.body.removeChild(script);
-      };
-    }
-  }, [setSubscriptionPlan]);
-
-  const handleUpgradeClick = (e: React.MouseEvent, plan: 'pro' | 'infinity', checkoutUrl: string) => {
+  const handleUpgradeClick = async (e: React.MouseEvent, plan: 'pro' | 'infinity', fallbackCheckoutUrl: string) => {
     e.preventDefault();
     (window as any).__pendingPlan = plan;
-    if (typeof window !== 'undefined' && (window as any).LemonSqueezy && (window as any).LemonSqueezy.Url) {
-      // Open in Lemon Squeezy overlay for a seamless experience
-      (window as any).LemonSqueezy.Url.Open(checkoutUrl);
-    } else {
-      // Fallback to redirecting to the hosted page
-      window.open(checkoutUrl, '_self');
+    setLoadingPlan(plan);
+    
+    try {
+      const response = await fetch('/api/payments/create-payment-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId: plan, userId: user?.id, email: user?.email || 'anonymous@example.com' })
+      });
+      const data = await response.json();
+      if (data.checkoutUrl) {
+         window.location.href = data.checkoutUrl;
+      } else {
+         window.location.href = fallbackCheckoutUrl;
+      }
+    } catch (err) {
+       console.error(err);
+       window.location.href = fallbackCheckoutUrl;
+    } finally {
+       setLoadingPlan(null);
     }
   };
 
@@ -131,7 +113,7 @@ export default function Upgrade() {
             </button>
           ) : (
             <button 
-              onClick={(e) => handleUpgradeClick(e, 'pro', lsCheckoutUrl)}
+              onClick={(e) => handleUpgradeClick(e, 'pro', 'https://checkout.dodopayments.com/buy/pdt_0NdcQVcYpXg0w3N87P0w7?quantity=1')}
               className="w-full py-4 rounded-xl font-bold bg-primary text-white dark:text-zinc-900 hover:bg-primary-dim transition-colors shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
@@ -164,7 +146,7 @@ export default function Upgrade() {
             </button>
           ) : (
             <button 
-              onClick={(e) => handleUpgradeClick(e, 'infinity', 'https://creator-flow-io.lemonsqueezy.com/checkout/buy/eacc7548-c9e0-4133-b4d6-f02d79c1841d')}
+              onClick={(e) => handleUpgradeClick(e, 'infinity', 'https://checkout.dodopayments.com/buy/pdt_0NdcQdLH1wNHFJYRDEt1u?quantity=1')}
               className="w-full py-4 rounded-xl font-bold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-black transition-colors relative z-10 text-center block"
             >
               Go Infinite
