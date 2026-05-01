@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Twitter, Zap, X, Gift } from 'lucide-react';
+import { Twitter, Gift } from 'lucide-react';
+import { useAppContext } from '../context/AppContext';
 
 interface FounderRewardModalProps {
   isOpen: boolean;
@@ -8,6 +9,13 @@ interface FounderRewardModalProps {
 }
 
 export const FounderRewardModal: React.FC<FounderRewardModalProps> = ({ isOpen, onClose }) => {
+  const { addCredits } = useAppContext();
+
+  const handleClaim = () => {
+    addCredits(1000);
+    onClose();
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -41,7 +49,7 @@ export const FounderRewardModal: React.FC<FounderRewardModalProps> = ({ isOpen, 
 
               <div className="flex flex-col gap-3">
                 <button 
-                  onClick={onClose}
+                  onClick={handleClaim}
                   className="w-full bg-primary text-white py-4 rounded-xl font-black text-sm tracking-widest uppercase hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-primary/20"
                 >
                   Claim 1,000 Credits
