@@ -1,35 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #0049e6;
-  --color-primary-dim: #0040cb;
-  --color-primary-container: #829bff;
-  --color-on-primary-container: #001a63;
-  --color-on-primary: #f2f1ff;
-  --color-surface: #f6f6f6;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f1f1f1;
-  --color-surface-container: #e8e8e8;
-  --color-surface-container-high: #e2e2e2;
-  --color-surface-container-highest: #dddddd;
-  --color-on-surface: #2f2f2f;
-  --color-on-surface-variant: #5b5b5b;
-  --color-outline: #777777;
-  --color-outline-variant: #adadad;
-  --color-error: #b41340;
-  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --color-primary: #5865F2; /* Modern AI Blue/Indigo */
+  --color-primary-dim: #4752C4;
+  --color-primary-container: #DEE1FF;
+  --color-on-primary-container: #10164F;
+  --color-accent: #FFD21A; /* Electric Yellow for details */
+  --font-headline: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
-  --font-label: "Inter", sans-serif;
+  --font-serif: "Besley", serif;
   
   --animate-gradient: gradient 8s linear infinite;
   --animate-slow-spin: spin 15s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
   
   @keyframes gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes infinite-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+
+  @keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 }
 

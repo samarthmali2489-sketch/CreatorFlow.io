@@ -70,7 +70,7 @@ app.post('/api/webhooks/dodopayments', express.raw({ type: 'application/json' })
       // verifySignature logic handles it internally if available, or we check manually.
       // DodoPayments webhook signature verify implementation:
       try {
-        dodopayments.webhooks.verifySignature(req.body.toString('utf8'), req.headers, webhookSecret);
+        (dodopayments.webhooks as any).verifySignature(req.body.toString('utf8'), req.headers, webhookSecret);
       } catch (err: any) {
          return res.status(403).json({ error: 'Invalid webhooks signature' });
       }
