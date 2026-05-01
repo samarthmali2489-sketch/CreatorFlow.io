@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
+import { FounderRewardModal } from '../components/FounderRewardModal';
+
 export default function Upgrade() {
+  const [isRewardOpen, setIsRewardOpen] = useState(false);
+
+  const handlePurchase = (plan: string) => {
+    setIsRewardOpen(true);
+    // console.log(`Initiating purchase for ${plan}`);
+  };
   const { credits, subscriptionPlan, setSubscriptionPlan, user } = useAppContext();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
@@ -26,6 +34,15 @@ export default function Upgrade() {
 
   const handleUpgradeClick = async (e: React.MouseEvent, plan: 'pro' | 'infinity', fallbackCheckoutUrl: string) => {
     e.preventDefault();
+    
+    // Check if they've seen/handled the reward offer
+    const hasSeenReward = localStorage.getItem('klipora_purchase_reward_seen');
+    if (!hasSeenReward) {
+      setIsRewardOpen(true);
+      localStorage.setItem('klipora_purchase_reward_seen', 'true');
+      return; // Stop here and show the modal
+    }
+
     (window as any).__pendingPlan = plan;
     setLoadingPlan(plan);
     
@@ -154,6 +171,7 @@ export default function Upgrade() {
           )}
         </div>
       </div>
+      <FounderRewardModal isOpen={isRewardOpen} onClose={() => setIsRewardOpen(false)} />
     </div>
   );
 }

@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { useAppContext } from '../context/AppContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { FounderRewardModal } from '../components/FounderRewardModal';
 
 export default function Analytics() {
   const { analytics } = useAppContext();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isRewardOpen, setIsRewardOpen] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const hasSeenReward = localStorage.getItem('klipora_reward_seen');
+    if (!hasSeenReward) {
+      const timer = setTimeout(() => {
+        setIsRewardOpen(true);
+        localStorage.setItem('klipora_reward_seen', 'true');
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const data = analytics.chartData?.map(d => ({ name: d.name, generations: d.value })) || [];
 
@@ -240,6 +253,7 @@ export default function Analytics() {
           </table>
         </div>
       </div>
+      <FounderRewardModal isOpen={isRewardOpen} onClose={() => setIsRewardOpen(false)} />
     </div>
   );
 }
