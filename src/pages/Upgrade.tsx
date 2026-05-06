@@ -16,7 +16,7 @@ export default function Upgrade() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('success') || urlParams.has('orderId') || urlParams.has('checkoutId')) {
+      if (urlParams.has('success') || urlParams.get('status') === 'active' || urlParams.get('status') === 'succeeded' || urlParams.has('subscription_id')) {
         const urlPlan = urlParams.get('plan') as 'pro' | 'infinity';
         setSubscriptionPlan(urlPlan || (window as any).__pendingPlan || 'pro');
         setShowSuccessMessage(true);
@@ -38,7 +38,7 @@ export default function Upgrade() {
           planId: plan, 
           userId: user?.id, 
           email: user?.email || 'anonymous@example.com',
-          returnUrl: window.location.href + '?success=true&plan=' + plan
+          returnUrl: `${window.location.origin}/upgrade?success=true&plan=${plan}`
         })
       });
       const data = await response.json();

@@ -192,14 +192,7 @@ app.post("/api/payments/create-payment-link", async (req, res) => {
          return res.status(400).json({ error: "Product ID is missing in environment variables" });
      }
 
-     const paymentItems = await dodopayments.payments.create({
-        billing: {
-          city: '',
-          country: 'US', // default or ask
-          state: '',
-          street: '',
-          zipcode: ''
-        },
+     const session = await dodopayments.checkoutSessions.create({
         customer: {
           email: email || 'anonymous@example.com',
           name: 'Customer'
@@ -216,7 +209,7 @@ app.post("/api/payments/create-payment-link", async (req, res) => {
         return_url: returnUrl || 'https://sandbox.klipora.com/upgrade'
      });
 
-     res.json({ checkoutUrl: paymentItems.payment_link });
+     res.json({ checkoutUrl: session.checkout_url });
   } catch (error: any) {
      console.error("Payment session error:", error);
      res.status(500).json({ error: error.message });
