@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
-import { FounderRewardModal } from '../components/FounderRewardModal';
-
 export default function Upgrade() {
-  const [isRewardOpen, setIsRewardOpen] = useState(false);
-
-  const handlePurchase = (plan: string) => {
-    setIsRewardOpen(true);
-    // console.log(`Initiating purchase for ${plan}`);
-  };
   const { credits, subscriptionPlan, setSubscriptionPlan, user } = useAppContext();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
@@ -34,15 +26,6 @@ export default function Upgrade() {
 
   const handleUpgradeClick = async (e: React.MouseEvent, plan: 'pro' | 'infinity', fallbackCheckoutUrl: string) => {
     e.preventDefault();
-    
-    // Check if they've seen/handled the reward offer
-    const hasSeenReward = localStorage.getItem('klipora_purchase_reward_seen');
-    if (!hasSeenReward) {
-      setIsRewardOpen(true);
-      localStorage.setItem('klipora_purchase_reward_seen', 'true');
-      return; // Stop here and show the modal
-    }
-
     (window as any).__pendingPlan = plan;
     setLoadingPlan(plan);
     
@@ -96,8 +79,7 @@ export default function Upgrade() {
 
           <ul className="space-y-4 mb-8 flex-1">
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 80 Free Credits</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 30 Credits per Video to Reel</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 10 Credits per other features</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> 10 Credits per generation</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Access to ALL Features</li>
           </ul>
           
@@ -113,14 +95,12 @@ export default function Upgrade() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white dark:text-zinc-900 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Most Popular</div>
           <h2 className="text-2xl font-bold mb-2">Pro Plan</h2>
           <p className="text-zinc-400 mb-6">Unlock full access to AI social media generation.</p>
-          <div className="text-5xl font-black mb-8">$19<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
+          <div className="text-5xl font-black mb-8">$5<span className="text-lg text-zinc-400 font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white dark:text-zinc-900">500 Credits</strong> per month</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> High-fidelity Video to Reels</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white dark:text-zinc-900">250 Credits</strong> per month</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Export Videos to Reels, Shorts, and TikTok</li>
           </ul>
           
           {subscriptionPlan === 'pro' || subscriptionPlan === 'infinity' ? (
@@ -146,10 +126,10 @@ export default function Upgrade() {
           </div>
           <h2 className="text-2xl font-bold mb-2 relative z-10">Infinity</h2>
           <p className="text-on-surface-variant mb-6 relative z-10">For agencies and power users.</p>
-          <div className="text-5xl font-black mb-8 relative z-10">$50<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
+          <div className="text-5xl font-black mb-8 relative z-10">$15<span className="text-lg text-on-surface-variant font-medium">/mo</span></div>
           
           <ul className="space-y-4 mb-8 flex-1 relative z-10">
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> <strong className="text-primary">Infinite Generations</strong></li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> <strong className="text-primary">750 Monthly Credits</strong></li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Premium AI Models</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> Unlimited Profiles</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-primary">check</span> API Access</li>
@@ -171,7 +151,6 @@ export default function Upgrade() {
           )}
         </div>
       </div>
-      <FounderRewardModal isOpen={isRewardOpen} onClose={() => setIsRewardOpen(false)} />
     </div>
   );
 }

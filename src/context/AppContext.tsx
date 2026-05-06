@@ -122,7 +122,6 @@ interface AppContextType {
   subscriptionPlan: 'free' | 'pro' | 'infinity';
   setSubscriptionPlan: (plan: 'free' | 'pro' | 'infinity') => void;
   credits: number;
-  addCredits: (amount: number) => void;
   deductCredits: (amount: number) => boolean;
 }
 
@@ -486,15 +485,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [savedThumbnails, isDataLoaded]);
 
-  const addCredits = useCallback((amount: number) => {
-    const newCredits = credits + amount;
-    setCredits(newCredits);
-    // Sync seamlessly to Supabase
-    if (user) {
-      supabase.auth.updateUser({ data: { credits: newCredits } }).catch(() => {});
-    }
-  }, [credits, setCredits, user]);
-
   const deductCredits = useCallback((amount: number) => {
     if (subscriptionPlan === 'infinity') return true;
     if (credits >= amount) {
@@ -658,7 +648,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       autoSave, setAutoSave,
       showRefImageWarning, setShowRefImageWarning,
       subscriptionPlan, setSubscriptionPlan,
-      credits, addCredits, deductCredits
+      credits, deductCredits
     }}>
       {children}
     </AppContext.Provider>

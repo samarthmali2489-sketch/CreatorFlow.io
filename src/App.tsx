@@ -7,11 +7,10 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Landing from './pages/Landing';
 import Analytics from './pages/Analytics';
-import VideoToReels from './pages/VideoToReels';
 import LinkedInCarousels from './pages/LinkedInCarousels';
 import YTAndInstaPostsCreator from './pages/YTAndInstaPostsCreator';
 import ThumbnailCreator from './pages/ThumbnailCreator';
-import ProductPhotoStudio from './pages/ProductPhotoStudio';
+import Assets from './pages/Assets';
 import Integrations from './pages/Integrations';
 import Upgrade from './pages/Upgrade';
 import RecentActivity from './pages/RecentActivity';
@@ -51,15 +50,12 @@ function AppRoutes() {
         
         <Route element={user ? <Layout /> : <Navigate to="/auth" replace />}>
           <Route path="analytics" element={<Analytics />} />
+          <Route path="assets" element={<Assets />} />
           <Route path="content-lab">
-            <Route path="video-to-reels" element={<VideoToReels />} />
             <Route path="linkedin-carousels" element={<LinkedInCarousels />} />
             <Route path="yt-insta-posts" element={<YTAndInstaPostsCreator />} />
             <Route path="thumbnail-creator" element={<ThumbnailCreator />} />
             <Route path="saved-thumbnails" element={<SavedThumbnails />} />
-          </Route>
-          <Route path="shopify-tools">
-            <Route path="product-photo-studio" element={<ProductPhotoStudio />} />
           </Route>
           <Route path="integrations" element={<Integrations />} />
           <Route path="upgrade" element={<Upgrade />} />

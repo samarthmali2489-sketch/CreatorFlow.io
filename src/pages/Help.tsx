@@ -46,11 +46,9 @@ export default function Help() {
   const sections = [
     { id: 'getting-started', label: 'Getting Started', icon: 'flag' },
     { id: 'analytics', label: 'Analytics Dashboard', icon: 'insert_chart' },
-    { id: 'video-to-reels', label: 'Video to Reels', icon: 'movie' },
     { id: 'linkedin-carousels', label: 'LinkedIn Carousels', icon: 'view_carousel' },
     { id: 'yt-insta-posts', label: 'YT & Insta Posts', icon: 'dynamic_feed' },
     { id: 'thumbnail-creator', label: 'Thumbnail Creator', icon: 'wallpaper' },
-    { id: 'product-photo-studio', label: 'Product Photo Studio', icon: 'shopping_cart' },
   ];
 
   return (
@@ -110,19 +108,12 @@ export default function Help() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10">
+                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10 md:col-span-2">
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-4">
                     <span className="material-symbols-outlined">science</span>
                   </div>
                   <h3 className="text-xl font-bold mb-2">Content Lab</h3>
-                  <p className="text-on-surface-variant text-sm">Transform long-form videos into shorts, generate carousels, and write viral posts.</p>
-                </div>
-                <div className="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/10">
-                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-4">
-                    <span className="material-symbols-outlined">shopping_cart</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Shopify Tools</h3>
-                  <p className="text-on-surface-variant text-sm">Generate professional product photos and SEO-optimized copy for your store.</p>
+                  <p className="text-on-surface-variant text-sm">Create thumbnails and carousels.</p>
                 </div>
               </div>
             </div>
@@ -158,50 +149,6 @@ export default function Help() {
                       <h4 className="font-bold">Performance Charts</h4>
                       <p className="text-xs text-zinc-400">Interactive charts showing views, likes, and shares over time.</p>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeSection === 'video-to-reels' && (
-            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div>
-                <h2 className="text-3xl font-black tracking-tight mb-4">Video to Reels</h2>
-                <p className="text-lg text-on-surface-variant leading-relaxed">
-                  Automatically convert your horizontal YouTube videos into vertical, engaging shorts for TikTok, Instagram Reels, and YouTube Shorts.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold">How it works</h3>
-                
-                <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">1</div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-1">Upload or Link</h4>
-                    <p className="text-on-surface-variant">Upload an MP4 file or paste a YouTube link. Our AI will download and process the video.</p>
-                    <div className="mt-3 bg-surface-container p-4 rounded-xl border border-outline-variant/20 flex items-center justify-center gap-4">
-                      <span className="material-symbols-outlined text-3xl text-primary">cloud_upload</span>
-                      <span className="material-symbols-outlined text-3xl text-zinc-300">arrow_forward</span>
-                      <span className="material-symbols-outlined text-3xl text-red-500">smart_display</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">2</div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-1">AI Face Tracking</h4>
-                    <p className="text-on-surface-variant">The AI automatically detects the active speaker and crops the video to 9:16, keeping them perfectly centered.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-6 items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary text-white dark:text-zinc-900 flex items-center justify-center font-bold shrink-0 mt-1">3</div>
-                  <div>
-                    <h4 className="font-bold text-lg mb-1">Dynamic Captions</h4>
-                    <p className="text-on-surface-variant">Alex Hormozi-style captions are generated and synced perfectly with the audio to maximize retention.</p>
                   </div>
                 </div>
               </div>
@@ -330,32 +277,6 @@ export default function Help() {
                     <p className="text-on-surface-variant">You'll receive 3 text-free backgrounds. You can download them directly or save them to your library to use later with Photoshop or Canva.</p>
                   </div>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {activeSection === 'product-photo-studio' && (
-            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div>
-                <h2 className="text-3xl font-black tracking-tight mb-4">Product Photo Studio</h2>
-                <div className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4">Coming Soon</div>
-                <p className="text-lg text-on-surface-variant leading-relaxed">
-                  Transform basic product photos into professional, studio-quality lifestyle images using AI.
-                </p>
-              </div>
-
-              <div className="bg-zinc-900 dark:bg-zinc-100 rounded-3xl p-8 text-white dark:text-zinc-900 text-center">
-                <div className="flex justify-center items-center gap-8 mb-8">
-                  <div className="w-32 h-32 bg-zinc-800 rounded-xl border-2 border-dashed border-zinc-600 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-4xl text-zinc-500 dark:text-zinc-400">inventory_2</span>
-                  </div>
-                  <span className="material-symbols-outlined text-4xl text-primary">arrow_forward</span>
-                  <div className="w-32 h-32 bg-gradient-to-br from-primary/40 to-purple-500/40 rounded-xl border border-primary/50 flex items-center justify-center shadow-[0_0_30px_rgba(var(--color-primary),0.3)]">
-                    <span className="material-symbols-outlined text-4xl text-white dark:text-zinc-900">auto_awesome</span>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold mb-2">Studio Quality, Zero Equipment</h3>
-                <p className="text-zinc-400 max-w-md mx-auto">Upload a photo of your product on a plain background, and our AI will place it in stunning, realistic lifestyle scenes perfect for Shopify and Instagram.</p>
               </div>
             </div>
           )}
