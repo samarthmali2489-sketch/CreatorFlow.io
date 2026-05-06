@@ -12,12 +12,13 @@ export default function Upgrade() {
     return import.meta.env.VITE_DODO_PAYMENTS_PRO_PRODUCT_ID || "prdt_123456789";
   });
 
-  // Check for successful redirect from LemonSqueezy hosted checkout
+  // Check for successful redirect from checkout
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('success') || urlParams.has('orderId') || urlParams.has('checkoutId')) {
-        setSubscriptionPlan((window as any).__pendingPlan || 'pro');
+        const urlPlan = urlParams.get('plan') as 'pro' | 'infinity';
+        setSubscriptionPlan(urlPlan || (window as any).__pendingPlan || 'pro');
         setShowSuccessMessage(true);
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -33,7 +34,12 @@ export default function Upgrade() {
       const response = await fetch('/api/payments/create-payment-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId: plan, userId: user?.id, email: user?.email || 'anonymous@example.com' })
+        body: JSON.stringify({ 
+          planId: plan, 
+          userId: user?.id, 
+          email: user?.email || 'anonymous@example.com',
+          returnUrl: window.location.href + '?success=true&plan=' + plan
+        })
       });
       const data = await response.json();
       if (data.checkoutUrl) {
@@ -100,7 +106,7 @@ export default function Upgrade() {
           <ul className="space-y-4 mb-8 flex-1">
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> <strong className="text-white dark:text-zinc-900">250 Credits</strong> per month</li>
             <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> Unlimited LinkedIn Carousels</li>
-            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana")</li>
+            <li className="flex items-center gap-3"><span className="material-symbols-outlined text-green-400 text-sm">check_circle</span> AI-powered YouTube Thumbnails ("Nano Banana 2")</li>
           </ul>
           
           {subscriptionPlan === 'pro' || subscriptionPlan === 'infinity' ? (

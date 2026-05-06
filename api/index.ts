@@ -181,7 +181,7 @@ app.post("/api/scrape", async (req, res) => {
 // DodoPayments Create Payment Link
 app.post("/api/payments/create-payment-link", async (req, res) => {
   try {
-     const { planId, userId, email } = req.body;
+     const { planId, userId, email, returnUrl } = req.body;
      let productId = process.env.VITE_DODO_PAYMENTS_PRO_PRODUCT_ID;
      
      if (planId === 'infinity') {
@@ -212,7 +212,8 @@ app.post("/api/payments/create-payment-link", async (req, res) => {
         ],
         metadata: {
           user_id: userId || 'anonymous'
-        }
+        },
+        return_url: returnUrl || 'https://sandbox.klipora.com/upgrade'
      });
 
      res.json({ checkoutUrl: paymentItems.payment_link });

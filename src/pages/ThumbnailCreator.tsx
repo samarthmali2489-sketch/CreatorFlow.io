@@ -56,7 +56,7 @@ export default function ThumbnailCreator() {
       const thumbnailGodInstruction = `You are Thumbnail God. Generate a prompt for an ultra-realistic, highly-clickable YouTube thumbnail (16:9). Follow the user's instructions perfectly. RETURN ONLY THE TEXT PROMPT STRING FOR AN IMAGE GENERATOR.`;
 
       const promptResponse = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
+        model: 'gemini-2.5-flash',
         contents: [{ parts: [{ text: promptContext }] }],
         config: { systemInstruction: thumbnailGodInstruction }
       });
@@ -65,19 +65,21 @@ export default function ThumbnailCreator() {
       
       if (!finalImagePrompt) throw new Error("Failed to formulate prompt.");
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-image',
-        contents: [{ parts: [{ text: finalImagePrompt }] }],
+      const response = await ai.models.generateImages({
+        model: 'imagen-3.0-generate-002',
+        prompt: finalImagePrompt,
         config: {
-          imageConfig: { aspectRatio: '16:9' }
+          aspectRatio: '16:9',
+          outputMimeType: 'image/jpeg',
+          numberOfImages: 1
         }
       });
 
-      const parts = response.candidates?.[0]?.content?.parts || [];
+      const parts = response.generatedImages || [];
       let finalBase64 = null;
       for (const part of parts) {
-        if (part.inlineData) {
-           finalBase64 = `data:${part.inlineData.mimeType || 'image/jpeg'};base64,${part.inlineData.data}`;
+        if (part.image?.imageBytes) {
+           finalBase64 = `data:image/jpeg;base64,${part.image.imageBytes}`;
            break;
         }
       }
