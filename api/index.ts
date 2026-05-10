@@ -4,16 +4,23 @@ import crypto from 'crypto';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { YoutubeTranscript } from 'youtube-transcript/dist/youtube-transcript.esm.js';
+import { createClient } from '@supabase/supabase-js';
 
 dotenv.config();
 
 const app = express();
 
+const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://placeholder-project.supabase.co';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+// Create a Supabase admin client for backend updates
+const supabaseAdmin = supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey) : null;
+
 // Use raw JSON for LemonSqueezy webhook signature verification, normal JSON for everything else
 app.use((req, res, next) => {
   // Increase payload size limit to 50mb to allow base64 image data for image generation 
-  if (req.originalUrl === '/api/webhooks/lemonsqueezy') {
-    next();
+  if (req.originalUrl === '/api/webhooks/lemonsqueezy' || req.originalUrl === '/api/webhooks/dodopayments') {
+    express.raw({ type: 'application/json' })(req, res, next);
   } else {
     express.json({ limit: '50mb' })(req, res, next);
   }
@@ -58,17 +65,13 @@ const dodopayments = new DodoPayments({
 });
 
 // DodoPayments Webhook Endpoint
-app.post('/api/webhooks/dodopayments', express.raw({ type: 'application/json' }), async (req, res) => {
+app.post('/api/webhooks/dodopayments', async (req, res) => {
   try {
     const signature = req.headers['dodopayments-signature'] as string;
     const webhookSecret = process.env.DODO_PAYMENTS_WEBHOOK_SECRET || '';
 
     // Verify signature using the DodoPayments SDK (if secret is provided)
     if (webhookSecret && signature) {
-      // NOTE: We don't have a direct payload verify helper documented, so we can do signature validation as DodoPayments recommends
-      // Dodopayments signatures are typically standard format or you can just read the webhook event
-      // verifySignature logic handles it internally if available, or we check manually.
-      // DodoPayments webhook signature verify implementation:
       try {
         (dodopayments.webhooks as any).verifySignature(req.body.toString('utf8'), req.headers, webhookSecret);
       } catch (err: any) {
@@ -84,13 +87,38 @@ app.post('/api/webhooks/dodopayments', express.raw({ type: 'application/json' })
     
     console.log(`Received DodoPayments integration event: ${eventType || 'Unknown Event'}`);
 
-    if (eventType === 'subscription.active' || eventType === 'subscription.renewed') {
+    if (eventType === 'subscription.active' || eventType === 'subscription.renewed' || eventType === 'subscription.succeeded') {
       const planId = payload.data?.product_id;
-      console.log(`User subscribed to product ${planId}`);
-      // await supabase.from('users').update({ is_pro: true }).eq('id', payload.data.metadata.user_id)
-    } else if (eventType === 'subscription.canceled' || eventType === 'subscription.past_due') {
-      console.log(`User subscription canceled`);
-      // await supabase.from('users').update({ is_pro: false }).eq('id', payload.data.metadata.user_id)
+      const userId = payload.data?.metadata?.user_id;
+
+      let plan = 'pro';
+      let credits = 250;
+      if (planId === process.env.VITE_DODO_PAYMENTS_INFINITY_PRODUCT_ID) {
+        plan = 'infinity';
+        credits = 750;
+      }
+
+      console.log(`User ${userId} subscribed to product ${planId}`);
+      
+      // Update backend using service role so changes persist across devices
+      if (supabaseAdmin && userId && userId !== 'anonymous') {
+         await supabaseAdmin.auth.admin.updateUserById(userId, {
+            user_metadata: { plan, credits }
+         });
+         console.log(`Successfully updated ${userId} to ${plan} with ${credits} credits.`);
+      } else {
+         console.warn("Could not update user metadata. Missing SUPABASE_SERVICE_ROLE_KEY or valid user_id.");
+      }
+    } else if (eventType === 'subscription.canceled' || eventType === 'subscription.past_due' || eventType === 'subscription.failed') {
+      const userId = payload.data?.metadata?.user_id;
+      console.log(`User ${userId} subscription canceled/past_due`);
+      
+      if (supabaseAdmin && userId && userId !== 'anonymous') {
+         // Revert to free plan values
+         await supabaseAdmin.auth.admin.updateUserById(userId, {
+            user_metadata: { plan: 'free', credits: 80 }
+         });
+      }
     }
 
     res.status(200).json({ received: true });

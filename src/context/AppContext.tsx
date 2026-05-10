@@ -199,13 +199,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [autoSave, showRefImageWarning]);
 
   useEffect(() => {
-    const handleAuthChange = (session: Session | null) => {
+    const handleAuthChange = async (session: Session | null) => {
       setSession(session);
-      setUser(session?.user ?? null);
-      setAuthLoading(false);
+      let currentUser = session?.user ?? null;
+      setAuthLoading(true);
       
       if (session?.user) {
-        const currentUserId = session.user.id;
+        // Fetch the absolute latest user data from server to avoid stale JWT metadata 
+        // This ensures plan upgrades via webhook reflect immediately
+        try {
+          const { data: { user: freshUser } } = await supabase.auth.getUser();
+          if (freshUser) {
+            currentUser = freshUser;
+          }
+        } catch (e) {
+          console.warn('Could not fetch fresh user data:', e);
+        }
+
+        setUser(currentUser);
+        setAuthLoading(false);
+
+        const currentUserId = currentUser.id;
         const lastUserId = localStorage.getItem('creatorflow_last_user_id');
         
         if (lastUserId && lastUserId !== currentUserId) {
@@ -230,7 +244,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         let updateData: any = {};
         let needsUpdate = false;
 
-        const metadataCredits = session.user.user_metadata?.credits;
+        const metadataCredits = currentUser.user_metadata?.credits;
         if (metadataCredits !== undefined) {
           setCredits(metadataCredits);
         } else {
@@ -239,7 +253,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setCredits(80);
         }
 
-        const metadataPlan = session.user.user_metadata?.plan;
+        const metadataPlan = currentUser.user_metadata?.plan;
         if (metadataPlan !== undefined) {
           setSubscriptionPlanState(metadataPlan);
           localStorage.setItem('creatorflow_plan', metadataPlan);
@@ -250,7 +264,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           localStorage.setItem('creatorflow_plan', 'free');
         }
 
-        const metadataAnalytics = session.user.user_metadata?.analytics;
+        const metadataAnalytics = currentUser.user_metadata?.analytics;
         if (metadataAnalytics !== undefined) {
           setAnalytics(metadataAnalytics);
           localStorage.setItem('creatorflow_analytics', JSON.stringify(metadataAnalytics));
@@ -264,6 +278,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (needsUpdate) {
           supabase.auth.updateUser({ data: updateData }).catch(() => {});
         }
+      } else {
+        setUser(null);
+        setAuthLoading(false);
       }
     };
 
